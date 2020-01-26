@@ -1,4 +1,4 @@
-package com.example.myapp
+package com.example.myapp.View
 
 import android.Manifest
 import android.content.Intent
@@ -10,11 +10,15 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.example.myapp.Contract.QrContract
+import com.example.myapp.Presenter.QrPresenter
+import com.example.myapp.R
 import kotlinx.android.synthetic.main.activity_qr.*
 
 class QrActivity : AppCompatActivity(), QrContract.View {
 
-    val presenter : QrPresenter = QrPresenter(this)
+    val presenter : QrPresenter =
+        QrPresenter(this)
     var btn : Button? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {

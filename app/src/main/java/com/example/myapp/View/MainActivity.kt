@@ -1,4 +1,4 @@
-package com.example.myapp
+package com.example.myapp.View
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -6,6 +6,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.myapp.Adapter
+import com.example.myapp.Contract.MainContract
+import com.example.myapp.Presenter.MainPresenter
+import com.example.myapp.R
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), MainContract.view {

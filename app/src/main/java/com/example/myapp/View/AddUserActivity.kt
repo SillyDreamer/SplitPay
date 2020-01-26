@@ -1,4 +1,4 @@
-package com.example.myapp
+package com.example.myapp.View
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -6,8 +6,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.myapp.AdapterAddUser
+import com.example.myapp.Contract.AddUserContract
+import com.example.myapp.Model.User
+import com.example.myapp.Presenter.AddUserPresenter
+import com.example.myapp.R
 import kotlinx.android.synthetic.main.activity_add_user.*
-import kotlinx.android.synthetic.main.activity_qr.*
 
 class AddUserActivity : AppCompatActivity(), AddUserContract.view {
 

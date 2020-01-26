@@ -1,4 +1,4 @@
-package com.example.myapp
+package com.example.myapp.Model
 
 import android.content.ContentValues
 import android.content.Context
@@ -9,7 +9,10 @@ import android.util.Log
 
 class DBOpenHelper(context: Context,
                    factory: SQLiteDatabase.CursorFactory?
-): SQLiteOpenHelper(context, DATABASE_NAME, factory, DATABASE_VERSION) {
+): SQLiteOpenHelper(context,
+    DATABASE_NAME, factory,
+    DATABASE_VERSION
+) {
     override fun onCreate(db: SQLiteDatabase) {
 
         val CREATE_PRODUCTS_TABLE = ("CREATE TABLE " + TABLE_NAME + "(" + COLUMN_ID + " INTEGER PRIMARY KEY," +

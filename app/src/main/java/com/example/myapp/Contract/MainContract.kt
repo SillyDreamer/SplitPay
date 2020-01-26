@@ -1,6 +1,8 @@
-package com.example.myapp
+package com.example.myapp.Contract
 
 import android.widget.CheckBox
+import com.example.myapp.Model.Product
+import com.example.myapp.Model.User
 
 interface MainContract {
 

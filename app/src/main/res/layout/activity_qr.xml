@@ -4,25 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".QrActivity"
+    tools:context=".View.QrActivity"
     android:orientation="vertical">
 
     <Button
         android:id="@+id/scan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="scan" />
+        android:text="@string/button_scan" />
 
 
     <TextView
         android:id="@+id/qr_result"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="result" />
+        android:text="@string/text_result" />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/next"
-        android:text="Next" />
+        android:text="@string/button_next" />
 
 </LinearLayout>

@@ -1,4 +1,4 @@
-package com.example.myapp
+package com.example.myapp.Model
 
 import android.os.AsyncTask
 import android.util.Log

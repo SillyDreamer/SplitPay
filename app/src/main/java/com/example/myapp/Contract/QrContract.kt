@@ -1,4 +1,4 @@
-package com.example.myapp
+package com.example.myapp.Contract
 
 interface QrContract {
     interface View {

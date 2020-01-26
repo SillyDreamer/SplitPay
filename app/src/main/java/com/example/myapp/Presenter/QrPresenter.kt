@@ -1,6 +1,10 @@
-package com.example.myapp
+package com.example.myapp.Presenter
 
 import android.content.Context
+import com.example.myapp.Contract.QrContract
+import com.example.myapp.Model.Model
+import com.example.myapp.Model.Product
+import com.example.myapp.Model.Repository
 import org.json.JSONObject
 import java.util.regex.Pattern
 

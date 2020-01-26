@@ -1,7 +1,11 @@
-package com.example.myapp
+package com.example.myapp.Presenter
 
 import android.content.Context
 import android.widget.CheckBox
+import com.example.myapp.Contract.MainContract
+import com.example.myapp.Model.Model
+import com.example.myapp.Model.Product
+import com.example.myapp.Model.User
 
 class MainPresenter(val context : Context): MainContract.presenter {
     override fun addMoneyFromUser(users : ArrayList<User>, checkMap : HashMap<Pair<String, String>, ArrayList<CheckBox>>) {

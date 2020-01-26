@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.myapp.Model.Product
+import com.example.myapp.Model.User
 import kotlinx.android.synthetic.main.list_item.view.*
 
 class Adapter(private val product : List<Product>,

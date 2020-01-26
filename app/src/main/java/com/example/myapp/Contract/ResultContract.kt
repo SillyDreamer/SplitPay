@@ -1,4 +1,6 @@
-package com.example.myapp
+package com.example.myapp.Contract
+
+import com.example.myapp.Model.User
 
 interface ResultContract {
     interface view {}
