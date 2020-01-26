@@ -70,6 +70,18 @@ class DBOpenHelper(context: Context,
         db.update(TABLE_NAME2, values, "_id = " + id, null)
     }
 
+    fun dropTable() {
+        val db = this.writableDatabase
+        db.execSQL("DROP TABLE " + TABLE_NAME)
+        db.execSQL("DROP TABLE " + TABLE_NAME2)
+        val CREATE_PRODUCTS_TABLE = ("CREATE TABLE " + TABLE_NAME + "(" + COLUMN_ID + " INTEGER PRIMARY KEY," +
+                COLUMN_NAME + " TEXT," + COLUMN_PRICE + " TEXT," + COLUMN_COUNT + " TEXT" + ")")
+        db.execSQL(CREATE_PRODUCTS_TABLE)
+        val CREATE_USER_TABLE = ("CREATE TABLE " + TABLE_NAME2 + "(" + COLUMN_ID + " INTEGER PRIMARY KEY," +
+                COLUMN_NAME + " TEXT," + COLUMN_MONEY + " INTEGER" + ")")
+        db.execSQL(CREATE_USER_TABLE)
+    }
+
 
     companion object {
         private val DATABASE_VERSION = 1

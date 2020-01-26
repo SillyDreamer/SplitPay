@@ -63,4 +63,8 @@ class Model(var context : Context) {
     fun updateUser(name : String, money : Int, id : Int) {
         dbHandler.updateUser(name, money, id)
     }
+
+    fun dropTable() {
+        dbHandler.dropTable()
+    }
 }

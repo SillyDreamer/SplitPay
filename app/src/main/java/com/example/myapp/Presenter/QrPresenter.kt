@@ -19,6 +19,7 @@ class QrPresenter(val context : Context) : QrContract.Presenter {
         var arr = parseQr(qrResult)
         var message = Repository().loadMessage(arr[0], arr[1])
         parseResult(message)
+        model.dropTable()
         for (product in parse) {
             model.addToDBProduct(product)
         }
