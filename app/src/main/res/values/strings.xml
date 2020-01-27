@@ -5,4 +5,10 @@
     <string name="button_scan">scan</string>
     <string name="text_result">result</string>
     <string name="button_next">Next</string>
+    <string name="welcome_text"> Welcome :)  In my app you can split your check between friends or view previous checks</string>
+    <string name="previous_button">previous checks</string>
+    <string name="scan_button">scan check</string>
+    <string name="gallery_button">check from gallery</string>
+    <string name="logo">SplitPay</string>
+    <string name="good_luck">Good luck :)</string>
 </resources>

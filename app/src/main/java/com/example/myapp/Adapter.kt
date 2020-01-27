@@ -38,12 +38,14 @@ class Adapter(private val product : List<Product>,
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
+        @SuppressLint("ResourceAsColor")
         fun add(position: Int) {
             if (!checkMap.containsKey(Pair(product[position].name, product[position].price))) {
                 val arr : ArrayList<CheckBox> = arrayListOf()
                 for (x in users) {
                     val cb = CheckBox(itemView.context)
                     cb.text = x.name
+                    cb.setTextColor(R.color.primary_darker)
                     itemView.layout.addView(cb)
                     arr.add(cb)
                 }
@@ -52,6 +54,7 @@ class Adapter(private val product : List<Product>,
             else {
                 for (x in checkMap.getValue(Pair(product[position].name, product[position].price))) {
                     (x.parent as ViewGroup).removeView(x)
+                    x.setTextColor(R.color.primary_darker)
                     itemView.layout.addView(x)
                 }
             }
