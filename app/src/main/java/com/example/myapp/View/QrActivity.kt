@@ -17,24 +17,14 @@ import kotlinx.android.synthetic.main.activity_qr.*
 
 class QrActivity : AppCompatActivity(), QrContract.View {
 
-    val presenter : QrPresenter =
-        QrPresenter(this)
+    val presenter : QrPresenter = QrPresenter(this)
     var btn : Button? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_qr)
 
-        tvresult = findViewById(R.id.qr_result)
-
-        next.setOnClickListener {
-            Log.d("123", "onCreateActivity")
-            presenter.onButtonWasClicked(null)
-            val intent = Intent(this, AddUserActivity::class.java)
-            startActivity(intent)
-        }
-
-        btn = findViewById(R.id.scan)
+        btn = findViewById(R.id.scan_check)
 
         btn!!.setOnClickListener {
             val permissionStatus = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
@@ -53,6 +43,6 @@ class QrActivity : AppCompatActivity(), QrContract.View {
 
     companion object {
 
-        var tvresult: TextView? = null
+        var tvresult : String? = null
     }
 }

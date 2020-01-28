@@ -1,14 +1,17 @@
 package com.example.myapp.View
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import com.example.myapp.Presenter.QrPresenter
 import com.google.zxing.Result
 import me.dm7.barcodescanner.zxing.ZXingScannerView
 
 class ScanActivity : AppCompatActivity(), ZXingScannerView.ResultHandler {
 
     private var mScannerView: ZXingScannerView? = null
+    val presenter : QrPresenter = QrPresenter(this)
 
     public override fun onCreate(state: Bundle?) {
         super.onCreate(state)
@@ -32,8 +35,11 @@ class ScanActivity : AppCompatActivity(), ZXingScannerView.ResultHandler {
         Log.v("tag", rawResult.getText()) // Prints scan results
         // Log.v("tag", rawResult.getBarcodeFormat().toString()); // Prints the scan format (qrcode, pdf417 etc.)
 
-        QrActivity.tvresult!!.setText(rawResult.text)
-        onBackPressed()
+        presenter.onButtonWasClicked(null)
+        val intent = Intent(this, AddUserActivity::class.java)
+        startActivity(intent)
+        //QrActivity.tvresult = rawResult.text
+        //onBackPressed()
 
         // If you would like to resume scanning, call this method below:
         //mScannerView.resumeCameraPreview(this);

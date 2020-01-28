@@ -12,12 +12,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Dark">
-        <activity android:name=".View.QrActivity"></activity>
         <activity android:name=".View.ScanActivity" />
         <activity android:name=".View.ResultActivity" />
         <activity android:name=".View.AddUserActivity" />
         <activity android:name=".View.MainActivity" />
-        <activity android:name=".WelcomeActivity">
+        <activity android:name=".View.QrActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
