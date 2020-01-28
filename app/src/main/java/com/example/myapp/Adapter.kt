@@ -12,7 +12,7 @@ import com.example.myapp.Model.User
 import kotlinx.android.synthetic.main.list_item.view.*
 
 class Adapter(private val product : List<Product>,
-              private val users : List<User>) : RecyclerView.Adapter<Adapter.ViewHolder>() {
+              private val users : List<User>, val listener: (HashMap<Pair<String, String>, ArrayList<CheckBox>>, List<Product>, Int) -> Unit) : RecyclerView.Adapter<Adapter.ViewHolder>() {
 
     var checkMap : HashMap<Pair<String, String>, ArrayList<CheckBox>> = hashMapOf()
 
@@ -57,6 +57,13 @@ class Adapter(private val product : List<Product>,
                     x.setTextColor(R.color.primary_darker)
                     itemView.layout.addView(x)
                 }
+            }
+            tv2.setTextColor(R.color.primary_darker)
+            tv.setOnClickListener {
+                listener(checkMap, product, position)
+            }
+            tv2.setOnClickListener {
+                listener(checkMap, product, position)
             }
         }
         val tv: TextView = itemView.findViewById(R.id.tv)
