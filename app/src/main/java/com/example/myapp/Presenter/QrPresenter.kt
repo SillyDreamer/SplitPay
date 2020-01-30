@@ -15,14 +15,19 @@ class QrPresenter(val context : Context) : QrContract.Presenter {
 
 
     override fun onButtonWasClicked(qrResult: String?) {
-        var model: Model = Model(context)
-        var arr = parseQr(qrResult)
-        var message = Repository().loadMessage(arr[0], arr[1])
-        parseResult(message)
-        model.dropTable()
-        for (product in parse) {
-            model.addToDBProduct(product)
+
+        val runnable = Runnable {
+            val model = Model(context)
+            val arr = parseQr(qrResult)
+            val message = Repository().loadMessage(arr[0], arr[1])
+            parseResult(message)
+            model.dropTable()
+            for (product in parse) {
+                model.addToDBProduct(product)
+            }
         }
+        Thread(runnable).start()
+
     }
 
     fun parseResult(content: String) {

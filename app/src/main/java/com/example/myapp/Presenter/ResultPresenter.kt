@@ -8,7 +8,5 @@ import com.example.myapp.Model.User
 class ResultPresenter(context : Context): ResultContract.presenter {
 
     private val model = Model(context)
-    override fun showUsers(): ArrayList<User> {
-       return  model.showUsers()
-    }
+    override fun showUsers(): ArrayList<User> = model.showUsers()
 }

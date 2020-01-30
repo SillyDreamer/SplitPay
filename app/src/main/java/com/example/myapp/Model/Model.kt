@@ -6,14 +6,22 @@ import android.widget.Toast
 class Model(var context : Context) {
     val dbHandler = DBOpenHelper(context, null)
 
+
+    inner class CallDB : Runnable{
+        override fun run() {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
+    }
+
     fun addToDBProduct(product: Product) {
         dbHandler.add(product)
-        Toast.makeText(context, "Product added to db", Toast.LENGTH_LONG).show()
+//        Toast.makeText(context, "Product added to db", Toast.LENGTH_LONG).show()
     }
 
     fun addToDBUser(name : String, money : Int) {
         dbHandler.addUser(name, money)
-        Toast.makeText(context, "User added to db", Toast.LENGTH_LONG).show()
+  //      Toast.makeText(context, "User added to db", Toast.LENGTH_LONG).show()
+
     }
 
     fun showProducts() : ArrayList<Product> {

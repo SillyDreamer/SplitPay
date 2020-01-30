@@ -29,7 +29,10 @@ class QrActivity : AppCompatActivity(), QrContract.View {
         btn!!.setOnClickListener {
             val permissionStatus = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
             if (permissionStatus == PackageManager.PERMISSION_GRANTED) {
-                val intent = Intent(this@QrActivity, ScanActivity::class.java)
+//                val intent = Intent(this@QrActivity, ScanActivity::class.java)
+//                startActivity(intent)
+                presenter.onButtonWasClicked(null)
+                val intent = Intent(this, AddUserActivity::class.java)
                 startActivity(intent)
             }
             else {
