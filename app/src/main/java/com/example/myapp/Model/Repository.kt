@@ -5,6 +5,8 @@ import android.util.Log
 import java.net.HttpURLConnection
 import java.net.URL
 
+
+
 //user - +79610577892
 //password - 342154
 
@@ -48,7 +50,6 @@ class GetAsyncTask : AsyncTask<String, String, String>() {
                     inputStream.bufferedReader().use {
                         it.lines().forEach { line ->
                             content += line + "\n"
-                            println(line+"\n")
                         }
                     }
                 }

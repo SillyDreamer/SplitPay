@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity(), MainContract.view {
 
     private val presenter = MainPresenter(this)
-    private var count = 0
+    private var count = hashMapOf<Int, Int>()
 
     @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,11 +26,14 @@ class MainActivity : AppCompatActivity(), MainContract.view {
 
         val users = presenter.showUsers()
         val adapter = Adapter(presenter.showProducts(), users) { hashMap: HashMap<Pair<String, String>, ArrayList<CheckBox>>, list: List<Product>, i: Int ->
-            count++
+            if (count.containsKey(i))
+                count[i] = count[i]!! + 1
+            else
+                count[i] = 1
             val arr = hashMap.get(Pair(list[i].name, list[i].price))
             if (arr != null) {
                 for (cb in arr) {
-                    if (count % 2 == 1) {
+                    if (count[i]!! % 2 == 1) {
                         if (!cb.isChecked)
                             cb.isChecked = true
                     }

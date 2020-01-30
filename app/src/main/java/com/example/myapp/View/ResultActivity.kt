@@ -21,13 +21,14 @@ class ResultActivity : AppCompatActivity(), ResultContract.view {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_result)
+        val users = presenter.showUsers()
 
 
         recycleResult.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
-        recycleResult.adapter = AdapterResult(presenter.showUsers()) {
+        recycleResult.adapter = AdapterResult(users) {
             val sendIntent: Intent = Intent().apply {
                 action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_TEXT, "This is my text to send.")
+                putExtra(Intent.EXTRA_TEXT, "Hi, you owe me ${users[it].money}")
                 type = "text/plain"
             }
 

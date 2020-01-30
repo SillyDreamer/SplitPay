@@ -1,6 +1,7 @@
 package com.example.myapp.Presenter
 
 import android.content.Context
+import android.os.AsyncTask
 import android.widget.CheckBox
 import com.example.myapp.Contract.MainContract
 import com.example.myapp.Model.Model
@@ -39,10 +40,31 @@ class MainPresenter(val context : Context): MainContract.presenter {
 
     private val model = Model(context)
 
-    override fun showUsers(): ArrayList<User> = model.showUsers()
+    override fun showUsers(): ArrayList<User> {
+        val task = UserAsyncTask().execute()
+        return task.get()
+    }
 
 
-    override fun showProducts(): ArrayList<Product> = model.showProducts()
+    override fun showProducts(): ArrayList<Product> {
+        val task = ProductAsyncTask().execute()
+        return task.get()
+    }
+
+    inner class ProductAsyncTask : AsyncTask<String, String, ArrayList<Product>>() {
+        override fun doInBackground(vararg params: String?): ArrayList<Product> {
+            return model.showProducts()
+        }
+
+    }
+
+
+    inner class UserAsyncTask : AsyncTask<String, String, ArrayList<User>>() {
+        override fun doInBackground(vararg params: String?): ArrayList<User> {
+            return model.showUsers()
+        }
+
+    }
 
 
 }

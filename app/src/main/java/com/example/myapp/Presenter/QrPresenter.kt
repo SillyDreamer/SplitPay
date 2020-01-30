@@ -8,6 +8,8 @@ import com.example.myapp.Model.Repository
 import org.json.JSONObject
 import java.util.regex.Pattern
 
+
+
 class QrPresenter(val context : Context) : QrContract.Presenter {
 
     var parse: ArrayList<Product> = arrayListOf()
