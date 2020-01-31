@@ -31,21 +31,15 @@ class QrPresenter(val context : Context) : QrContract.Presenter {
 
     }
 
-    fun parseResult(content: String) {
+    private fun parseResult(content: String) {
         val test = JSONObject(content).getJSONObject("document").getJSONObject("receipt").getJSONArray("items")
 
         test.let { 0.until(it.length()).map { i -> it.optJSONObject(i) } }
             .map { parse.add(Product(it.get("name").toString(), it.get("price").toString(), it.get("quantity").toString()))}
     }
 
-    fun parseQr(str: String?): ArrayList<String> {
-        val s: String
-        if (str == null) {
-            s = "t=20191123T1821&s=1496.64&fn=9280440300065001&i=57638&fp=3805453234&n=1"
-        }
-        else {
-            s = str
-        }
+    private fun parseQr(str: String?): ArrayList<String> {
+        val s: String = str ?: "t=20191123T1821&s=1496.64&fn=9280440300065001&i=57638&fp=3805453234&n=1"
         val m = Pattern.compile("(?<==)[^&]+").matcher(s)
         m.find()
         val timeNum = s.substring(m.start(), m.end())
@@ -61,10 +55,9 @@ class QrPresenter(val context : Context) : QrContract.Presenter {
         val iNum = s.substring(m.start(), m.end())
         m.find()
         val fpNum = s.substring(m.start(), m.end())
-        val arr: ArrayList<String> = arrayListOf(
+        return arrayListOf(
             "https://proverkacheka.nalog.ru:9999/v1/inns/*/kkts/*/fss/$fnNum/tickets/$iNum?fiscalSign=$fpNum&sendToEmail=no",
             "https://proverkacheka.nalog.ru:9999/v1/ofds/*/inns/*/fss/$fnNum/operations/1/tickets/$iNum?fiscalSign=$fpNum&date=$timeNum2&sum=$sumNum"
         )
-        return arr
         }
     }
