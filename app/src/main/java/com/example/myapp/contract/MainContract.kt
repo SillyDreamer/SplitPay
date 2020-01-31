@@ -14,5 +14,6 @@ interface MainContract {
         fun showProducts() : ArrayList<Product>
         fun showUsers() : ArrayList<User>
         fun addMoneyFromUser(users : ArrayList<User>, checkMap : HashMap<Pair<String, String>, ArrayList<CheckBox>>)
+        fun addOneMoreCheck(qrResult: String?)
     }
 }
