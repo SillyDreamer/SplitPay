@@ -1,10 +1,9 @@
-package com.example.myapp.View
+package com.example.myapp.view
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import com.example.myapp.Presenter.QrPresenter
+import com.example.myapp.presenter.QrPresenter
 import com.google.zxing.Result
 import me.dm7.barcodescanner.zxing.ZXingScannerView
 

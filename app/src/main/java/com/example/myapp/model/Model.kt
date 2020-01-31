@@ -1,7 +1,6 @@
-package com.example.myapp.Model
+package com.example.myapp.model
 
 import android.content.Context
-import android.widget.Toast
 
 class Model(var context : Context) {
     val dbHandler = DBOpenHelper(context, null)

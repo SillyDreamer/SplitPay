@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myapp.Model.User
+import com.example.myapp.model.User
 
 class AdapterResult(private var users : ArrayList<User>, val listener:(Int) -> Unit) : RecyclerView.Adapter<AdapterResult.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

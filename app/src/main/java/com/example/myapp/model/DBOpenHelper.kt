@@ -1,4 +1,4 @@
-package com.example.myapp.Model
+package com.example.myapp.model
 
 import android.content.ContentValues
 import android.content.Context

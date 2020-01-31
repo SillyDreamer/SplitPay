@@ -1,8 +1,8 @@
-package com.example.myapp.Presenter
+package com.example.myapp.presenter
 
 import android.content.Context
-import com.example.myapp.Contract.AddUserContract
-import com.example.myapp.Model.Model
+import com.example.myapp.contract.AddUserContract
+import com.example.myapp.model.Model
 
 class AddUserPresenter(var context: Context) : AddUserContract.Presenter {
     override fun addButton(name: String, money : Int) {

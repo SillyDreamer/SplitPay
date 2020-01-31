@@ -1,19 +1,16 @@
-package com.example.myapp.View
+package com.example.myapp.view
 
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
-import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.example.myapp.Contract.QrContract
-import com.example.myapp.Presenter.QrPresenter
+import com.example.myapp.contract.QrContract
+import com.example.myapp.presenter.QrPresenter
 import com.example.myapp.R
-import kotlinx.android.synthetic.main.activity_qr.*
 
 class QrActivity : AppCompatActivity(), QrContract.View {
 

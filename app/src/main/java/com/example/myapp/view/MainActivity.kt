@@ -1,4 +1,4 @@
-package com.example.myapp.View
+package com.example.myapp.view
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -8,9 +8,9 @@ import android.widget.CheckBox
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapp.Adapter
-import com.example.myapp.Contract.MainContract
-import com.example.myapp.Model.Product
-import com.example.myapp.Presenter.MainPresenter
+import com.example.myapp.contract.MainContract
+import com.example.myapp.model.Product
+import com.example.myapp.presenter.MainPresenter
 import com.example.myapp.R
 import kotlinx.android.synthetic.main.activity_main.*
 

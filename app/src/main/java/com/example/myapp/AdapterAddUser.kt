@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myapp.Model.User
+import com.example.myapp.model.User
 
 class AdapterAddUser(private var list : ArrayList<User>) : RecyclerView.Adapter<AdapterAddUser.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

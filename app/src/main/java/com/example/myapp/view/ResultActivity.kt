@@ -1,4 +1,4 @@
-package com.example.myapp.View
+package com.example.myapp.view
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -7,11 +7,10 @@ import android.os.Bundle
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapp.AdapterResult
-import com.example.myapp.Contract.ResultContract
-import com.example.myapp.Presenter.ResultPresenter
+import com.example.myapp.contract.ResultContract
+import com.example.myapp.presenter.ResultPresenter
 import com.example.myapp.R
 import kotlinx.android.synthetic.main.activity_result.*
-import kotlinx.android.synthetic.main.list_result.*
 
 class ResultActivity : AppCompatActivity(), ResultContract.view {
 

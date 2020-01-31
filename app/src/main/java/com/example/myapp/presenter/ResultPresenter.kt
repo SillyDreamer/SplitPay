@@ -1,9 +1,9 @@
-package com.example.myapp.Presenter
+package com.example.myapp.presenter
 
 import android.content.Context
-import com.example.myapp.Contract.ResultContract
-import com.example.myapp.Model.Model
-import com.example.myapp.Model.User
+import com.example.myapp.contract.ResultContract
+import com.example.myapp.model.Model
+import com.example.myapp.model.User
 
 class ResultPresenter(context : Context): ResultContract.presenter {
 
