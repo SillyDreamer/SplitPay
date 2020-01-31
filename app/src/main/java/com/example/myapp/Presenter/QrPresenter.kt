@@ -15,7 +15,6 @@ class QrPresenter(val context : Context) : QrContract.Presenter {
     var parse: ArrayList<Product> = arrayListOf()
 
 
-
     override fun onButtonWasClicked(qrResult: String?) {
 
         val runnable = Runnable {
@@ -33,30 +32,10 @@ class QrPresenter(val context : Context) : QrContract.Presenter {
     }
 
     fun parseResult(content: String) {
-        val t = JSONObject(content).toString()
-        val p1 = Pattern.compile("(?<=\"items\":).+]")
-        val m1 = p1.matcher(t)
-        if (m1.find()) {
-            val itemsInReciept = t.substring(m1.start(), m1.end())
-            val namePattern = Pattern.compile("(?<=name\":)[^,}]+")
-            val quantityPattern = Pattern.compile("(?<=quantity\":)[^,}]+")
-            val pricePattern = Pattern.compile("(?<=price\":)[^,}]+")
-            val nameMatcher = namePattern.matcher(itemsInReciept)
-            val quantityMatcher = quantityPattern.matcher(itemsInReciept)
-            val priceMatcher = pricePattern.matcher(itemsInReciept)
+        val test = JSONObject(content).getJSONObject("document").getJSONObject("receipt").getJSONArray("items")
 
-
-            while (nameMatcher.find() && quantityMatcher.find() && priceMatcher.find()) {
-                val price = itemsInReciept.substring(priceMatcher.start(), priceMatcher.end())
-
-                val name = itemsInReciept.substring(nameMatcher.start(), nameMatcher.end())
-
-                val quantity =
-                    itemsInReciept.substring(quantityMatcher.start(), quantityMatcher.end())
-                parse.add(Product(name, price, quantity))
-
-            }
-        }
+        test.let { 0.until(it.length()).map { i -> it.optJSONObject(i) } }
+            .map { parse.add(Product(it.get("name").toString(), it.get("price").toString(), it.get("quantity").toString()))}
     }
 
     fun parseQr(str: String?): ArrayList<String> {

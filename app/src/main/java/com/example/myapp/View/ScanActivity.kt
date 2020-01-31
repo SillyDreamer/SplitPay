@@ -35,9 +35,18 @@ class ScanActivity : AppCompatActivity(), ZXingScannerView.ResultHandler {
         Log.v("tag", rawResult.getText()) // Prints scan results
         // Log.v("tag", rawResult.getBarcodeFormat().toString()); // Prints the scan format (qrcode, pdf417 etc.)
 
+
+
+
+
 //        presenter.onButtonWasClicked(null)
 //        val intent = Intent(this, AddUserActivity::class.java)
 //        startActivity(intent)
+
+
+
+
+
         //QrActivity.tvresult = rawResult.text
         //onBackPressed()
 
