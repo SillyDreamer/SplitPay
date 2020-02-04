@@ -13,13 +13,17 @@ class DBOpenHelper(context: Context,
     DATABASE_NAME, factory,
     DATABASE_VERSION
 ) {
+
     override fun onCreate(db: SQLiteDatabase) {
 
+        val CHECK_TABLE = ("CREATE TABLE checks(_id INTEGER PRIMARY KEY, name TEXT)")
+        db.execSQL(CHECK_TABLE)
+
         val CREATE_PRODUCTS_TABLE = ("CREATE TABLE " + TABLE_NAME + "(" + COLUMN_ID + " INTEGER PRIMARY KEY," +
-                COLUMN_NAME + " TEXT," + COLUMN_PRICE + " TEXT," + COLUMN_COUNT + " TEXT" + ")")
+                COLUMN_NAME + " TEXT," + COLUMN_PRICE + " TEXT," + COLUMN_COUNT + " TEXT," + COLUMN_CHECK_ID + " INTEGER" + ")")
         db.execSQL(CREATE_PRODUCTS_TABLE)
         val CREATE_USER_TABLE = ("CREATE TABLE " + TABLE_NAME2 + "(" + COLUMN_ID + " INTEGER PRIMARY KEY," +
-                COLUMN_NAME + " TEXT," + COLUMN_MONEY + " INTEGER" + ")")
+                COLUMN_NAME + " TEXT," + COLUMN_MONEY + " INTEGER," + COLUMN_CHECK_ID + " INTEGER" + ")")
         db.execSQL(CREATE_USER_TABLE)
         Log.d("123", "onCreateDB")
     }
@@ -27,14 +31,33 @@ class DBOpenHelper(context: Context,
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME)
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME2)
+        db.execSQL("DROP TABLE IF EXISTS checks")
         onCreate(db)
     }
 
+    fun addCheck(name: String) {
+        val values = ContentValues()
+        values.put(COLUMN_NAME, name)
+        val db = this.writableDatabase
+        db.insert("checks", null, values)
+        db.close()
+    }
+
     fun add(product : Product) {
+        var id : Long = 0
+        val cursor =  getChecks()
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                id = cursor.getLong(cursor.getColumnIndex(COLUMN_ID))
+            }
+        }
+
+
         val values = ContentValues()
         values.put(COLUMN_NAME, product.name)
         values.put(COLUMN_PRICE, product.price)
         values.put(COLUMN_COUNT, product.count)
+        values.put(COLUMN_CHECK_ID, id)
         val db = this.writableDatabase
         db.insert(TABLE_NAME, null, values)
         Log.d("123", "addProduct")
@@ -43,10 +66,19 @@ class DBOpenHelper(context: Context,
     }
 
     fun addUser(name : String, money : Int) {
+        var id : Long = 0
+        val cursor = getChecks()
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                id = cursor.getLong(cursor.getColumnIndex(COLUMN_ID))
+            }
+        }
+
         Log.d("123", "addUser")
         val values = ContentValues()
         values.put(COLUMN_NAME, name)
         values.put(COLUMN_MONEY, 0)
+        values.put(COLUMN_CHECK_ID, id)
         val db = this.writableDatabase
         db.insert(TABLE_NAME2, null, values)
         db.close()
@@ -62,12 +94,17 @@ class DBOpenHelper(context: Context,
         return db.rawQuery("SELECT * FROM users", null)
     }
 
+    fun getChecks() : Cursor? {
+        val db = this.readableDatabase
+        return db.rawQuery("SELECT * FROM checks", null)
+    }
+
     fun updateUser(name : String, money : Int, id : Int) {
         val db = this.writableDatabase
         val values = ContentValues()
         values.put("name", name)
         values.put("money", money)
-        db.update(TABLE_NAME2, values, "_id = " + id, null)
+        db.update(TABLE_NAME2, values, "_id = $id", null)
     }
 
     fun dropTable() {
@@ -75,10 +112,10 @@ class DBOpenHelper(context: Context,
         db.execSQL("DROP TABLE " + TABLE_NAME)
         db.execSQL("DROP TABLE " + TABLE_NAME2)
         val CREATE_PRODUCTS_TABLE = ("CREATE TABLE " + TABLE_NAME + "(" + COLUMN_ID + " INTEGER PRIMARY KEY," +
-                COLUMN_NAME + " TEXT," + COLUMN_PRICE + " TEXT," + COLUMN_COUNT + " TEXT" + ")")
+                COLUMN_NAME + " TEXT," + COLUMN_PRICE + " TEXT," + COLUMN_COUNT + " TEXT," + COLUMN_CHECK_ID + " INTEGER" + ")")
         db.execSQL(CREATE_PRODUCTS_TABLE)
         val CREATE_USER_TABLE = ("CREATE TABLE " + TABLE_NAME2 + "(" + COLUMN_ID + " INTEGER PRIMARY KEY," +
-                COLUMN_NAME + " TEXT," + COLUMN_MONEY + " INTEGER" + ")")
+                COLUMN_NAME + " TEXT," + COLUMN_MONEY + " INTEGER," + COLUMN_CHECK_ID + " INTEGER" + ")")
         db.execSQL(CREATE_USER_TABLE)
     }
 
@@ -93,5 +130,6 @@ class DBOpenHelper(context: Context,
         val COLUMN_PRICE = "price"
         val COLUMN_COUNT = "count"
         val COLUMN_MONEY = "money"
+        val COLUMN_CHECK_ID = "checkid"
     }
 }

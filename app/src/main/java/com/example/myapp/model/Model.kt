@@ -23,6 +23,21 @@ class Model(var context : Context) {
 
     }
 
+    fun addToDBCheck(name: String) {
+        dbHandler.addCheck(name)
+    }
+
+    fun showCheck() : Long {
+        var id : Long = 0
+        val cursor =  dbHandler.getChecks()
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                id = cursor.getLong(cursor.getColumnIndex(DBOpenHelper.COLUMN_ID))
+            }
+        }
+        return id
+    }
+
     fun showProducts() : ArrayList<Product> {
         val cursor =  dbHandler.getProducts()
         val arr = arrayListOf<Product>()

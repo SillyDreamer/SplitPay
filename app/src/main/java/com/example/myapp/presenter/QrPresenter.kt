@@ -19,16 +19,16 @@ class QrPresenter(val context : Context) : QrContract.Presenter {
 
         val runnable = Runnable {
             val model = Model(context)
+            model.dropTable()
+            model.addToDBCheck((model.showCheck() + 1).toString())
             val arr = parseQr(qrResult)
             val message = Repository().loadMessage(arr[0], arr[1])
             parseResult(message)
-            model.dropTable()
             for (product in parse) {
                 model.addToDBProduct(product)
             }
         }
         Thread(runnable).start()
-
     }
 
     private fun parseResult(content: String) {

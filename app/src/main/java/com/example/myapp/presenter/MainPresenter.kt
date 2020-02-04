@@ -45,8 +45,6 @@ class MainPresenter(val context : Context): MainContract.presenter {
     private val model = Model(context)
 
     override fun showUsers(): ArrayList<User> {
-//        if (t1 != null)
-//            t1!!.join()
         val task = UserAsyncTask().execute()
         return task.get()
     }
@@ -88,7 +86,6 @@ class MainPresenter(val context : Context): MainContract.presenter {
             val arr = parseQr(qrResult)
             val message = Repository().loadMessage(arr[0], arr[1])
             parseResult(message)
-            //model.dropTable()
             for (product in parse) {
                 model.addToDBProduct(product)
             }
