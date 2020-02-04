@@ -99,11 +99,12 @@ class DBOpenHelper(context: Context,
         return db.rawQuery("SELECT * FROM checks", null)
     }
 
-    fun updateUser(name : String, money : Int, id : Int) {
+    fun updateUser(name : String, money : Int, id : Int, check_id : Long) {
         val db = this.writableDatabase
         val values = ContentValues()
-        values.put("name", name)
-        values.put("money", money)
+        values.put(COLUMN_NAME, name)
+        values.put(COLUMN_MONEY, money)
+        values.put(COLUMN_CHECK_ID, check_id)
         db.update(TABLE_NAME2, values, "_id = $id", null)
     }
 

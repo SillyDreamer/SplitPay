@@ -7,6 +7,5 @@ interface QrContract {
 
     interface Presenter {
         fun onButtonWasClicked(qrResult : String?)
-
     }
 }

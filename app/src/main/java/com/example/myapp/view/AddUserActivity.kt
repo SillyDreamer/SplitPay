@@ -36,6 +36,7 @@ class AddUserActivity : AppCompatActivity(), AddUserContract.view {
 
         button_next.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
+            intent.putExtra("check_id", presenter.lastCheckId())
             startActivity(intent)
         }
     }

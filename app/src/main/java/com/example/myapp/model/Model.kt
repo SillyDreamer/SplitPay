@@ -27,7 +27,7 @@ class Model(var context : Context) {
         dbHandler.addCheck(name)
     }
 
-    fun showCheck() : Long {
+    fun showCheckId() : Long {
         var id : Long = 0
         val cursor =  dbHandler.getChecks()
         if (cursor != null) {
@@ -38,52 +38,56 @@ class Model(var context : Context) {
         return id
     }
 
-    fun showProducts() : ArrayList<Product> {
+    fun showChecks() : ArrayList<String> {
+        val cursor = dbHandler.getChecks()
+        val arr = arrayListOf<String>()
+        if (cursor != null) {
+            while(cursor.moveToNext()) {
+                arr.add(cursor.getString(cursor.getColumnIndex(DBOpenHelper.COLUMN_NAME)))
+            }
+        }
+        return arr
+    }
+
+    fun showProducts(check_id : Long) : ArrayList<Product> {
         val cursor =  dbHandler.getProducts()
         val arr = arrayListOf<Product>()
-        cursor!!.moveToFirst()
-        arr.add(
-            Product(
-                cursor.getString(cursor.getColumnIndex(DBOpenHelper.COLUMN_NAME)),
-                cursor.getString(cursor.getColumnIndex(DBOpenHelper.COLUMN_PRICE)),
-                cursor.getString(cursor.getColumnIndex(DBOpenHelper.COLUMN_COUNT))
-            )
-        )
-        while (cursor.moveToNext()) {
-            arr.add(
-                Product(
-                    cursor.getString(cursor.getColumnIndex(DBOpenHelper.COLUMN_NAME)),
-                    cursor.getString(cursor.getColumnIndex(DBOpenHelper.COLUMN_PRICE)),
-                    cursor.getString(cursor.getColumnIndex(DBOpenHelper.COLUMN_COUNT))
-                )
-            )
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                if (cursor.getLong(cursor.getColumnIndex((DBOpenHelper.COLUMN_CHECK_ID))) == check_id) {
+                    arr.add(
+                        Product(
+                            cursor.getString(cursor.getColumnIndex(DBOpenHelper.COLUMN_NAME)),
+                            cursor.getString(cursor.getColumnIndex(DBOpenHelper.COLUMN_PRICE)),
+                            cursor.getString(cursor.getColumnIndex(DBOpenHelper.COLUMN_COUNT))
+                        )
+                    )
+                }
+            }
         }
         return arr
     }
 
-    fun showUsers() : ArrayList<User> {
+    fun showUsers(check_id : Long) : ArrayList<User> {
         val cursor =  dbHandler.getUsers()
         val arr = arrayListOf<User>()
-        cursor!!.moveToFirst()
-        arr.add(
-            User(
-                cursor.getString(cursor.getColumnIndex(DBOpenHelper.COLUMN_NAME)),
-                cursor.getInt(cursor.getColumnIndex(DBOpenHelper.COLUMN_MONEY))
-            )
-        )
-        while (cursor.moveToNext()) {
-            arr.add(
-                User(
-                    cursor.getString(cursor.getColumnIndex(DBOpenHelper.COLUMN_NAME)),
-                    cursor.getInt(cursor.getColumnIndex(DBOpenHelper.COLUMN_MONEY))
-                )
-            )
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                if (cursor.getLong(cursor.getColumnIndex(DBOpenHelper.COLUMN_CHECK_ID)) == check_id) {
+                    arr.add(
+                        User(
+                            cursor.getString(cursor.getColumnIndex(DBOpenHelper.COLUMN_NAME)),
+                            cursor.getInt(cursor.getColumnIndex(DBOpenHelper.COLUMN_MONEY))
+                        )
+                    )
+                }
+            }
         }
         return arr
     }
 
-    fun updateUser(name : String, money : Int, id : Int) {
-        dbHandler.updateUser(name, money, id)
+    fun updateUser(name : String, money : Int, id : Int, check_id : Long) {
+        dbHandler.updateUser(name, money, id, check_id)
     }
 
     fun dropTable() {

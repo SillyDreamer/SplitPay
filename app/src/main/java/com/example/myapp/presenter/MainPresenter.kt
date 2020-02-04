@@ -13,7 +13,7 @@ import java.util.regex.Pattern
 
 class MainPresenter(val context : Context): MainContract.presenter {
     var t1 : Thread? = null
-    override fun addMoneyFromUser(users : ArrayList<User>, checkMap : HashMap<Pair<String, String>, ArrayList<CheckBox>>) {
+    override fun addMoneyFromUser(users : ArrayList<User>, checkMap : HashMap<Pair<String, String>, ArrayList<CheckBox>>, check_id : Long) {
 
         val runnable  = Runnable {
             val money = arrayListOf<Int>()
@@ -35,7 +35,7 @@ class MainPresenter(val context : Context): MainContract.presenter {
                 }
             }
             for (i in 0 until user.size) {
-                model.updateUser(user[i], money[i], i+1)
+                model.updateUser(user[i], money[i], i+1, check_id)
             } }
 
        Thread(runnable).start()
@@ -44,30 +44,30 @@ class MainPresenter(val context : Context): MainContract.presenter {
 
     private val model = Model(context)
 
-    override fun showUsers(): ArrayList<User> {
-        val task = UserAsyncTask().execute()
+    override fun showUsers(check_id : Long): ArrayList<User> {
+        val task = UserAsyncTask().execute(check_id)
         return task.get()
     }
 
 
-    override fun showProducts(): ArrayList<Product> {
+    override fun showProducts(check_id : Long): ArrayList<Product> {
         if (t1 != null)
             t1!!.join()
-        val task = ProductAsyncTask().execute()
+        val task = ProductAsyncTask().execute(check_id)
         return task.get()
     }
 
-    inner class ProductAsyncTask : AsyncTask<String, String, ArrayList<Product>>() {
-        override fun doInBackground(vararg params: String?): ArrayList<Product> {
-            return model.showProducts()
+    inner class ProductAsyncTask : AsyncTask<Long, String, ArrayList<Product>>() {
+        override fun doInBackground(vararg params: Long?): ArrayList<Product> {
+           return model.showProducts(params[0]!!)
         }
 
     }
 
 
-    inner class UserAsyncTask : AsyncTask<String, String, ArrayList<User>>() {
-        override fun doInBackground(vararg params: String?): ArrayList<User> {
-            return model.showUsers()
+    inner class UserAsyncTask : AsyncTask<Long, String, ArrayList<User>>() {
+        override fun doInBackground(vararg params: Long?): ArrayList<User> {
+            return model.showUsers(params[0]!!)
         }
 
     }

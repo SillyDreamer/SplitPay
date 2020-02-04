@@ -6,6 +6,6 @@ interface ResultContract {
     interface view {}
 
     interface presenter {
-        fun showUsers() : ArrayList<User>
+        fun showUsers(check_id : Long) : ArrayList<User>
     }
 }
