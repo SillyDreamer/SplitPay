@@ -11,7 +11,7 @@ import java.util.regex.Pattern
 
 
 
-class QrPresenter(val context : Context) : QrContract.Presenter {
+class QrPresenter(val model : Model) : QrContract.Presenter {
 
     var parse: ArrayList<Product> = arrayListOf()
     var date = ""
@@ -20,7 +20,6 @@ class QrPresenter(val context : Context) : QrContract.Presenter {
     override fun onButtonWasClicked(qrResult: String?) {
 
         val runnable = Runnable {
-            val model = Model(context)
             //model.dropTable()
             val arr = parseQr(qrResult)
             val message = Repository().loadMessage(arr[0], arr[1])

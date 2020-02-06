@@ -11,7 +11,7 @@ import com.example.myapp.model.User
 import org.json.JSONObject
 import java.util.regex.Pattern
 
-class MainPresenter(val context : Context): MainContract.presenter {
+class MainPresenter(val model : Model): MainContract.presenter {
     var t1 : Thread? = null
     override fun addMoneyFromUser(users : ArrayList<User>, checkMap : HashMap<Pair<String, String>, ArrayList<CheckBox>>, check_id : Long) {
 
@@ -43,8 +43,6 @@ class MainPresenter(val context : Context): MainContract.presenter {
        Thread(runnable).start()
 
     }
-
-    private val model = Model(context)
 
     override fun showUsers(check_id : Long): ArrayList<User> {
         val task = UserAsyncTask().execute(check_id)
@@ -84,7 +82,6 @@ class MainPresenter(val context : Context): MainContract.presenter {
     override fun addOneMoreCheck(qrResult: String?) {
 
         val runnable = Runnable {
-            val model = Model(context)
             val arr = parseQr(qrResult)
             val message = Repository().loadMessage(arr[0], arr[1])
             parseResult(message)
