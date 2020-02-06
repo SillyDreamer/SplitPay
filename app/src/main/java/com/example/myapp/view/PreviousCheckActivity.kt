@@ -34,7 +34,7 @@ class PreviousCheckActivity : AppCompatActivity(), PreviousCheckContract.View {
 
     private fun listener(id : Long) {
         val intent = Intent(this, MainActivity::class.java)
-        intent.putExtra("check_is", id)
+        intent.putExtra("check_id", id)
         startActivity(intent)
     }
 }
