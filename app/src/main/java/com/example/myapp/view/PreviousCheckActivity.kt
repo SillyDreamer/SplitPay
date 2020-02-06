@@ -9,19 +9,19 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapp.adapters.AdapterPreviousCheck
 import com.example.myapp.R
 import com.example.myapp.contract.PreviousCheckContract
+import com.example.myapp.model.Model
 import com.example.myapp.presenter.PreviousCheckPresenter
 import kotlinx.android.synthetic.main.activity_previous_check.*
 
 class PreviousCheckActivity : AppCompatActivity(), PreviousCheckContract.View {
 
-    private val presenter = PreviousCheckPresenter(this)
+    private val model = Model(this)
+    private val presenter = PreviousCheckPresenter(model)
 
     @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_previous_check)
-
-        val arr  = arrayListOf<Pair<Long, String>>(Pair(1, "1"))
 
 
         val adapter = AdapterPreviousCheck(presenter.showChecks()) {

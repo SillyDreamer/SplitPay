@@ -12,11 +12,13 @@ import com.example.myapp.contract.MainContract
 import com.example.myapp.model.Product
 import com.example.myapp.presenter.MainPresenter
 import com.example.myapp.R
+import com.example.myapp.model.Model
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), MainContract.view {
 
-    private val presenter = MainPresenter(this)
+    private val model = Model(this)
+    private val presenter = MainPresenter(model)
     private var count = hashMapOf<Int, Int>()
 
     private var check_id  : Long = 0

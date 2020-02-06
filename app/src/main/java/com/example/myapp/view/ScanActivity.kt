@@ -10,7 +10,7 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView
 class ScanActivity : AppCompatActivity(), ZXingScannerView.ResultHandler {
 
     private var mScannerView: ZXingScannerView? = null
-    val presenter : QrPresenter = QrPresenter(this)
+   // val presenter : QrPresenter = QrPresenter(this)
 
     public override fun onCreate(state: Bundle?) {
         super.onCreate(state)

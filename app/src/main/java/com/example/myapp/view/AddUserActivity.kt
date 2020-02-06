@@ -11,12 +11,14 @@ import com.example.myapp.contract.AddUserContract
 import com.example.myapp.model.User
 import com.example.myapp.presenter.AddUserPresenter
 import com.example.myapp.R
+import com.example.myapp.model.Model
 import kotlinx.android.synthetic.main.activity_add_user.*
 
 class AddUserActivity : AppCompatActivity(), AddUserContract.view {
 
     private val listUser = arrayListOf<User>()
-    private val presenter = AddUserPresenter(this)
+    private val model = Model(this)
+    private val presenter = AddUserPresenter(model)
 
     @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {

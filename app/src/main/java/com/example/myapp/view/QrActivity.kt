@@ -11,11 +11,14 @@ import androidx.core.content.ContextCompat
 import com.example.myapp.contract.QrContract
 import com.example.myapp.presenter.QrPresenter
 import com.example.myapp.R
+import com.example.myapp.model.Model
 import kotlinx.android.synthetic.main.activity_qr.*
 
 class QrActivity : AppCompatActivity(), QrContract.View {
 
-    val presenter : QrPresenter = QrPresenter(this)
+    private val model = Model(this)
+    private val presenter : QrPresenter = QrPresenter(model)
+
     var btn : Button? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {

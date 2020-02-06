@@ -10,11 +10,13 @@ import com.example.myapp.adapters.AdapterResult
 import com.example.myapp.contract.ResultContract
 import com.example.myapp.presenter.ResultPresenter
 import com.example.myapp.R
+import com.example.myapp.model.Model
 import kotlinx.android.synthetic.main.activity_result.*
 
 class ResultActivity : AppCompatActivity(), ResultContract.view {
 
-    private var presenter = ResultPresenter(this)
+    private val model = Model(this)
+    private var presenter = ResultPresenter(model)
 
     @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
