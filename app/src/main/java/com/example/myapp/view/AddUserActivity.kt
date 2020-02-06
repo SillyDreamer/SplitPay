@@ -28,8 +28,8 @@ class AddUserActivity : AppCompatActivity(), AddUserContract.view {
         recycle_view.adapter = adapter
 
         add.setOnClickListener {
-            listUser.add(User(editText.text.toString(), 0))
             presenter.addButton(editText.text.toString(), 0)
+            listUser.add(User(editText.text.toString(), 0))
             adapter.notifyDataSetChanged()
             editText.setText("")
         }

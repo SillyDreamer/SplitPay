@@ -18,9 +18,11 @@ class MainPresenter(val context : Context): MainContract.presenter {
         val runnable  = Runnable {
             val money = arrayListOf<Int>()
             val user = arrayListOf<String>()
+            val id = arrayListOf<Long>()
             for (x in users) {
                 user.add(x.name)
                 money.add(0)
+                id.add(x.id)
             }
             for ((k , v) in checkMap) {
                 var i = 0
@@ -35,7 +37,7 @@ class MainPresenter(val context : Context): MainContract.presenter {
                 }
             }
             for (i in 0 until user.size) {
-                model.updateUser(user[i], money[i], i+1, check_id)
+                model.updateUser(user[i], money[i], id[i], check_id)
             } }
 
        Thread(runnable).start()

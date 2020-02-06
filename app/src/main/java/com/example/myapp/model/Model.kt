@@ -77,7 +77,8 @@ class Model(var context : Context) {
                     arr.add(
                         User(
                             cursor.getString(cursor.getColumnIndex(DBOpenHelper.COLUMN_NAME)),
-                            cursor.getInt(cursor.getColumnIndex(DBOpenHelper.COLUMN_MONEY))
+                            cursor.getInt(cursor.getColumnIndex(DBOpenHelper.COLUMN_MONEY)),
+                            cursor.getLong(cursor.getColumnIndex(DBOpenHelper.COLUMN_ID))
                         )
                     )
                 }
@@ -86,7 +87,7 @@ class Model(var context : Context) {
         return arr
     }
 
-    fun updateUser(name : String, money : Int, id : Int, check_id : Long) {
+    fun updateUser(name : String, money : Int, id : Long, check_id : Long) {
         dbHandler.updateUser(name, money, id, check_id)
     }
 
