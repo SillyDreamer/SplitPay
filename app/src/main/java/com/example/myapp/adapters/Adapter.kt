@@ -1,4 +1,4 @@
-package com.example.myapp
+package com.example.myapp.adapters
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.myapp.R
 import com.example.myapp.model.Product
 import com.example.myapp.model.User
 import kotlinx.android.synthetic.main.list_item.view.*

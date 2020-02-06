@@ -8,5 +8,7 @@ class PreviousCheckPresenter(context : Context) : PreviousCheckContract.Presente
 
     private val model = Model(context)
 
-    override fun showChecks() = model.showChecks()
+    override fun showChecks(): ArrayList<Pair<Long, String>> {
+       return  model.showChecks()
+    }
 }

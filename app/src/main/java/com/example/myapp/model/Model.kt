@@ -38,12 +38,12 @@ class Model(var context : Context) {
         return id
     }
 
-    fun showChecks() : ArrayList<String> {
+    fun showChecks() : ArrayList<Pair<Long, String>> {
         val cursor = dbHandler.getChecks()
-        val arr = arrayListOf<String>()
+        val arr = arrayListOf<Pair<Long, String>>()
         if (cursor != null) {
             while(cursor.moveToNext()) {
-                arr.add(cursor.getString(cursor.getColumnIndex(DBOpenHelper.COLUMN_NAME)))
+                arr.add(Pair(cursor.getLong(cursor.getColumnIndex(DBOpenHelper.COLUMN_ID)), cursor.getString(cursor.getColumnIndex(DBOpenHelper.COLUMN_NAME))))
             }
         }
         return arr

@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.widget.CheckBox
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.myapp.Adapter
+import com.example.myapp.adapters.Adapter
 import com.example.myapp.contract.MainContract
 import com.example.myapp.model.Product
 import com.example.myapp.presenter.MainPresenter
@@ -30,7 +30,10 @@ class MainActivity : AppCompatActivity(), MainContract.view {
         check_id = intent.getLongExtra("check_id", 0)
         val users = presenter.showUsers(check_id)
         var products = presenter.showProducts(check_id)
-        var adapter = Adapter(products, users) { hashMap: HashMap<Pair<String, String>, ArrayList<CheckBox>>, list: List<Product>, i: Int ->
+        var adapter = Adapter(
+            products,
+            users
+        ) { hashMap: HashMap<Pair<String, String>, ArrayList<CheckBox>>, list: List<Product>, i: Int ->
             listener(hashMap, list, i)
         }
 
@@ -41,7 +44,10 @@ class MainActivity : AppCompatActivity(), MainContract.view {
             presenter.addOneMoreCheck(null)
             products = presenter.showProducts(check_id)
             val check = adapter.checkMap
-            adapter = Adapter(products, users) { hashMap: HashMap<Pair<String, String>, ArrayList<CheckBox>>, list: List<Product>, i: Int ->
+            adapter = Adapter(
+                products,
+                users
+            ) { hashMap: HashMap<Pair<String, String>, ArrayList<CheckBox>>, list: List<Product>, i: Int ->
                 listener(hashMap, list, i)
             }
             adapter.checkMap = check

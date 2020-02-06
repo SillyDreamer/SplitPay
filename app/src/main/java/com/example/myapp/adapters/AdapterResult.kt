@@ -1,4 +1,4 @@
-package com.example.myapp
+package com.example.myapp.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.myapp.R
 import com.example.myapp.model.User
 
 class AdapterResult(private var users : ArrayList<User>, val listener:(Int) -> Unit) : RecyclerView.Adapter<AdapterResult.ViewHolder>() {

@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.myapp.AdapterResult
+import com.example.myapp.adapters.AdapterResult
 import com.example.myapp.contract.ResultContract
 import com.example.myapp.presenter.ResultPresenter
 import com.example.myapp.R

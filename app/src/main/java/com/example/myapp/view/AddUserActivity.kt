@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.myapp.AdapterAddUser
+import com.example.myapp.adapters.AdapterAddUser
 import com.example.myapp.contract.AddUserContract
 import com.example.myapp.model.User
 import com.example.myapp.presenter.AddUserPresenter
