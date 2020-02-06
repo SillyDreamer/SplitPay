@@ -19,14 +19,17 @@ class MainActivity : AppCompatActivity(), MainContract.view {
     private val presenter = MainPresenter(this)
     private var count = hashMapOf<Int, Int>()
 
+    private var check_id  : Long = 0
+
     @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
 
-        val users = presenter.showUsers()
-        var products = presenter.showProducts()
+        check_id = intent.getLongExtra("check_id", 0)
+        val users = presenter.showUsers(check_id)
+        var products = presenter.showProducts(check_id)
         var adapter = Adapter(products, users) { hashMap: HashMap<Pair<String, String>, ArrayList<CheckBox>>, list: List<Product>, i: Int ->
             listener(hashMap, list, i)
         }
@@ -36,7 +39,7 @@ class MainActivity : AppCompatActivity(), MainContract.view {
 
         add_check.setOnClickListener {
             presenter.addOneMoreCheck(null)
-            products = presenter.showProducts()
+            products = presenter.showProducts(check_id)
             val check = adapter.checkMap
             adapter = Adapter(products, users) { hashMap: HashMap<Pair<String, String>, ArrayList<CheckBox>>, list: List<Product>, i: Int ->
                 listener(hashMap, list, i)
@@ -46,9 +49,10 @@ class MainActivity : AppCompatActivity(), MainContract.view {
         }
 
         but.setOnClickListener {
-            presenter.addMoneyFromUser(users, adapter.checkMap)
+            presenter.addMoneyFromUser(users, adapter.checkMap, check_id)
 
             val intent = Intent(this, ResultActivity::class.java)
+            intent.putExtra("check_id", check_id)
             startActivity(intent)
         }
     }

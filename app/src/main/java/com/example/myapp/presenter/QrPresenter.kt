@@ -1,6 +1,7 @@
 package com.example.myapp.presenter
 
 import android.content.Context
+import android.os.AsyncTask
 import com.example.myapp.contract.QrContract
 import com.example.myapp.model.Model
 import com.example.myapp.model.Product
@@ -13,26 +14,28 @@ import java.util.regex.Pattern
 class QrPresenter(val context : Context) : QrContract.Presenter {
 
     var parse: ArrayList<Product> = arrayListOf()
+    var date = ""
 
 
     override fun onButtonWasClicked(qrResult: String?) {
 
         val runnable = Runnable {
             val model = Model(context)
+            //model.dropTable()
             val arr = parseQr(qrResult)
             val message = Repository().loadMessage(arr[0], arr[1])
             parseResult(message)
-            model.dropTable()
+            model.addToDBCheck(date)
             for (product in parse) {
                 model.addToDBProduct(product)
             }
         }
         Thread(runnable).start()
-
     }
 
     private fun parseResult(content: String) {
         val test = JSONObject(content).getJSONObject("document").getJSONObject("receipt").getJSONArray("items")
+        date = JSONObject(content).getJSONObject("document").getJSONObject("receipt").get("dateTime").toString()
 
         test.let { 0.until(it.length()).map { i -> it.optJSONObject(i) } }
             .map { parse.add(Product(it.get("name").toString(), it.get("price").toString(), it.get("quantity").toString()))}
@@ -59,5 +62,20 @@ class QrPresenter(val context : Context) : QrContract.Presenter {
             "https://proverkacheka.nalog.ru:9999/v1/inns/*/kkts/*/fss/$fnNum/tickets/$iNum?fiscalSign=$fpNum&sendToEmail=no",
             "https://proverkacheka.nalog.ru:9999/v1/ofds/*/inns/*/fss/$fnNum/operations/1/tickets/$iNum?fiscalSign=$fpNum&date=$timeNum2&sum=$sumNum"
         )
-        }
     }
+
+//    private val model = Model(context)
+//
+//    fun showChecks(): ArrayList<String> {
+//        val task = ChecksAsyncTask().execute()
+//        return task.get()
+//    }
+//
+//    inner class ChecksAsyncTask : AsyncTask<String, String, ArrayList<String>>() {
+//        override fun doInBackground(vararg params: String?): ArrayList<String> {
+//            return model.showChecks()
+//        }
+//
+//    }
+
+}

@@ -20,7 +20,9 @@ class ResultActivity : AppCompatActivity(), ResultContract.view {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_result)
-        val users = presenter.showUsers()
+
+        val check_id = intent.getLongExtra("check_id", 0)
+        val users = presenter.showUsers(check_id)
 
 
         recycleResult.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)

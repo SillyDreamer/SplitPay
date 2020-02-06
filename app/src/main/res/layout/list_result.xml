@@ -16,18 +16,24 @@
         android:orientation="vertical" >
 
     <TextView
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/name_result"
         tools:text="NAME" />
     <TextView
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/money_result"
-        tools:text="PRICE" />
+        tools:text="PRICE"
+        android:layout_marginBottom="5dp"/>
 
     </LinearLayout>
     <Button
+        android:layout_marginTop="15dp"
         android:layout_marginStart="50dp"
         android:id="@+id/share_button"
         android:layout_width="50dp"

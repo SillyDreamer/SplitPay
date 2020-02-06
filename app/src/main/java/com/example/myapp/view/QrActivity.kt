@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat
 import com.example.myapp.contract.QrContract
 import com.example.myapp.presenter.QrPresenter
 import com.example.myapp.R
+import kotlinx.android.synthetic.main.activity_qr.*
 
 class QrActivity : AppCompatActivity(), QrContract.View {
 
@@ -37,12 +38,17 @@ class QrActivity : AppCompatActivity(), QrContract.View {
                     101)
             }
         }
+
+        previous_check.setOnClickListener {
+            val intent = Intent(this, PreviousCheckActivity::class.java)
+            startActivity(intent)
+
+        }
     }
 
 
 
     companion object {
-
         var tvresult : String? = null
     }
 }

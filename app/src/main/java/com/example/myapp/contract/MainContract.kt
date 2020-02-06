@@ -11,9 +11,9 @@ interface MainContract {
     }
 
     interface presenter {
-        fun showProducts() : ArrayList<Product>
-        fun showUsers() : ArrayList<User>
-        fun addMoneyFromUser(users : ArrayList<User>, checkMap : HashMap<Pair<String, String>, ArrayList<CheckBox>>)
+        fun showProducts(check_id : Long) : ArrayList<Product>
+        fun showUsers(check_id : Long) : ArrayList<User>
+        fun addMoneyFromUser(users : ArrayList<User>, checkMap : HashMap<Pair<String, String>, ArrayList<CheckBox>>, check_id : Long)
         fun addOneMoreCheck(qrResult: String?)
     }
 }
