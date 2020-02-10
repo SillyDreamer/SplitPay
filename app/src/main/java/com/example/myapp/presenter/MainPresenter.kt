@@ -1,21 +1,22 @@
 package com.example.myapp.presenter
 
-import android.content.Context
-import android.os.AsyncTask
 import android.widget.CheckBox
 import com.example.myapp.contract.MainContract
 import com.example.myapp.model.Model
 import com.example.myapp.model.Product
 import com.example.myapp.model.Repository
 import com.example.myapp.model.User
+import com.example.myapp.utils.Runner
+import com.example.myapp.view.MainActivity
 import org.json.JSONObject
 import java.util.regex.Pattern
 
-class MainPresenter(val model : Model): MainContract.presenter {
-    var t1 : Thread? = null
-    override fun addMoneyFromUser(users : ArrayList<User>, checkMap : HashMap<Pair<String, String>, ArrayList<CheckBox>>, check_id : Long) {
+class MainPresenter(val model : Model, val runner : Runner): MainContract.presenter {
 
-        val runnable  = Runnable {
+    var mView : MainActivity? = null
+
+    override fun addMoneyFromUser(users : ArrayList<User>, checkMap : HashMap<Pair<String, String>, ArrayList<CheckBox>>, check_id : Long) {
+        runner.runInBackground(Runnable {
             val money = arrayListOf<Int>()
             val user = arrayListOf<String>()
             val id = arrayListOf<Long>()
@@ -38,41 +39,21 @@ class MainPresenter(val model : Model): MainContract.presenter {
             }
             for (i in 0 until user.size) {
                 model.updateUser(user[i], money[i], id[i], check_id)
-            } }
-
-       Thread(runnable).start()
-
-    }
-
-    override fun showUsers(check_id : Long): ArrayList<User> {
-        val task = UserAsyncTask().execute(check_id)
-        return task.get()
-    }
-
-
-    override fun showProducts(check_id : Long): ArrayList<Product> {
-        if (t1 != null)
-            t1!!.join()
-        val task = ProductAsyncTask().execute(check_id)
-        return task.get()
-    }
-
-    inner class ProductAsyncTask : AsyncTask<Long, String, ArrayList<Product>>() {
-        override fun doInBackground(vararg params: Long?): ArrayList<Product> {
-           return model.showProducts(params[0]!!)
-        }
+            }
+        })
 
     }
 
+    override fun showData(check_id : Long) {
 
-    inner class UserAsyncTask : AsyncTask<Long, String, ArrayList<User>>() {
-        override fun doInBackground(vararg params: Long?): ArrayList<User> {
-            return model.showUsers(params[0]!!)
-        }
-
+        runner.runInBackground(Runnable {
+            val product = model.showProducts(check_id)
+            val user = model.showUsers(check_id)
+            runner.runOnMain(Runnable {if (mView != null) {
+                mView?.showData(product, user)
+            }  })
+        })
     }
-
-
 
     //add one more check
 
@@ -80,17 +61,14 @@ class MainPresenter(val model : Model): MainContract.presenter {
 
 
     override fun addOneMoreCheck(qrResult: String?) {
-
-        val runnable = Runnable {
+        runner.runInBackground(Runnable {
             val arr = parseQr(qrResult)
             val message = Repository().loadMessage(arr[0], arr[1])
             parseResult(message)
             for (product in parse) {
                 model.addToDBProduct(product)
             }
-        }
-        t1 = Thread(runnable)
-        t1!!.start()
+        })
 
     }
 
@@ -123,6 +101,14 @@ class MainPresenter(val model : Model): MainContract.presenter {
             "https://proverkacheka.nalog.ru:9999/v1/inns/*/kkts/*/fss/$fnNum/tickets/$iNum?fiscalSign=$fpNum&sendToEmail=no",
             "https://proverkacheka.nalog.ru:9999/v1/ofds/*/inns/*/fss/$fnNum/operations/1/tickets/$iNum?fiscalSign=$fpNum&date=$timeNum2&sum=$sumNum"
         )
+    }
+
+    fun attachView(view : MainActivity) {
+        mView = view
+    }
+
+    fun detachView() {
+        mView = null
     }
 
 

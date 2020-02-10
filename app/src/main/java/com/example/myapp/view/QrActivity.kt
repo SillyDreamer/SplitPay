@@ -8,22 +8,27 @@ import android.os.Bundle
 import android.widget.Button
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.example.myapp.PresenterHolder
 import com.example.myapp.contract.QrContract
 import com.example.myapp.presenter.QrPresenter
 import com.example.myapp.R
 import com.example.myapp.model.Model
 import kotlinx.android.synthetic.main.activity_qr.*
 
+
+
 class QrActivity : AppCompatActivity(), QrContract.View {
 
     private val model = Model(this)
-    private val presenter : QrPresenter = QrPresenter(model)
+    lateinit var presenter : QrPresenter
 
     var btn : Button? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_qr)
+
+        presenter = (application as PresenterHolder).getQrPresenter()
 
         btn = findViewById(R.id.scan_check)
 

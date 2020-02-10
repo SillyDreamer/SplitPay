@@ -1,35 +1,33 @@
 package com.example.myapp.presenter
 
-import android.content.Context
-import android.os.AsyncTask
+
 import com.example.myapp.contract.QrContract
 import com.example.myapp.model.Model
 import com.example.myapp.model.Product
 import com.example.myapp.model.Repository
+import com.example.myapp.utils.Runner
+import com.example.myapp.view.QrActivity
 import org.json.JSONObject
 import java.util.regex.Pattern
 
 
 
-class QrPresenter(val model : Model) : QrContract.Presenter {
+class QrPresenter(val model : Model, val runner : Runner, val rep : Repository) : QrContract.Presenter {
 
     var parse: ArrayList<Product> = arrayListOf()
     var date = ""
 
-
     override fun onButtonWasClicked(qrResult: String?) {
 
-        val runnable = Runnable {
-            //model.dropTable()
+        runner.runInBackground(Runnable {
             val arr = parseQr(qrResult)
-            val message = Repository().loadMessage(arr[0], arr[1])
+            val message = rep.loadMessage(arr[0], arr[1])
             parseResult(message)
             model.addToDBCheck(date)
             for (product in parse) {
                 model.addToDBProduct(product)
             }
-        }
-        Thread(runnable).start()
+        })
     }
 
     private fun parseResult(content: String) {
@@ -62,19 +60,5 @@ class QrPresenter(val model : Model) : QrContract.Presenter {
             "https://proverkacheka.nalog.ru:9999/v1/ofds/*/inns/*/fss/$fnNum/operations/1/tickets/$iNum?fiscalSign=$fpNum&date=$timeNum2&sum=$sumNum"
         )
     }
-
-//    private val model = Model(context)
-//
-//    fun showChecks(): ArrayList<String> {
-//        val task = ChecksAsyncTask().execute()
-//        return task.get()
-//    }
-//
-//    inner class ChecksAsyncTask : AsyncTask<String, String, ArrayList<String>>() {
-//        override fun doInBackground(vararg params: String?): ArrayList<String> {
-//            return model.showChecks()
-//        }
-//
-//    }
 
 }

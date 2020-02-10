@@ -52,7 +52,6 @@ class DBOpenHelper(context: Context,
             }
         }
 
-
         val values = ContentValues()
         values.put(COLUMN_NAME, product.name)
         values.put(COLUMN_PRICE, product.price)
@@ -62,7 +61,6 @@ class DBOpenHelper(context: Context,
         db.insert(TABLE_NAME, null, values)
         Log.d("123", "addProduct")
         db.close()
-
     }
 
     fun addUser(name : String, money : Int) {

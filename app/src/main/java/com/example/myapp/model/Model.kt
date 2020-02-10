@@ -2,6 +2,7 @@ package com.example.myapp.model
 
 import android.content.Context
 
+
 class Model(var context : Context) {
     val dbHandler = DBOpenHelper(context, null)
 

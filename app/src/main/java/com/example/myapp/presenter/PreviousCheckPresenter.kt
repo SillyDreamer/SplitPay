@@ -2,11 +2,27 @@ package com.example.myapp.presenter
 
 import com.example.myapp.contract.PreviousCheckContract
 import com.example.myapp.model.Model
+import com.example.myapp.utils.Runner
+import com.example.myapp.view.PreviousCheckActivity
 
-class PreviousCheckPresenter(val model : Model) : PreviousCheckContract.Presenter {
+class PreviousCheckPresenter(val model : Model, val runner : Runner) : PreviousCheckContract.Presenter {
 
+    var mView : PreviousCheckActivity? = null
 
-    override fun showChecks(): ArrayList<Pair<Long, String>> {
-       return  model.showChecks()
+    override fun showChecks() {
+        runner.runInBackground(Runnable {
+            val arr = model.showChecks()
+            runner.runOnMain(Runnable {
+                mView?.showChecks(arr)
+            })
+        })
+    }
+
+    fun attachView(view : PreviousCheckActivity) {
+        mView = view
+    }
+
+    fun detachView() {
+        mView = null
     }
 }

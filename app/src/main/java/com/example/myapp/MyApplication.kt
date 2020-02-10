@@ -1,0 +1,37 @@
+package com.example.myapp
+
+import android.app.Application
+import com.example.myapp.model.Model
+import com.example.myapp.model.Repository
+import com.example.myapp.presenter.*
+import com.example.myapp.utils.RealRunner
+
+
+class MyApplication : Application(), PresenterHolder {
+
+    lateinit var mQrPresenter : QrPresenter
+    lateinit var mAddUserPresenter: AddUserPresenter
+    lateinit var mMainPresenter: MainPresenter
+    lateinit var mResultPresenter: ResultPresenter
+    lateinit var mPreviousCheckPresenter: PreviousCheckPresenter
+    val model = Model(this)
+
+    override fun getAddUserPresenter() = mAddUserPresenter
+
+    override fun getMainPresenter() = mMainPresenter
+
+    override fun getResultPresenter() = mResultPresenter
+    override fun getPreviousCheckPresenter() = mPreviousCheckPresenter
+
+    override fun onCreate() {
+        mQrPresenter = QrPresenter(model, RealRunner(), Repository())
+        mAddUserPresenter = AddUserPresenter(model, RealRunner())
+        mMainPresenter = MainPresenter(model, RealRunner())
+        mResultPresenter = ResultPresenter(model, RealRunner())
+        mPreviousCheckPresenter = PreviousCheckPresenter(model, RealRunner())
+        super.onCreate()
+    }
+
+    override fun getQrPresenter() = mQrPresenter
+
+}
