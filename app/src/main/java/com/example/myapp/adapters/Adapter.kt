@@ -46,7 +46,7 @@ class Adapter(private val product : List<Product>,
                 for (x in users) {
                     val cb = CheckBox(itemView.context)
                     cb.text = x.name
-                    cb.setTextColor(R.color.primary_darker)
+                    //cb.setTextColor(R.color.primary_darker)
                     itemView.layout.addView(cb)
                     arr.add(cb)
                 }
@@ -55,11 +55,11 @@ class Adapter(private val product : List<Product>,
             else {
                 for (x in checkMap.getValue(Pair(product[position].name, product[position].price))) {
                     (x.parent as ViewGroup).removeView(x)
-                    x.setTextColor(R.color.primary_darker)
+                    //x.setTextColor(R.color.primary_darker)
                     itemView.layout.addView(x)
                 }
             }
-            tv2.setTextColor(R.color.primary_darker)
+            //tv2.setTextColor(R.color.primary_darker)
             tv.setOnClickListener {
                 listener(checkMap, product, position)
             }

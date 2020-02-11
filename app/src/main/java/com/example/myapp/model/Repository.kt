@@ -19,77 +19,51 @@ class Repository {
     var parse: ArrayList<Product> = arrayListOf()
     var date = ""
 
-    private val mExecutor = Executors.newSingleThreadExecutor()
-    private val mHandler = Handler(Looper.getMainLooper())
-
-    //var task = GetAsyncTask()
     fun loadMessage(qrResult : String?) : Pair<ArrayList<Product>, String> {
 
         val arr = parseQr(qrResult)
+        var content = ""
 
-       // mExecutor.submit(Runnable {
-            var content = ""
+        with(URL(arr[1]).openConnection() as HttpURLConnection) {
 
-            with(URL(arr[1]).openConnection() as HttpURLConnection) {
+            requestMethod = "GET"
+            setRequestProperty("Device-id", "1")
 
-                requestMethod = "GET"
-                setRequestProperty("Device-id", "1")
+            setRequestProperty("Content-Type", "application/json; utf-8")
+            setRequestProperty("Accept", "application/json")
+            setRequestProperty("Device-os", "Android 5.1")
 
-                setRequestProperty("Content-Type", "application/json; utf-8")
-                setRequestProperty("Accept", "application/json")
-                setRequestProperty("Device-os", "Android 5.1")
+            println("\nResponse Code : $responseCode")
 
-                println("\nResponse Code : $responseCode")
+            if (responseCode == 204) {
+                with(URL(arr[0]).openConnection() as HttpURLConnection) {
+                    requestMethod = "GET"
+                    val basicAuth = "Basic Kzc5NjEwNTc3ODkyOjM0MjE1NA=="
+                    setRequestProperty("Authorization", basicAuth)
+                    setRequestProperty("Device-id", "1")
+                    setRequestProperty("Content-Type", "application/json; utf-8")
+                    setRequestProperty("Accept", "application/json")
+                    setRequestProperty("Device-os", "Android 5.1")
 
-                if (responseCode == 204) {
-                    with(URL(arr[0]).openConnection() as HttpURLConnection) {
-                        requestMethod = "GET"
-                        val basicAuth = "Basic Kzc5NjEwNTc3ODkyOjM0MjE1NA=="
-                        setRequestProperty("Authorization", basicAuth)
-                        setRequestProperty("Device-id", "1")
-                        setRequestProperty("Content-Type", "application/json; utf-8")
-                        setRequestProperty("Accept", "application/json")
-                        setRequestProperty("Device-os", "Android 5.1")
-
-                        inputStream.bufferedReader().use {
-                            it.lines().forEach { line ->
-                                content += line + "\n"
-                            }
+                    inputStream.bufferedReader().use {
+                        it.lines().forEach { line ->
+                            content += line + "\n"
                         }
-                        println("content1 = $content")
                     }
-                }
-                else if (responseCode == 406) {
-                    println("code == 406")
+                    println("content1 = $content")
                 }
             }
-            //mHandler.post(Runnable {
-                println("content2 = $content")
-                parseResult(content)
-            //})
-        //})
-
-
-
-
-
-
-
-
-
-//        task.execute(arr[0], arr[1])
-//
-//        Log.d("123", "onCreateloadmessage")
-//        var test = task.get()
-//
-//        println("test = $test")
-//
-//        parseResult(test)
+            else if (responseCode == 406) {
+                println("code == 406")
+            }
+        }
+            println("content2 = $content")
+            parseResult(content)
         return Pair(parse, date)
     }
 
 
-    private fun parseResult(content: String) {
+    fun parseResult(content: String) {
         parse.clear()
         val test = JSONObject(content).getJSONObject("document").getJSONObject("receipt").getJSONArray("items")
         date = JSONObject(content).getJSONObject("document").getJSONObject("receipt").get("dateTime").toString()
@@ -98,7 +72,7 @@ class Repository {
             .map { parse.add(Product(it.get("name").toString(), it.get("price").toString(), it.get("quantity").toString()))}
     }
 
-    private fun parseQr(str: String?): ArrayList<String> {
+    fun parseQr(str: String?): ArrayList<String> {
         val s: String = str ?: "t=20191123T1821&s=1496.64&fn=9280440300065001&i=57638&fp=3805453234&n=1"
         val m = Pattern.compile("(?<==)[^&]+").matcher(s)
         m.find()
@@ -120,46 +94,4 @@ class Repository {
             "https://proverkacheka.nalog.ru:9999/v1/ofds/*/inns/*/fss/$fnNum/operations/1/tickets/$iNum?fiscalSign=$fpNum&date=$timeNum2&sum=$sumNum"
         )
     }
-}
-
-
-class GetAsyncTask : AsyncTask<String, String, String>() {
-    override fun doInBackground(vararg params: String?): String {
-        var content = ""
-
-        with(URL(params[1]).openConnection() as HttpURLConnection) {
-
-            requestMethod = "GET"
-            setRequestProperty("Device-id", "1")
-
-            setRequestProperty("Content-Type", "application/json; utf-8")
-            setRequestProperty("Accept", "application/json")
-            setRequestProperty("Device-os", "Android 5.1")
-
-            println("\nResponse Code : $responseCode")
-
-            if (responseCode == 204) {
-                with(URL(params[0]).openConnection() as HttpURLConnection) {
-                    requestMethod = "GET"
-                    val basicAuth = "Basic Kzc5NjEwNTc3ODkyOjM0MjE1NA=="
-                    setRequestProperty("Authorization", basicAuth)
-                    setRequestProperty("Device-id", "1")
-                    setRequestProperty("Content-Type", "application/json; utf-8")
-                    setRequestProperty("Accept", "application/json")
-                    setRequestProperty("Device-os", "Android 5.1")
-
-                    inputStream.bufferedReader().use {
-                        it.lines().forEach { line ->
-                            content += line + "\n"
-                        }
-                    }
-                }
-            }
-            else if (responseCode == 406) {
-                println("code == 406")
-            }
-        }
-        return content
-    }
-
 }

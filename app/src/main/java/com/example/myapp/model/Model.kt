@@ -1,27 +1,18 @@
 package com.example.myapp.model
 
-import android.content.Context
+class Model(val dbHandler : DBOpenHelper) {
 
-
-class Model(var context : Context) {
-    val dbHandler = DBOpenHelper(context, null)
-
-
-    inner class CallDB : Runnable{
-        override fun run() {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        }
-    }
+//    inner class CallDB : Runnable {
+//        override fun run() {
+//        }
+//    }
 
     fun addToDBProduct(product: Product) {
         dbHandler.add(product)
-//        Toast.makeText(context, "Product added to db", Toast.LENGTH_LONG).show()
     }
 
     fun addToDBUser(name : String, money : Int) {
         dbHandler.addUser(name, money)
-  //      Toast.makeText(context, "User added to db", Toast.LENGTH_LONG).show()
-
     }
 
     fun addToDBCheck(name: String) {
@@ -92,7 +83,4 @@ class Model(var context : Context) {
         dbHandler.updateUser(name, money, id, check_id)
     }
 
-    fun dropTable() {
-        dbHandler.dropTable()
-    }
 }
