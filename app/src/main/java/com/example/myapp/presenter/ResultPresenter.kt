@@ -2,9 +2,7 @@ package com.example.myapp.presenter
 
 import com.example.myapp.contract.ResultContract
 import com.example.myapp.model.Model
-import com.example.myapp.model.User
 import com.example.myapp.utils.Runner
-import com.example.myapp.view.AddUserActivity
 import com.example.myapp.view.ResultActivity
 
 class ResultPresenter(val model : Model, val runner : Runner): ResultContract.presenter {

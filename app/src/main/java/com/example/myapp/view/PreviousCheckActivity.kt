@@ -24,6 +24,7 @@ class PreviousCheckActivity : AppCompatActivity(), PreviousCheckContract.View {
         setContentView(R.layout.activity_previous_check)
 
         presenter = (application as PresenterHolder).getPreviousCheckPresenter()
+        presenter.showChecks()
 
 
         recycle_view_previous.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
@@ -38,6 +39,7 @@ class PreviousCheckActivity : AppCompatActivity(), PreviousCheckContract.View {
     }
 
     fun showChecks(array : ArrayList<Pair<Long, String>>) {
+        println("AAAA $array")
         val adapter = AdapterPreviousCheck(array) {
             listener(it)
         }

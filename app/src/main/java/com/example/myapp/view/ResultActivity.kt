@@ -29,6 +29,8 @@ class ResultActivity : AppCompatActivity(), ResultContract.view {
 
         val check_id = intent.getLongExtra("check_id", 0)
 
+        presenter.showUsers(check_id)
+
 
         recycleResult.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
 

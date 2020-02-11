@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapp.PresenterHolder
@@ -40,15 +42,15 @@ class AddUserActivity : AppCompatActivity(), AddUserContract.view {
         }
 
         button_next.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
             presenter.lastCheckId()
-            intent.putExtra("check_id", checkid)
-            startActivity(intent)
         }
     }
 
     fun showCheckId(id : Long) {
-        checkid = id
+        val intent = Intent(this, MainActivity::class.java)
+        println("check id $id")
+        intent.putExtra("check_id", id)
+        startActivity(intent)
     }
 
     override fun onStop() {

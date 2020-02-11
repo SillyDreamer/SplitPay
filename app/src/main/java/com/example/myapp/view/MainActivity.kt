@@ -43,21 +43,37 @@ class MainActivity : AppCompatActivity(), MainContract.view {
         recycle_view_main.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
 
         add_check.setOnClickListener {
-            presenter.addOneMoreCheck(null)
-            presenter.showData(check_id)
-            val check = adapter.checkMap
-            adapter = Adapter(
-                products,
-                users
-            ) { hashMap: HashMap<Pair<String, String>, ArrayList<CheckBox>>, list: List<Product>, i: Int ->
-                listener(hashMap, list, i)
-            }
-            adapter.checkMap = check
-            recycle_view_main.adapter = adapter
+
+            presenter.addOneMoreCheck("t=20200129T1400&s=180.00&fn=9284000100287274&i=24351&fp=4163484040&n=1")
+
         }
 
         but.setOnClickListener {
-            presenter.addMoneyFromUser(users, adapter.checkMap, check_id)
+
+            val money = arrayListOf<Int>()
+            val user = arrayListOf<String>()
+            val id = arrayListOf<Long>()
+            for (x in users) {
+                user.add(x.name)
+                money.add(0)
+                id.add(x.id)
+            }
+            for ((k , v) in adapter.checkMap) {
+                var i = 0
+                for (x in v) {
+                    if (x.isChecked)
+                        i++
+                }
+                for (x in v) {
+                    if (x.isChecked) {
+                        money[user.indexOf(x.text.toString())] = money[user.indexOf(x.text.toString())] +  k.second.toInt() / i
+                    }
+                }
+            }
+
+            presenter.addMoneyFromUser(user, money, id, check_id)
+
+
 
             val intent = Intent(this, ResultActivity::class.java)
             intent.putExtra("check_id", check_id)
@@ -65,6 +81,20 @@ class MainActivity : AppCompatActivity(), MainContract.view {
         }
     }
 
+
+    fun addCheck() {
+        val check = adapter.checkMap
+        presenter.showData(check_id)
+        adapter = Adapter(
+            products,
+            users
+        ) { hashMap: HashMap<Pair<String, String>, ArrayList<CheckBox>>, list: List<Product>, i: Int ->
+            listener(hashMap, list, i)
+        }
+        adapter.checkMap = check
+        recycle_view_main.adapter = adapter
+        adapter.notifyDataSetChanged()
+    }
 
 
     fun listener(hashMap: HashMap<Pair<String, String>, ArrayList<CheckBox>>, list: List<Product>, i: Int) {
@@ -102,7 +132,6 @@ class MainActivity : AppCompatActivity(), MainContract.view {
     fun showData(pr : ArrayList<Product>, us : ArrayList<User>) {
         products = pr
         users = us
-        println("users $us")
         adapter = Adapter(
             products,
             users

@@ -26,6 +26,7 @@ class AddUserPresenter(var model :  Model, val runner: Runner) : AddUserContract
             val id = model.showCheckId()
             runner.runOnMain(Runnable {
                 if (mView != null) {
+                    println("AAAAAAA check id $id")
                     mView?.showCheckId(id)
                 }
             })

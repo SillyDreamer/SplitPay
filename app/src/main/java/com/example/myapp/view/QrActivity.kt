@@ -19,7 +19,6 @@ import kotlinx.android.synthetic.main.activity_qr.*
 
 class QrActivity : AppCompatActivity(), QrContract.View {
 
-    private val model = Model(this)
     lateinit var presenter : QrPresenter
 
     var btn : Button? = null

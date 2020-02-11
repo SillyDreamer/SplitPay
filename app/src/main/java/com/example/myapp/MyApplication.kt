@@ -15,6 +15,7 @@ class MyApplication : Application(), PresenterHolder {
     lateinit var mResultPresenter: ResultPresenter
     lateinit var mPreviousCheckPresenter: PreviousCheckPresenter
     val model = Model(this)
+    val rep = Repository()
 
     override fun getAddUserPresenter() = mAddUserPresenter
 
@@ -24,9 +25,9 @@ class MyApplication : Application(), PresenterHolder {
     override fun getPreviousCheckPresenter() = mPreviousCheckPresenter
 
     override fun onCreate() {
-        mQrPresenter = QrPresenter(model, RealRunner(), Repository())
+        mQrPresenter = QrPresenter(model, RealRunner(), rep)
         mAddUserPresenter = AddUserPresenter(model, RealRunner())
-        mMainPresenter = MainPresenter(model, RealRunner())
+        mMainPresenter = MainPresenter(model, RealRunner(), rep)
         mResultPresenter = ResultPresenter(model, RealRunner())
         mPreviousCheckPresenter = PreviousCheckPresenter(model, RealRunner())
         super.onCreate()
