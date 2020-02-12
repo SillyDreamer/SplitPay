@@ -15,8 +15,8 @@ class Model(val dbHandler : DBOpenHelper) {
         dbHandler.addUser(name, money)
     }
 
-    fun addToDBCheck(name: String) {
-        dbHandler.addCheck(name)
+    fun addToDBCheck(name: String, date : String) {
+        dbHandler.addCheck(name, date)
     }
 
     fun showCheckId() : Long {
@@ -30,12 +30,12 @@ class Model(val dbHandler : DBOpenHelper) {
         return id
     }
 
-    fun showChecks() : ArrayList<Pair<Long, String>> {
+    fun showChecks() : ArrayList<Triple<String, String, String>> {
         val cursor = dbHandler.getChecks()
-        val arr = arrayListOf<Pair<Long, String>>()
+        val arr = arrayListOf<Triple<String, String, String>>()
         if (cursor != null) {
             while(cursor.moveToNext()) {
-                arr.add(Pair(cursor.getLong(cursor.getColumnIndex(DBOpenHelper.COLUMN_ID)), cursor.getString(cursor.getColumnIndex(DBOpenHelper.COLUMN_NAME))))
+                arr.add(Triple(cursor.getLong(cursor.getColumnIndex(DBOpenHelper.COLUMN_ID)).toString(), cursor.getString(cursor.getColumnIndex(DBOpenHelper.COLUMN_NAME)), cursor.getString(cursor.getColumnIndex(DBOpenHelper.COLUMN_DATE))))
             }
         }
         return arr

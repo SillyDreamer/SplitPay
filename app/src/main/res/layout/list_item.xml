@@ -33,6 +33,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:textColor="@color/secondaryLightColor"
                 android:padding="16dp"
                 android:textAlignment="textEnd"
                 android:id="@+id/price"

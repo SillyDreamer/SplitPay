@@ -43,8 +43,11 @@ class MainActivity : AppCompatActivity(), MainContract.view {
         recycle_view_main.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
 
         add_check.setOnClickListener {
+            val intent = Intent(this, ScanActivity::class.java)
+            intent.putExtra("key", 1)
+            startActivity(intent)
 
-            presenter.addOneMoreCheck("t=20200129T1400&s=180.00&fn=9284000100287274&i=24351&fp=4163484040&n=1")
+            //presenter.addOneMoreCheck("t=20200129T1400&s=180.00&fn=9284000100287274&i=24351&fp=4163484040&n=1")
 
         }
 

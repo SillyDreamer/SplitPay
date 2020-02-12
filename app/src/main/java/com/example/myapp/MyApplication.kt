@@ -31,7 +31,7 @@ class MyApplication : Application(), PresenterHolder {
         mAddUserPresenter = AddUserPresenter(model, RealRunner())
         mMainPresenter = MainPresenter(model, RealRunner(), rep)
         mResultPresenter = ResultPresenter(model, RealRunner())
-        mPreviousCheckPresenter = PreviousCheckPresenter(model, RealRunner())
+        mPreviousCheckPresenter = PreviousCheckPresenter(model, RealRunner(), rep)
         super.onCreate()
     }
 

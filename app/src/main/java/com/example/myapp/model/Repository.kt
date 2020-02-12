@@ -67,6 +67,35 @@ class Repository {
         parse.clear()
         val test = JSONObject(content).getJSONObject("document").getJSONObject("receipt").getJSONArray("items")
         date = JSONObject(content).getJSONObject("document").getJSONObject("receipt").get("dateTime").toString()
+        var date2 = date.substring(8, 10) + " "
+        println(date.substring(5, 7))
+        if (date.substring(5, 7) == "01")
+            date2 += "января"
+        else if(date.substring(5, 7) == "02")
+            date2 += "февраля"
+        else if(date.substring(5, 7) == "03")
+            date2 += "марта"
+        else if(date.substring(5, 7) == "04")
+            date2 += "апреля"
+        else if(date.substring(5, 7) == "05")
+            date2 += "мая"
+        else if(date.substring(5, 7) == "06")
+            date2 += "июня"
+        else if(date.substring(5, 7) == "07")
+            date2 += "июля"
+        else if(date.substring(5, 7) == "08")
+            date2 += "августа"
+        else if(date.substring(5, 7) == "09")
+            date2 += "сентября"
+        else if(date.substring(5, 7) == "10")
+            date2 += "октября"
+        else if(date.substring(5, 7) == "11")
+            date2 += "ноября"
+        else if(date.substring(5, 7) == "12")
+            date2 += "декабря"
+
+        date2 += " " + date.substring(0, 4) + " года"
+        date = date2
 
         test.let { 0.until(it.length()).map { i -> it.optJSONObject(i) } }
             .map { parse.add(Product(it.get("name").toString(), it.get("price").toString(), it.get("quantity").toString()))}

@@ -20,7 +20,8 @@ class QrPresenter(val model : Model, val runner : Runner, val rep : Repository) 
             val arr = rep.loadMessage(qrResult)
             val parse = arr.first
             val date = arr.second
-            model.addToDBCheck(date)
+            val name = "чек " + (model.showCheckId() + 1)
+            model.addToDBCheck(name, date)
             for (product in parse) {
                 model.addToDBProduct(product)
             }

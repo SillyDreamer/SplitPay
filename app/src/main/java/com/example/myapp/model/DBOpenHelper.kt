@@ -16,7 +16,7 @@ class DBOpenHelper(context: Context,
 
     override fun onCreate(db: SQLiteDatabase) {
 
-        val CHECK_TABLE = ("CREATE TABLE checks(_id INTEGER PRIMARY KEY, name TEXT)")
+        val CHECK_TABLE = ("CREATE TABLE $TABLE_NAME3($COLUMN_ID INTEGER PRIMARY KEY, $COLUMN_NAME TEXT, $COLUMN_DATE TEXT)")
         db.execSQL(CHECK_TABLE)
 
         val CREATE_PRODUCTS_TABLE = ("CREATE TABLE " + TABLE_NAME + "(" + COLUMN_ID + " INTEGER PRIMARY KEY," +
@@ -31,13 +31,14 @@ class DBOpenHelper(context: Context,
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME)
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME2)
-        db.execSQL("DROP TABLE IF EXISTS checks")
+        db.execSQL("DROP TABLE IF EXISTS $TABLE_NAME3")
         onCreate(db)
     }
 
-    fun addCheck(name: String) {
+    fun addCheck(name: String, date : String) {
         val values = ContentValues()
         values.put(COLUMN_NAME, name)
+        values.put(COLUMN_DATE, date)
         val db = this.writableDatabase
         db.insert("checks", null, values)
         db.close()
@@ -124,11 +125,13 @@ class DBOpenHelper(context: Context,
         private val DATABASE_NAME = "check.db"
         val TABLE_NAME = "products"
         val TABLE_NAME2 = "users"
+        val TABLE_NAME3 = "checks"
         val COLUMN_ID = "_id"
         val COLUMN_NAME = "name"
         val COLUMN_PRICE = "price"
         val COLUMN_COUNT = "count"
         val COLUMN_MONEY = "money"
         val COLUMN_CHECK_ID = "checkid"
+        val COLUMN_DATE = "date"
     }
 }

@@ -2,4 +2,5 @@
 <resources>
     <dimen name="size_name">25</dimen>
     <dimen name="size_price">20</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 </resources>

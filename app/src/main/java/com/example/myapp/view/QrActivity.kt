@@ -52,10 +52,4 @@ class QrActivity : AppCompatActivity(), QrContract.View {
 
         }
     }
-
-
-
-    companion object {
-        var tvresult : String? = null
-    }
 }
