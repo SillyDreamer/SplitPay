@@ -1,30 +1,22 @@
 package com.example.myapp.model
 
-import android.content.Context
+class Model(val dbHandler : DBOpenHelper) {
 
-class Model(var context : Context) {
-    val dbHandler = DBOpenHelper(context, null)
-
-
-    inner class CallDB : Runnable{
-        override fun run() {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        }
-    }
+//    inner class CallDB : Runnable {
+//        override fun run() {
+//        }
+//    }
 
     fun addToDBProduct(product: Product) {
         dbHandler.add(product)
-//        Toast.makeText(context, "Product added to db", Toast.LENGTH_LONG).show()
     }
 
     fun addToDBUser(name : String, money : Int) {
         dbHandler.addUser(name, money)
-  //      Toast.makeText(context, "User added to db", Toast.LENGTH_LONG).show()
-
     }
 
-    fun addToDBCheck(name: String) {
-        dbHandler.addCheck(name)
+    fun addToDBCheck(name: String, date : String) {
+        dbHandler.addCheck(name, date)
     }
 
     fun showCheckId() : Long {
@@ -38,12 +30,12 @@ class Model(var context : Context) {
         return id
     }
 
-    fun showChecks() : ArrayList<Pair<Long, String>> {
+    fun showChecks() : ArrayList<Triple<String, String, String>> {
         val cursor = dbHandler.getChecks()
-        val arr = arrayListOf<Pair<Long, String>>()
+        val arr = arrayListOf<Triple<String, String, String>>()
         if (cursor != null) {
             while(cursor.moveToNext()) {
-                arr.add(Pair(cursor.getLong(cursor.getColumnIndex(DBOpenHelper.COLUMN_ID)), cursor.getString(cursor.getColumnIndex(DBOpenHelper.COLUMN_NAME))))
+                arr.add(Triple(cursor.getLong(cursor.getColumnIndex(DBOpenHelper.COLUMN_ID)).toString(), cursor.getString(cursor.getColumnIndex(DBOpenHelper.COLUMN_NAME)), cursor.getString(cursor.getColumnIndex(DBOpenHelper.COLUMN_DATE))))
             }
         }
         return arr
@@ -91,7 +83,4 @@ class Model(var context : Context) {
         dbHandler.updateUser(name, money, id, check_id)
     }
 
-    fun dropTable() {
-        dbHandler.dropTable()
-    }
 }

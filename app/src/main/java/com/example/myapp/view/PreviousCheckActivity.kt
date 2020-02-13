@@ -1,34 +1,64 @@
 package com.example.myapp.view
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.widget.LinearLayout
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.myapp.PresenterHolder
 import com.example.myapp.adapters.AdapterPreviousCheck
 import com.example.myapp.R
 import com.example.myapp.contract.PreviousCheckContract
-import com.example.myapp.model.Model
 import com.example.myapp.presenter.PreviousCheckPresenter
-import kotlinx.android.synthetic.main.activity_previous_check.*
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.activity_previous_check.fab
+import kotlinx.android.synthetic.main.activity_previous_check.recycle_view_previous
+import kotlinx.android.synthetic.main.edit_dialog.view.*
 
 class PreviousCheckActivity : AppCompatActivity(), PreviousCheckContract.View {
 
-    private val model = Model(this)
-    private val presenter = PreviousCheckPresenter(model)
+    lateinit var presenter : PreviousCheckPresenter
+    lateinit var adapter : AdapterPreviousCheck
+    lateinit var arr : ArrayList<Triple<String, String, String>>
 
     @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_previous_check)
 
+        fab.setOnClickListener { view ->
+            val permissionStatus = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+            if (permissionStatus == PackageManager.PERMISSION_GRANTED) {
+                val intent = Intent(this, ScanActivity::class.java)
+                intent.putExtra("key", 2)
+                startActivity(intent)
+//                presenter.onButtonWasClicked(null)
+//                val intent = Intent(this, AddUserActivity::class.java)
+//                startActivity(intent)
+            }
+            else {
+                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA),
+                    101)
+            }
 
-        val adapter = AdapterPreviousCheck(presenter.showChecks()) {
-            listener(it)
+            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show()
         }
+
+        presenter = (application as PresenterHolder).getPreviousCheckPresenter()
+        presenter.showChecks()
+
+
         recycle_view_previous.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
-        recycle_view_previous.adapter = adapter
+
 
     }
 
@@ -37,4 +67,47 @@ class PreviousCheckActivity : AppCompatActivity(), PreviousCheckContract.View {
         intent.putExtra("check_id", id)
         startActivity(intent)
     }
+
+    private fun listenerButton(id : Int) {
+
+        val mDialogView = LayoutInflater.from(this).inflate(R.layout.edit_dialog, null)
+        //AlertDialogBuilder
+        val mBuilder = AlertDialog.Builder(this)
+            .setView(mDialogView)
+        //show dialog
+        val  mAlertDialog = mBuilder.show()
+        //login button click of custom layout
+        mDialogView.ok_button.setOnClickListener {
+            //dismiss dialog
+            mAlertDialog.dismiss()
+            //get text from EditTexts of custom layout
+            val name = mDialogView.edit.text.toString()
+            arr[id] = Triple(arr[id].first, name, arr[id].third)
+
+            adapter.notifyDataSetChanged()
+            //set the input text in TextView
+        }
+        //cancel button click of custom layout
+        mDialogView.cancel_button.setOnClickListener {
+            //dismiss dialog
+            mAlertDialog.dismiss()
+        }
+    }
+
+    fun showChecks(array : ArrayList<Triple<String, String, String>>) {
+        arr = array
+        adapter = AdapterPreviousCheck(arr, listener = {listener(it)}, listener2 = {listenerButton(it)})
+        recycle_view_previous.adapter = adapter
+    }
+
+    override fun onStop() {
+        presenter.detachView()
+        super.onStop()
+    }
+
+    override fun onStart() {
+        presenter.attachView(this)
+        super.onStart()
+    }
+
 }

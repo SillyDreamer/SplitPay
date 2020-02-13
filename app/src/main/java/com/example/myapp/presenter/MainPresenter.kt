@@ -1,129 +1,64 @@
 package com.example.myapp.presenter
 
-import android.content.Context
-import android.os.AsyncTask
-import android.widget.CheckBox
 import com.example.myapp.contract.MainContract
 import com.example.myapp.model.Model
 import com.example.myapp.model.Product
 import com.example.myapp.model.Repository
-import com.example.myapp.model.User
-import org.json.JSONObject
-import java.util.regex.Pattern
+import com.example.myapp.utils.Runner
+import com.example.myapp.view.MainActivity
 
-class MainPresenter(val model : Model): MainContract.presenter {
-    var t1 : Thread? = null
-    override fun addMoneyFromUser(users : ArrayList<User>, checkMap : HashMap<Pair<String, String>, ArrayList<CheckBox>>, check_id : Long) {
+class MainPresenter(val model : Model, val runner : Runner, val rep : Repository): MainContract.presenter {
 
-        val runnable  = Runnable {
-            val money = arrayListOf<Int>()
-            val user = arrayListOf<String>()
-            val id = arrayListOf<Long>()
-            for (x in users) {
-                user.add(x.name)
-                money.add(0)
-                id.add(x.id)
+    var mView : MainActivity? = null
+
+    override fun addMoneyFromUser(users : ArrayList<String>, money : ArrayList<Int>, id : ArrayList<Long>, check_id : Long) {
+        runner.runInBackground(Runnable {
+            for (i in 0 until users.size) {
+                model.updateUser(users[i], money[i], id[i], check_id)
             }
-            for ((k , v) in checkMap) {
-                var i = 0
-                for (x in v) {
-                    if (x.isChecked)
-                        i++
-                }
-                for (x in v) {
-                    if (x.isChecked) {
-                        money[user.indexOf(x.text.toString())] = money[user.indexOf(x.text.toString())] +  k.second.toInt() / i
-                    }
-                }
-            }
-            for (i in 0 until user.size) {
-                model.updateUser(user[i], money[i], id[i], check_id)
-            } }
-
-       Thread(runnable).start()
+        })
 
     }
 
-    override fun showUsers(check_id : Long): ArrayList<User> {
-        val task = UserAsyncTask().execute(check_id)
-        return task.get()
+    override fun showData(check_id : Long) {
+
+        runner.runInBackground(Runnable {
+            val product = model.showProducts(check_id)
+            val user = model.showUsers(check_id)
+            runner.runOnMain(Runnable {if (mView != null) {
+                mView?.showData(product, user)
+            }  })
+        })
     }
-
-
-    override fun showProducts(check_id : Long): ArrayList<Product> {
-        if (t1 != null)
-            t1!!.join()
-        val task = ProductAsyncTask().execute(check_id)
-        return task.get()
-    }
-
-    inner class ProductAsyncTask : AsyncTask<Long, String, ArrayList<Product>>() {
-        override fun doInBackground(vararg params: Long?): ArrayList<Product> {
-           return model.showProducts(params[0]!!)
-        }
-
-    }
-
-
-    inner class UserAsyncTask : AsyncTask<Long, String, ArrayList<User>>() {
-        override fun doInBackground(vararg params: Long?): ArrayList<User> {
-            return model.showUsers(params[0]!!)
-        }
-
-    }
-
-
 
     //add one more check
 
     var parse: ArrayList<Product> = arrayListOf()
 
 
-    override fun addOneMoreCheck(qrResult: String?) {
-
-        val runnable = Runnable {
-            val arr = parseQr(qrResult)
-            val message = Repository().loadMessage(arr[0], arr[1])
-            parseResult(message)
+    override fun addOneMoreCheck(qrResult: String) : Boolean {
+        if (!qrResult.matches(Regex("t=[0-9]*T[0-9]*&s=[0-9|.]*&fn=[0-9]*&i=[0-9]*&fp=[0-9]*&n=[0-9]"))) {
+            return false
+        }
+        runner.runInBackground(Runnable {
+            val arr = rep.loadMessage(qrResult)
+            parse = arr.first
             for (product in parse) {
                 model.addToDBProduct(product)
             }
-        }
-        t1 = Thread(runnable)
-        t1!!.start()
-
+            runner.runOnMain(Runnable {
+                mView?.addCheck()
+            })
+        })
+        return true
     }
 
-    private fun parseResult(content: String) {
-        println(content)
-        val test = JSONObject(content).getJSONObject("document").getJSONObject("receipt").getJSONArray("items")
-
-        test.let { 0.until(it.length()).map { i -> it.optJSONObject(i) } }
-            .map { parse.add(Product(it.get("name").toString(), it.get("price").toString(), it.get("quantity").toString()))}
+    fun attachView(view : MainActivity) {
+        mView = view
     }
 
-    private fun parseQr(str: String?): ArrayList<String> {
-        val s: String = str ?: "t=20200129T1400&s=180.00&fn=9284000100287274&i=24351&fp=4163484040&n=1"
-        val m = Pattern.compile("(?<==)[^&]+").matcher(s)
-        m.find()
-        val timeNum = s.substring(m.start(), m.end())
-        val timeNum2 = timeNum.substring(0, 4) + "-" +
-                timeNum.substring(4, 6) + "-" +
-                timeNum.substring(6, 11) + ":" +
-                timeNum.substring(11, 13) + ":00"
-        m.find()
-        val sumNum = s.substring(m.start(), m.end()).replace(".", "")
-        m.find()
-        val fnNum = s.substring(m.start(), m.end())
-        m.find()
-        val iNum = s.substring(m.start(), m.end())
-        m.find()
-        val fpNum = s.substring(m.start(), m.end())
-        return arrayListOf(
-            "https://proverkacheka.nalog.ru:9999/v1/inns/*/kkts/*/fss/$fnNum/tickets/$iNum?fiscalSign=$fpNum&sendToEmail=no",
-            "https://proverkacheka.nalog.ru:9999/v1/ofds/*/inns/*/fss/$fnNum/operations/1/tickets/$iNum?fiscalSign=$fpNum&date=$timeNum2&sum=$sumNum"
-        )
+    fun detachView() {
+        mView = null
     }
-
 
 }

@@ -29,10 +29,11 @@
                 android:layout_height="wrap_content"
                 android:padding="20dp"
                 tools:text="Hello World"
-                android:textColor="@color/primary_darker"
+                android:textColor="@color/primaryTextColor"
                 android:textStyle="bold" />
 
             <TextView
+                android:textColor="@color/secondaryLightColor"
                 android:padding="16dp"
                 android:textAlignment="textEnd"
                 android:id="@+id/price"

@@ -12,4 +12,7 @@
     <string name="logo">SplitPay</string>
     <string name="good_luck">Good luck :)</string>
     <string name="add_one_more_check">add one more check</string>
+    <string name="title_activity_fab">Fab</string>
+    <string name="name_check">name</string>
+    <string name="date_check">date</string>
 </resources>
