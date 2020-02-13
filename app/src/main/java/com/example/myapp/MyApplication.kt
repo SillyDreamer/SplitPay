@@ -10,7 +10,6 @@ import com.example.myapp.utils.RealRunner
 
 class MyApplication : Application(), PresenterHolder {
 
-    lateinit var mQrPresenter : QrPresenter
     lateinit var mAddUserPresenter: AddUserPresenter
     lateinit var mMainPresenter: MainPresenter
     lateinit var mResultPresenter: ResultPresenter
@@ -27,14 +26,11 @@ class MyApplication : Application(), PresenterHolder {
     override fun getPreviousCheckPresenter() = mPreviousCheckPresenter
 
     override fun onCreate() {
-        mQrPresenter = QrPresenter(model, RealRunner(), rep)
         mAddUserPresenter = AddUserPresenter(model, RealRunner())
         mMainPresenter = MainPresenter(model, RealRunner(), rep)
         mResultPresenter = ResultPresenter(model, RealRunner())
         mPreviousCheckPresenter = PreviousCheckPresenter(model, RealRunner(), rep)
         super.onCreate()
     }
-
-    override fun getQrPresenter() = mQrPresenter
 
 }

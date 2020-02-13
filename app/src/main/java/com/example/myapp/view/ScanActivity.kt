@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.example.myapp.PresenterHolder
-import com.example.myapp.presenter.QrPresenter
 import com.google.zxing.Result
 import me.dm7.barcodescanner.zxing.ZXingScannerView
 
@@ -40,7 +39,7 @@ class ScanActivity : AppCompatActivity(), ZXingScannerView.ResultHandler {
         Log.v("tag", rawResult.getText()) // Prints scan results
         // Log.v("tag", rawResult.getBarcodeFormat().toString()); // Prints the scan format (qrcode, pdf417 etc.)
 
-        val presenter = (application as PresenterHolder).getQrPresenter()
+        val presenter = (application as PresenterHolder).getPreviousCheckPresenter()
         val presenter2= (application as PresenterHolder).getMainPresenter()
 
 
@@ -48,27 +47,17 @@ class ScanActivity : AppCompatActivity(), ZXingScannerView.ResultHandler {
         println("key $key")
         if (key == 2) {
             presenter.onButtonWasClicked("t=20191123T1821&s=1496.64&fn=9280440300065001&i=57638&fp=3805453234&n=1")
+            //presenter.onButtonWasClicked(rawResult.text)
             val intent = Intent(this, AddUserActivity::class.java)
             startActivity(intent)
         }
 
 
         else if (key == 1) {
-            presenter2.addOneMoreCheck(rawResult.text)
+           // presenter2.addOneMoreCheck(rawResult.text)
+            presenter2.addOneMoreCheck("t=20200202T2005&s=522.99&fn=9280440300066533&i=20646&fp=3057312554&n=1")
             onBackPressed()
         }
 
-        //presenter.onButtonWasClicked(rawResult.text)
-
-
-
-
-
-
-        //QrActivity.tvresult = rawResult.text
-        //onBackPressed()
-
-        // If you would like to resume scanning, call this method below:
-        //mScannerView.resumeCameraPreview(this);
     }
 }

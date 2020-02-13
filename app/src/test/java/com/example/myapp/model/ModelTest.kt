@@ -68,8 +68,8 @@ class ModelTest {
     fun addToDB() {
         mModel.addToDBUser("user", 0)
         Mockito.verify(mDbOpenHelper).addUser("user", 0)
-        mModel.addToDBCheck("data")
-        Mockito.verify(mDbOpenHelper).addCheck("data")
+        mModel.addToDBCheck("name", "date")
+        Mockito.verify(mDbOpenHelper).addCheck("name", "date")
         mModel.addToDBProduct(Product("name", "price", "count"))
         Mockito.verify(mDbOpenHelper).add(Product("name", "price", "count"))
     }
