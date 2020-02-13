@@ -1,11 +1,9 @@
 package com.example.myapp.presenter
 
-import android.widget.CheckBox
 import com.example.myapp.contract.MainContract
 import com.example.myapp.model.Model
 import com.example.myapp.model.Product
 import com.example.myapp.model.Repository
-import com.example.myapp.model.User
 import com.example.myapp.utils.Runner
 import com.example.myapp.view.MainActivity
 
@@ -38,7 +36,10 @@ class MainPresenter(val model : Model, val runner : Runner, val rep : Repository
     var parse: ArrayList<Product> = arrayListOf()
 
 
-    override fun addOneMoreCheck(qrResult: String?) {
+    override fun addOneMoreCheck(qrResult: String) : Boolean {
+        if (!qrResult.matches(Regex("t=[0-9]*T[0-9]*&s=[0-9|.]*&fn=[0-9]*&i=[0-9]*&fp=[0-9]*&n=[0-9]"))) {
+            return false
+        }
         runner.runInBackground(Runnable {
             val arr = rep.loadMessage(qrResult)
             parse = arr.first
@@ -49,10 +50,8 @@ class MainPresenter(val model : Model, val runner : Runner, val rep : Repository
                 mView?.addCheck()
             })
         })
-
+        return true
     }
-
-
 
     fun attachView(view : MainActivity) {
         mView = view
@@ -61,6 +60,5 @@ class MainPresenter(val model : Model, val runner : Runner, val rep : Repository
     fun detachView() {
         mView = null
     }
-
 
 }

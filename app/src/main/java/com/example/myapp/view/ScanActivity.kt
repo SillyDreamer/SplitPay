@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import com.example.myapp.PresenterHolder
 import com.google.zxing.Result
 import me.dm7.barcodescanner.zxing.ZXingScannerView
@@ -46,16 +47,24 @@ class ScanActivity : AppCompatActivity(), ZXingScannerView.ResultHandler {
 
         println("key $key")
         if (key == 2) {
-            presenter.onButtonWasClicked("t=20191123T1821&s=1496.64&fn=9280440300065001&i=57638&fp=3805453234&n=1")
-            //presenter.onButtonWasClicked(rawResult.text)
-            val intent = Intent(this, AddUserActivity::class.java)
-            startActivity(intent)
+            //presenter.onButtonWasClicked("t=20191123T1821&s=1496.64&fn=9280440300065001&i=57638&fp=3805453234&n=1")
+            if (!presenter.onButtonWasClicked(rawResult.text)) {
+                Toast.makeText(this, "wrong qr", Toast.LENGTH_LONG).show()
+                onBackPressed()
+            }
+            else {
+                val intent = Intent(this, AddUserActivity::class.java)
+                startActivity(intent)
+            }
         }
 
 
         else if (key == 1) {
-           // presenter2.addOneMoreCheck(rawResult.text)
-            presenter2.addOneMoreCheck("t=20200202T2005&s=522.99&fn=9280440300066533&i=20646&fp=3057312554&n=1")
+            if (!presenter2.addOneMoreCheck(rawResult.text))
+            {
+                Toast.makeText(this, "wrong qr", Toast.LENGTH_LONG).show()
+            }
+           // presenter2.addOneMoreCheck("t=20200202T2005&s=522.99&fn=9280440300066533&i=20646&fp=3057312554&n=1")
             onBackPressed()
         }
 

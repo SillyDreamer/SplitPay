@@ -20,7 +20,6 @@ class RepositoryTest {
     fun setUp() {
         mJson = mock(JSONObject::class.java)
 
-
         mRepository = Repository()
     }
 
@@ -29,4 +28,5 @@ class RepositoryTest {
         mRepository.parseQr(null)
         //mRepository.loadMessage(null)
     }
+
 }

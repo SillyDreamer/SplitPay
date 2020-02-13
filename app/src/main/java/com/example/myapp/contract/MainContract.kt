@@ -13,6 +13,6 @@ interface MainContract {
     interface presenter {
         fun showData(check_id : Long)
         fun addMoneyFromUser(users : ArrayList<String>, money : ArrayList<Int>, id : ArrayList<Long>, check_id : Long)
-        fun addOneMoreCheck(qrResult: String?)
+        fun addOneMoreCheck(qrResult: String) : Boolean
     }
 }

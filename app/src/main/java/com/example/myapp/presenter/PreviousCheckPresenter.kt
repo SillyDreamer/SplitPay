@@ -10,8 +10,10 @@ class PreviousCheckPresenter(val model : Model, val runner : Runner, val rep : R
 
     var mView : PreviousCheckActivity? = null
 
-    fun onButtonWasClicked(qrResult: String?) {
-
+    fun onButtonWasClicked(qrResult: String) : Boolean {
+        if (!qrResult.matches(Regex("t=[0-9]*T[0-9]*&s=[0-9|.]*&fn=[0-9]*&i=[0-9]*&fp=[0-9]*&n=[0-9]"))) {
+            return false
+        }
         runner.runInBackground(Runnable {
             val arr = rep.loadMessage(qrResult)
             val parse = arr.first
@@ -22,6 +24,7 @@ class PreviousCheckPresenter(val model : Model, val runner : Runner, val rep : R
                 model.addToDBProduct(product)
             }
         })
+        return true
     }
 
     override fun showChecks() {

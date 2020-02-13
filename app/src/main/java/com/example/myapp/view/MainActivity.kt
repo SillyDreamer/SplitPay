@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.CheckBox
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapp.PresenterHolder
 import com.example.myapp.adapters.Adapter
@@ -144,4 +145,5 @@ class MainActivity : AppCompatActivity(), MainContract.view {
 
         recycle_view_main.adapter = adapter
     }
+
 }

@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -108,4 +109,5 @@ class PreviousCheckActivity : AppCompatActivity(), PreviousCheckContract.View {
         presenter.attachView(this)
         super.onStart()
     }
+
 }

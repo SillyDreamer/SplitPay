@@ -66,6 +66,9 @@ class Repository {
     fun parseResult(content: String) {
         parse.clear()
         val test = JSONObject(content).getJSONObject("document").getJSONObject("receipt").getJSONArray("items")
+        println("document == ${JSONObject(content).getJSONObject("document")} \n" +
+                "receipt == ${JSONObject(content).getJSONObject("document").getJSONObject("receipt")}\n" +
+                "items == $test")
         date = JSONObject(content).getJSONObject("document").getJSONObject("receipt").get("dateTime").toString()
         var date2 = date.substring(8, 10) + " "
         println(date.substring(5, 7))
