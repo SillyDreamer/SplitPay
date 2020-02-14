@@ -11,35 +11,84 @@
     android:orientation="horizontal" >
 
     <LinearLayout
+        android:layout_weight="20"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
     <TextView
+        android:textSize="18sp"
+        android:textColor="@color/primaryColor"
         android:layout_marginTop="15dp"
         android:layout_marginStart="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/name_result"
-        tools:text="NAME" />
+        tools:text="Diana"
+        android:layout_marginBottom="10dp"/>
     <TextView
         android:layout_marginTop="10dp"
         android:layout_marginStart="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/money_result"
-        tools:text="PRICE"
+        tools:text="Итого: 250.00"
+        android:layout_marginBottom="5dp"/>
+
+        <TextView
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv"
+        tools:text="Заплачено: 0.00"
+        android:layout_marginBottom="5dp"/>
+
+        <TextView
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv2"
+        tools:text="Осталось заплатить: 250.00"
         android:layout_marginBottom="5dp"/>
 
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginEnd="10dp"
+        android:layout_weight="1"
+        android:layout_gravity="end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+    <Button
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="50dp"
+        android:id="@+id/share_button"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:background="@android:drawable/ic_menu_share" />
+
     <Button
         android:layout_marginTop="15dp"
         android:layout_marginStart="50dp"
-        android:id="@+id/share_button"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:background="@android:drawable/ic_menu_share" />
+        android:id="@+id/edit_button"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:background="@android:drawable/ic_menu_edit" />
+
+    </LinearLayout>
+
 
 </LinearLayout>
+
+    <View
+        android:layout_marginTop="10dp"
+        android:id="@+id/view1"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray" />
 
 </LinearLayout>
