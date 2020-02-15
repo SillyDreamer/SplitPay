@@ -46,7 +46,7 @@ class ResultActivity : AppCompatActivity(), ResultContract.view {
 
     private fun listenerButton(id : Int) {
 
-        val mDialogView = LayoutInflater.from(this).inflate(R.layout.edit_dialog, null)
+        val mDialogView = LayoutInflater.from(this).inflate(R.layout.edit_dialog_pay, null)
         //AlertDialogBuilder
         val mBuilder = AlertDialog.Builder(this)
             .setView(mDialogView)
