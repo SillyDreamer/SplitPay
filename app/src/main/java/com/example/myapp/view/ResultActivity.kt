@@ -22,6 +22,7 @@ class ResultActivity : AppCompatActivity(), ResultContract.view {
 
     lateinit var presenter : ResultPresenter
     lateinit var users : ArrayList<User>
+    lateinit var adapter : AdapterResult
 
     @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,7 +42,8 @@ class ResultActivity : AppCompatActivity(), ResultContract.view {
 
     fun showUsers(array : ArrayList<User>) {
         users = array
-        recycleResult.adapter = AdapterResult(users, listener = {listener(it)}, listenerButton = {listenerButton(it)})
+        adapter = AdapterResult(users, listener = {listener(it)}, listenerButton = {listenerButton(it)})
+        recycleResult.adapter = adapter
     }
 
     private fun listenerButton(id : Int) {
@@ -57,10 +59,11 @@ class ResultActivity : AppCompatActivity(), ResultContract.view {
             //dismiss dialog
             mAlertDialog.dismiss()
             //get text from EditTexts of custom layout
-            val name = mDialogView.edit.text.toString()
+            val paid = mDialogView.edit.text.toString()
+            users[id].paid = paid.toInt()
             //arr[id] = Triple(arr[id].first, name, arr[id].third)
 
-            //adapter.notifyDataSetChanged()
+            adapter.notifyDataSetChanged()
             //set the input text in TextView
         }
         //cancel button click of custom layout

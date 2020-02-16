@@ -36,8 +36,8 @@ class AdapterResult(private var users : ArrayList<User>, val listener:(Int) -> U
         fun bind(pos : Int) {
             name.text = users[pos].name
             price.text = "Итого:  " + (users[pos].money.toString().toDouble() / 100).toString()
-            price3.text = "Осталось заплатить:  " + (users[pos].money.toString().toDouble() / 100).toString()
-            price2.text = "Заплачено:  0.00"
+            price3.text = "Осталось заплатить:  " + ((users[pos].money.toString().toDouble() / 100) - users[pos].paid.toString().toDouble()).toString()
+            price2.text = "Заплачено:  " + users[pos].paid.toString().toDouble()
             share.setOnClickListener {
                 listener(pos)
             }

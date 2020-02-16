@@ -11,8 +11,8 @@ class Model(val dbHandler : DBOpenHelper) {
         dbHandler.add(product)
     }
 
-    fun addToDBUser(name : String, money : Int) {
-        dbHandler.addUser(name, money)
+    fun addToDBUser(name : String) {
+        dbHandler.addUser(name)
     }
 
     fun addToDBCheck(name: String, date : String) {
@@ -70,6 +70,7 @@ class Model(val dbHandler : DBOpenHelper) {
                         User(
                             cursor.getString(cursor.getColumnIndex(DBOpenHelper.COLUMN_NAME)),
                             cursor.getInt(cursor.getColumnIndex(DBOpenHelper.COLUMN_MONEY)),
+                            cursor.getInt(cursor.getColumnIndex(DBOpenHelper.COLUMN_PAID)),
                             cursor.getLong(cursor.getColumnIndex(DBOpenHelper.COLUMN_ID))
                         )
                     )
@@ -79,8 +80,8 @@ class Model(val dbHandler : DBOpenHelper) {
         return arr
     }
 
-    fun updateUser(name : String, money : Int, id : Long, check_id : Long) {
-        dbHandler.updateUser(name, money, id, check_id)
+    fun updateUser(name : String, money : Int, paid : Int, id : Long, check_id : Long) {
+        dbHandler.updateUser(name, money, paid, id, check_id)
     }
 
 }

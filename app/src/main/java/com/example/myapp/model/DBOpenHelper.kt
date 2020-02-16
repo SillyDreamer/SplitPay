@@ -23,7 +23,7 @@ class DBOpenHelper(context: Context,
                 COLUMN_NAME + " TEXT," + COLUMN_PRICE + " TEXT," + COLUMN_COUNT + " TEXT," + COLUMN_CHECK_ID + " INTEGER" + ")")
         db.execSQL(CREATE_PRODUCTS_TABLE)
         val CREATE_USER_TABLE = ("CREATE TABLE " + TABLE_NAME2 + "(" + COLUMN_ID + " INTEGER PRIMARY KEY," +
-                COLUMN_NAME + " TEXT," + COLUMN_MONEY + " INTEGER," + COLUMN_CHECK_ID + " INTEGER" + ")")
+                COLUMN_NAME + " TEXT," + COLUMN_MONEY + " INTEGER," + COLUMN_PAID + " INTEGER," +  COLUMN_CHECK_ID + " INTEGER" + ")")
         db.execSQL(CREATE_USER_TABLE)
         Log.d("123", "onCreateDB")
     }
@@ -64,7 +64,7 @@ class DBOpenHelper(context: Context,
         db.close()
     }
 
-    fun addUser(name : String, money : Int) {
+    fun addUser(name : String) {
         var id : Long = 0
         val cursor = getChecks()
         if (cursor != null) {
@@ -77,6 +77,7 @@ class DBOpenHelper(context: Context,
         val values = ContentValues()
         values.put(COLUMN_NAME, name)
         values.put(COLUMN_MONEY, 0)
+        values.put(COLUMN_PAID, 0)
         values.put(COLUMN_CHECK_ID, id)
         val db = this.writableDatabase
         db.insert(TABLE_NAME2, null, values)
@@ -98,11 +99,12 @@ class DBOpenHelper(context: Context,
         return db.rawQuery("SELECT * FROM checks", null)
     }
 
-    fun updateUser(name : String, money : Int, id : Long, check_id : Long) {
+    fun updateUser(name : String, money : Int, paid: Int, id : Long, check_id : Long) {
         val db = this.writableDatabase
         val values = ContentValues()
         values.put(COLUMN_NAME, name)
         values.put(COLUMN_MONEY, money)
+        values.put(COLUMN_PAID, paid)
         values.put(COLUMN_CHECK_ID, check_id)
         db.update(TABLE_NAME2, values, "_id = $id", null)
     }
@@ -133,5 +135,6 @@ class DBOpenHelper(context: Context,
         val COLUMN_MONEY = "money"
         val COLUMN_CHECK_ID = "checkid"
         val COLUMN_DATE = "date"
+        val COLUMN_PAID = "paid"
     }
 }

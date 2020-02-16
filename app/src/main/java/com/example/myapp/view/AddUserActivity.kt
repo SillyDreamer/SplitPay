@@ -36,7 +36,7 @@ class AddUserActivity : AppCompatActivity(), AddUserContract.view {
 
         add.setOnClickListener {
             presenter.addButton(editText.text.toString(), 0)
-            listUser.add(User(editText.text.toString(), 0))
+            listUser.add(User(editText.text.toString(), 0, 0))
             adapter.notifyDataSetChanged()
             editText.setText("")
         }

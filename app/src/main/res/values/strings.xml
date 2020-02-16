@@ -15,4 +15,6 @@
     <string name="title_activity_fab">Fab</string>
     <string name="name_check">name</string>
     <string name="date_check">date</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
 </resources>

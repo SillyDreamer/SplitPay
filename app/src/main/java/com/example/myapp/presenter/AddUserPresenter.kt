@@ -10,7 +10,7 @@ class AddUserPresenter(var model :  Model, val runner: Runner) : AddUserContract
     var mView : AddUserActivity? = null
 
     override fun addButton(name: String, money : Int) {
-        runner.runInBackground(Runnable { model.addToDBUser(name, money) })
+        runner.runInBackground(Runnable { model.addToDBUser(name) })
     }
 
      fun attachView(view : AddUserActivity) {
@@ -26,7 +26,6 @@ class AddUserPresenter(var model :  Model, val runner: Runner) : AddUserContract
             val id = model.showCheckId()
             runner.runOnMain(Runnable {
                 if (mView != null) {
-                    println("AAAAAAA check id $id")
                     mView?.showCheckId(id)
                 }
             })

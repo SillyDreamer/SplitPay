@@ -14,7 +14,7 @@ class MainPresenter(val model : Model, val runner : Runner, val rep : Repository
     override fun addMoneyFromUser(users : ArrayList<String>, money : ArrayList<Int>, id : ArrayList<Long>, check_id : Long) {
         runner.runInBackground(Runnable {
             for (i in 0 until users.size) {
-                model.updateUser(users[i], money[i], id[i], check_id)
+                model.updateUser(users[i], money[i], 0, id[i], check_id)
             }
         })
 
