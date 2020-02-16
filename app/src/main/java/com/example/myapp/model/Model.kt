@@ -35,7 +35,9 @@ class Model(val dbHandler : DBOpenHelper) {
         val arr = arrayListOf<Triple<String, String, String>>()
         if (cursor != null) {
             while(cursor.moveToNext()) {
-                arr.add(Triple(cursor.getLong(cursor.getColumnIndex(DBOpenHelper.COLUMN_ID)).toString(), cursor.getString(cursor.getColumnIndex(DBOpenHelper.COLUMN_NAME)), cursor.getString(cursor.getColumnIndex(DBOpenHelper.COLUMN_DATE))))
+                arr.add(Triple(cursor.getLong(cursor.getColumnIndex(DBOpenHelper.COLUMN_ID)).toString(),
+                    cursor.getString(cursor.getColumnIndex(DBOpenHelper.COLUMN_NAME)),
+                    cursor.getString(cursor.getColumnIndex(DBOpenHelper.COLUMN_DATE))))
             }
         }
         return arr
@@ -82,6 +84,10 @@ class Model(val dbHandler : DBOpenHelper) {
 
     fun updateUser(name : String, money : Int, paid : Int, id : Long, check_id : Long) {
         dbHandler.updateUser(name, money, paid, id, check_id)
+    }
+
+    fun updateCheck(name : String, date : String, id : Long) {
+        dbHandler.updateCheck(name, date, id)
     }
 
 }

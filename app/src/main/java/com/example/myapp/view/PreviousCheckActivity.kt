@@ -82,6 +82,7 @@ class PreviousCheckActivity : AppCompatActivity(), PreviousCheckContract.View {
             val name = mDialogView.edit.text.toString()
             arr[id] = Triple(arr[id].first, name, arr[id].third)
 
+            presenter.updateCheck(name, arr[id].third, arr[id].first.toLong())
             adapter.notifyDataSetChanged()
             //set the input text in TextView
         }

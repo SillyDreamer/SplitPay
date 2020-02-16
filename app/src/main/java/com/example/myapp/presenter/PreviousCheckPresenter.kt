@@ -36,6 +36,12 @@ class PreviousCheckPresenter(val model : Model, val runner : Runner, val rep : R
         })
     }
 
+    fun updateCheck(name : String, date : String, id : Long) {
+        runner.runInBackground(Runnable {
+            model.updateCheck(name, date, id)
+        })
+    }
+
     fun attachView(view : PreviousCheckActivity) {
         mView = view
     }
