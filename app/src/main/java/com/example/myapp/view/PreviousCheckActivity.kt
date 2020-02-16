@@ -58,12 +58,10 @@ class PreviousCheckActivity : AppCompatActivity(), PreviousCheckContract.View {
 
 
         recycle_view_previous.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
-
-
     }
 
     private fun listener(id : Long) {
-        val intent = Intent(this, MainActivity::class.java)
+        val intent = Intent(this, ResultActivity::class.java)
         intent.putExtra("check_id", id)
         startActivity(intent)
     }

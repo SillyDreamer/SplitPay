@@ -109,6 +109,14 @@ class DBOpenHelper(context: Context,
         db.update(TABLE_NAME2, values, "_id = $id", null)
     }
 
+    fun updateCheck(name : String, date : String, id: Long) {
+        val db = this.writableDatabase
+        val values = ContentValues()
+        values.put(COLUMN_NAME, name)
+        values.put(COLUMN_DATE, date)
+        db.update(TABLE_NAME3, values, "_id = $id", null)
+    }
+
     fun dropTable() {
         val db = this.writableDatabase
         db.execSQL("DROP TABLE " + TABLE_NAME)

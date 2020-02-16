@@ -23,6 +23,7 @@ class ResultActivity : AppCompatActivity(), ResultContract.view {
     lateinit var presenter : ResultPresenter
     lateinit var users : ArrayList<User>
     lateinit var adapter : AdapterResult
+    var check_id : Long = 0
 
     @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,7 +32,7 @@ class ResultActivity : AppCompatActivity(), ResultContract.view {
 
         presenter = (application as PresenterHolder).getResultPresenter()
 
-        val check_id = intent.getLongExtra("check_id", 0)
+        check_id = intent.getLongExtra("check_id", 0)
 
         presenter.showUsers(check_id)
 
@@ -59,10 +60,13 @@ class ResultActivity : AppCompatActivity(), ResultContract.view {
             //dismiss dialog
             mAlertDialog.dismiss()
             //get text from EditTexts of custom layout
-            val paid = mDialogView.edit.text.toString()
-            users[id].paid = paid.toInt()
+            val paid = mDialogView.edit.text.toString().toInt()
+            users[id].paid = paid
+
+
             //arr[id] = Triple(arr[id].first, name, arr[id].third)
 
+            presenter.updateUser(users[id].name, users[id].money, paid, users[id].id, check_id)
             adapter.notifyDataSetChanged()
             //set the input text in TextView
         }
