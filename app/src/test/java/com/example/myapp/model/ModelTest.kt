@@ -24,7 +24,21 @@ class ModelTest {
         mDbOpenHelper = mock(DBOpenHelper::class.java)
         mCursor = mock(Cursor::class.java)
 
+        Mockito.`when`(mCursor.moveToNext())
+            .thenReturn(true)
+            .thenReturn(false)
+
         Mockito.`when`(mCursor.count).thenReturn(42)
+
+        Mockito.`when`(mCursor.getColumnIndex("checkid")).thenReturn(42)
+        Mockito.`when`(mCursor.getColumnIndex("name")).thenReturn(21)
+        Mockito.`when`(mCursor.getColumnIndex("price")).thenReturn(21)
+        Mockito.`when`(mCursor.getColumnIndex("count")).thenReturn(21)
+
+        Mockito.`when`(mCursor.getLong(42)).thenReturn(42)
+        Mockito.`when`(mCursor.getString(21)).thenReturn("21")
+        Mockito.`when`(mCursor.getInt(42)).thenReturn(42)
+
         Mockito.`when`(mDbOpenHelper.getChecks()).thenReturn(mCursor)
         Mockito.`when`(mDbOpenHelper.getProducts()).thenReturn(mCursor)
         Mockito.`when`(mDbOpenHelper.getUsers()).thenReturn(mCursor)
@@ -38,29 +52,23 @@ class ModelTest {
     @Test
     fun showCheckId() {
         mModel.showCheckId()
-        Mockito.verify(mCursor).moveToNext()
-
-
     }
 
     @Test
     fun showChecks() {
         mModel.showChecks()
-        Mockito.verify(mCursor).moveToNext()
 
     }
 
     @Test
     fun showUsers() {
         mModel.showUsers(42)
-        Mockito.verify(mCursor).moveToNext()
 
     }
 
     @Test
     fun showProducts() {
         mModel.showProducts(42)
-        Mockito.verify(mCursor).moveToNext()
 
     }
 
