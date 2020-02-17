@@ -50,6 +50,13 @@ class PreviousCheckPresenterTest {
     fun buttonClick() {
         mPresenter.attachView(mView)
         mPresenter.onButtonWasClicked("t=20200129T1400&s=180.00&fn=9284000100287274&i=24351&fp=4163484040&n=1")
+        mPresenter.onButtonWasClicked("123")
+    }
+
+    @Test
+    fun update() {
+        mPresenter.attachView(mView)
+        mPresenter.updateCheck("name", "date", 42)
     }
 
     @Test

@@ -66,8 +66,8 @@ class ModelTest {
 
     @Test
     fun addToDB() {
-        mModel.addToDBUser("user", 0)
-        Mockito.verify(mDbOpenHelper).addUser("user", 0)
+        mModel.addToDBUser("user")
+        Mockito.verify(mDbOpenHelper).addUser("user")
         mModel.addToDBCheck("name", "date")
         Mockito.verify(mDbOpenHelper).addCheck("name", "date")
         mModel.addToDBProduct(Product("name", "price", "count"))
@@ -76,7 +76,7 @@ class ModelTest {
 
     @Test
     fun update() {
-        mModel.updateUser("name", 0, 21, 42)
-        Mockito.verify(mDbOpenHelper).updateUser("name", 0, 21, 42)
+        mModel.updateUser("name", 0, 0, 42, 42)
+        Mockito.verify(mDbOpenHelper).updateUser("name", 0, 0, 42, 42)
     }
 }

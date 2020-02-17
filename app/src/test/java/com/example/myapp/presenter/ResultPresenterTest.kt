@@ -29,7 +29,7 @@ class ResultPresenterTest {
         mView = mock(ResultActivity::class.java)
         mModel = mock(Model::class.java)
 
-        Mockito.`when`(mModel.showUsers(42)).thenReturn(arrayListOf(User("diana", 0)))
+        Mockito.`when`(mModel.showUsers(42)).thenReturn(arrayListOf(User("diana", 0, 0)))
 
         mPresenter = ResultPresenter(mModel, StubRunner())
     }
@@ -38,7 +38,13 @@ class ResultPresenterTest {
     fun showUsers() {
         mPresenter.attachView(mView)
         mPresenter.showUsers(42)
-        Mockito.verify(mView).showUsers(arrayListOf(User("diana", 0)))
+        Mockito.verify(mView).showUsers(arrayListOf(User("diana", 0, 0)))
+    }
+
+    @Test
+    fun update() {
+        mPresenter.attachView(mView)
+        mPresenter.updateUser("name", 200, 100, 42, 21)
     }
 
     @Test
@@ -46,11 +52,11 @@ class ResultPresenterTest {
 
         mPresenter.attachView(mView)
         mPresenter.showUsers(42)
-        Mockito.verify(mView).showUsers(arrayListOf(User("diana", 0)))
+        Mockito.verify(mView).showUsers(arrayListOf(User("diana", 0, 0)))
 
         mPresenter.detachView()
         mPresenter.showUsers(42)
-        Mockito.verify(mView).showUsers(arrayListOf(User("diana", 0)))
+        Mockito.verify(mView).showUsers(arrayListOf(User("diana", 0, 0)))
         Mockito.verifyNoMoreInteractions(mView)
     }
 }

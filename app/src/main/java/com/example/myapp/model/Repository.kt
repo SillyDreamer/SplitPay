@@ -53,12 +53,8 @@ class Repository {
                     println("content1 = $content")
                 }
             }
-            else if (responseCode == 406) {
-                println("code == 406")
-            }
         }
-            println("content2 = $content")
-            parseResult(content)
+        parseResult(content)
         return Pair(parse, date)
     }
 
@@ -66,12 +62,8 @@ class Repository {
     fun parseResult(content: String) {
         parse.clear()
         val test = JSONObject(content).getJSONObject("document").getJSONObject("receipt").getJSONArray("items")
-        println("document == ${JSONObject(content).getJSONObject("document")} \n" +
-                "receipt == ${JSONObject(content).getJSONObject("document").getJSONObject("receipt")}\n" +
-                "items == $test")
         date = JSONObject(content).getJSONObject("document").getJSONObject("receipt").get("dateTime").toString()
         var date2 = date.substring(8, 10) + " "
-        println(date.substring(5, 7))
         if (date.substring(5, 7) == "01")
             date2 += "января"
         else if(date.substring(5, 7) == "02")

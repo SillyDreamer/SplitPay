@@ -26,7 +26,7 @@ class RepositoryTest {
     @Test
     fun testParser() {
         mRepository.parseQr(null)
-        //mRepository.loadMessage(null)
+        mRepository.loadMessage(null)
     }
 
 }
