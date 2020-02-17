@@ -14,7 +14,7 @@ class RepositoryTest {
     lateinit var mRepository: Repository
 
     @Mock
-    lateinit var mJson : JSONObject
+    lateinit var mJson: JSONObject
 
     @Before
     fun setUp() {

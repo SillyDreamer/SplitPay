@@ -8,7 +8,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapp.R
 
-class AdapterPreviousCheck(private var list : ArrayList<Triple<String, String, String>>, val listener:(Long) -> Unit, val listener2:(Int) -> Unit) : RecyclerView.Adapter<AdapterPreviousCheck.ViewHolder>() {
+class AdapterPreviousCheck(
+    private var list: ArrayList<Triple<String, String, String>>,
+    val listener: (Long) -> Unit,
+    val listener2: (Int) -> Unit
+) : RecyclerView.Adapter<AdapterPreviousCheck.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView =
             LayoutInflater.from(parent.context).inflate(R.layout.list_previous_check, parent, false)
@@ -23,9 +27,9 @@ class AdapterPreviousCheck(private var list : ArrayList<Triple<String, String, S
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var id : TextView = itemView.findViewById(R.id.text)
-        var date : TextView = itemView.findViewById(R.id.text2)
-        var but : Button = itemView.findViewById(R.id.edit_button)
+        var id: TextView = itemView.findViewById(R.id.text)
+        var date: TextView = itemView.findViewById(R.id.text2)
+        var but: Button = itemView.findViewById(R.id.edit_button)
         fun bind(position: Int) {
             id.text = list[position].second
             id.setOnClickListener {

@@ -6,11 +6,12 @@ import com.example.myapp.model.Repository
 import com.example.myapp.utils.Runner
 import com.example.myapp.view.PreviousCheckActivity
 
-class PreviousCheckPresenter(val model : Model, val runner : Runner, val rep : Repository) : PreviousCheckContract.Presenter {
+class PreviousCheckPresenter(val model: Model, val runner: Runner, val rep: Repository) :
+    PreviousCheckContract.Presenter {
 
-    var mView : PreviousCheckActivity? = null
+    var mView: PreviousCheckActivity? = null
 
-    fun onButtonWasClicked(qrResult: String) : Boolean {
+    fun onButtonWasClicked(qrResult: String): Boolean {
         if (!qrResult.matches(Regex("t=[0-9]*T[0-9]*&s=[0-9|.]*&fn=[0-9]*&i=[0-9]*&fp=[0-9]*&n=[0-9]"))) {
             return false
         }
@@ -36,17 +37,17 @@ class PreviousCheckPresenter(val model : Model, val runner : Runner, val rep : R
         })
     }
 
-    fun updateCheck(name : String, date : String, id : Long) {
+    override fun updateCheck(name: String, date: String, id: Long) {
         runner.runInBackground(Runnable {
             model.updateCheck(name, date, id)
         })
     }
 
-    fun attachView(view : PreviousCheckActivity) {
+    override fun attachView(view: PreviousCheckActivity) {
         mView = view
     }
 
-    fun detachView() {
+    override fun detachView() {
         mView = null
     }
 }

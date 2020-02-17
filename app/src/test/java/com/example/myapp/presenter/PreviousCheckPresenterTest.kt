@@ -16,14 +16,14 @@ import org.mockito.Mockito.mock
 class PreviousCheckPresenterTest {
 
     @Mock
-    lateinit var mView : PreviousCheckActivity
+    lateinit var mView: PreviousCheckActivity
 
     @Mock
-    lateinit var mModel : Model
+    lateinit var mModel: Model
 
-    lateinit var mPresenter : PreviousCheckPresenter
+    lateinit var mPresenter: PreviousCheckPresenter
 
-    lateinit var mRep : Repository
+    lateinit var mRep: Repository
 
     @Before
     fun setUp() {
@@ -33,8 +33,12 @@ class PreviousCheckPresenterTest {
         mRep = mock(Repository::class.java)
 
         Mockito.`when`(mModel.showChecks()).thenReturn(arrayListOf(Triple("42", "name", "date")))
-        Mockito.`when`(mRep.loadMessage("t=20200129T1400&s=180.00&fn=9284000100287274&i=24351&fp=4163484040&n=1")).thenReturn(Pair(
-            arrayListOf(Product("Спагетти карбонара", "1800", "1")), "date"))
+        Mockito.`when`(mRep.loadMessage("t=20200129T1400&s=180.00&fn=9284000100287274&i=24351&fp=4163484040&n=1"))
+            .thenReturn(
+                Pair(
+                    arrayListOf(Product("Спагетти карбонара", "1800", "1")), "date"
+                )
+            )
 
         mPresenter = PreviousCheckPresenter(mModel, StubRunner(), mRep)
     }

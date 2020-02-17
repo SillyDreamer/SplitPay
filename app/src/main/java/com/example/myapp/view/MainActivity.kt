@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.CheckBox
 import android.widget.LinearLayout
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapp.PresenterHolder
 import com.example.myapp.adapters.Adapter
@@ -14,22 +13,19 @@ import com.example.myapp.contract.MainContract
 import com.example.myapp.model.Product
 import com.example.myapp.presenter.MainPresenter
 import com.example.myapp.R
-import com.example.myapp.model.Model
 import com.example.myapp.model.User
-import com.example.myapp.utils.RealRunner
-import com.example.myapp.utils.Runner
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), MainContract.view {
+class MainActivity : AppCompatActivity(), MainContract.View {
 
-    lateinit var presenter : MainPresenter
+    lateinit var presenter: MainPresenter
     private var count = hashMapOf<Int, Int>()
-    lateinit var adapter : Adapter
+    lateinit var adapter: Adapter
 
-    private var check_id  : Long = 0
+    private var check_id: Long = 0
 
-    var users : ArrayList<User> = arrayListOf()
-    var products : ArrayList<Product> = arrayListOf()
+    var users: ArrayList<User> = arrayListOf()
+    var products: ArrayList<Product> = arrayListOf()
 
     @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,7 +44,7 @@ class MainActivity : AppCompatActivity(), MainContract.view {
             intent.putExtra("key", 1)
             startActivity(intent)
 
-            //presenter.addOneMoreCheck("t=20200129T1400&s=180.00&fn=9284000100287274&i=24351&fp=4163484040&n=1")
+            //Presenter.addOneMoreCheck("t=20200129T1400&s=180.00&fn=9284000100287274&i=24351&fp=4163484040&n=1")
 
         }
 
@@ -62,7 +58,7 @@ class MainActivity : AppCompatActivity(), MainContract.view {
                 money.add(0)
                 id.add(x.id)
             }
-            for ((k , v) in adapter.checkMap) {
+            for ((k, v) in adapter.checkMap) {
                 var i = 0
                 for (x in v) {
                     if (x.isChecked)
@@ -70,13 +66,13 @@ class MainActivity : AppCompatActivity(), MainContract.view {
                 }
                 for (x in v) {
                     if (x.isChecked) {
-                        money[user.indexOf(x.text.toString())] = money[user.indexOf(x.text.toString())] +  k.second.toInt() / i
+                        money[user.indexOf(x.text.toString())] =
+                            money[user.indexOf(x.text.toString())] + k.second.toInt() / i
                     }
                 }
             }
 
             presenter.addMoneyFromUser(user, money, id, check_id)
-
 
 
             val intent = Intent(this, ResultActivity::class.java)
@@ -86,7 +82,7 @@ class MainActivity : AppCompatActivity(), MainContract.view {
     }
 
 
-    fun addCheck() {
+    override fun addCheck() {
         val check = adapter.checkMap
         presenter.showData(check_id)
         adapter = Adapter(
@@ -101,7 +97,11 @@ class MainActivity : AppCompatActivity(), MainContract.view {
     }
 
 
-    fun listener(hashMap: HashMap<Pair<String, String>, ArrayList<CheckBox>>, list: List<Product>, i: Int) {
+    private fun listener(
+        hashMap: HashMap<Pair<String, String>, ArrayList<CheckBox>>,
+        list: List<Product>,
+        i: Int
+    ) {
         if (count.containsKey(i))
             count[i] = count[i]!! + 1
         else
@@ -112,13 +112,25 @@ class MainActivity : AppCompatActivity(), MainContract.view {
                 if (count[i]!! % 2 == 1) {
                     if (!cb.isChecked)
                         cb.isChecked = true
-                }
-                else {
+                } else {
                     if (cb.isChecked)
                         cb.isChecked = false
                 }
             }
         }
+    }
+
+    override fun showData(pr: ArrayList<Product>, us: ArrayList<User>) {
+        products = pr
+        users = us
+        adapter = Adapter(
+            products,
+            users
+        ) { hashMap: HashMap<Pair<String, String>, ArrayList<CheckBox>>, list: List<Product>, i: Int ->
+            listener(hashMap, list, i)
+        }
+
+        recycle_view_main.adapter = adapter
     }
 
     override fun onStop() {
@@ -130,20 +142,6 @@ class MainActivity : AppCompatActivity(), MainContract.view {
         super.onStart()
         presenter.attachView(this)
 
-    }
-
-
-    fun showData(pr : ArrayList<Product>, us : ArrayList<User>) {
-        products = pr
-        users = us
-        adapter = Adapter(
-            products,
-            users
-        ) { hashMap: HashMap<Pair<String, String>, ArrayList<CheckBox>>, list: List<Product>, i: Int ->
-            listener(hashMap, list, i)
-        }
-
-        recycle_view_main.adapter = adapter
     }
 
 }

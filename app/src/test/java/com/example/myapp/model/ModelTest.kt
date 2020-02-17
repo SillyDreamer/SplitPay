@@ -31,7 +31,7 @@ class ModelTest {
 
 
         mModel = Model(mDbOpenHelper)
-        val user = User("user", 0, 42)
+        val user = User("user", 0, 42, 22)
         user.id = 42
     }
 
@@ -78,5 +78,7 @@ class ModelTest {
     fun update() {
         mModel.updateUser("name", 0, 0, 42, 42)
         Mockito.verify(mDbOpenHelper).updateUser("name", 0, 0, 42, 42)
+        mModel.updateCheck("name", "date", 1)
+        Mockito.verify(mDbOpenHelper).updateCheck("name", "date", 1)
     }
 }

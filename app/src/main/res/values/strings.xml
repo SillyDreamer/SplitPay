@@ -17,4 +17,6 @@
     <string name="date_check">date</string>
     <string name="cancel">Cancel</string>
     <string name="ok">OK</string>
+    <string name="enter_name">Enter name</string>
+    <string name="pay">Заплатил</string>
 </resources>

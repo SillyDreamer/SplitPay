@@ -1,6 +1,6 @@
 package com.example.myapp.utils
 
-class StubRunner: Runner {
+class StubRunner : Runner {
     override fun runInBackground(task: Runnable) {
         task.run()
     }

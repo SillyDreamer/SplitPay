@@ -5,23 +5,23 @@ import com.example.myapp.model.Model
 import com.example.myapp.utils.Runner
 import com.example.myapp.view.AddUserActivity
 
-class AddUserPresenter(var model :  Model, val runner: Runner) : AddUserContract.Presenter {
+class AddUserPresenter(var model: Model, val runner: Runner) : AddUserContract.Presenter {
 
-    var mView : AddUserActivity? = null
+    var mView: AddUserActivity? = null
 
-    override fun addButton(name: String, money : Int) {
+    override fun addButton(name: String, money: Int) {
         runner.runInBackground(Runnable { model.addToDBUser(name) })
     }
 
-     fun attachView(view : AddUserActivity) {
-         mView = view
-     }
+    override fun attachView(view: AddUserActivity) {
+        mView = view
+    }
 
-    fun detachView() {
+    override fun detachView() {
         mView = null
     }
 
-    fun lastCheckId() {
+    override fun lastCheckId() {
         runner.runInBackground(Runnable {
             val id = model.showCheckId()
             runner.runOnMain(Runnable {

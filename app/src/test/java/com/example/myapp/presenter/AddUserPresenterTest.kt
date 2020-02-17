@@ -38,7 +38,7 @@ class AddUserPresenterTest {
     @Test
     fun lastCheckId() {
 
-        val id : Long = 42
+        val id: Long = 42
         mPresenter.attachView(mView)
         mPresenter.lastCheckId()
         Mockito.verify(mView).showCheckId(Mockito.eq(id))
@@ -54,7 +54,7 @@ class AddUserPresenterTest {
 
     @Test
     fun attachAndDetach() {
-        val id : Long = 42
+        val id: Long = 42
 
         mPresenter.attachView(mView)
         mPresenter.lastCheckId()

@@ -7,23 +7,28 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
 
-class DBOpenHelper(context: Context,
-                   factory: SQLiteDatabase.CursorFactory?
-): SQLiteOpenHelper(context,
+class DBOpenHelper(
+    context: Context,
+    factory: SQLiteDatabase.CursorFactory?
+) : SQLiteOpenHelper(
+    context,
     DATABASE_NAME, factory,
     DATABASE_VERSION
 ) {
 
     override fun onCreate(db: SQLiteDatabase) {
 
-        val CHECK_TABLE = ("CREATE TABLE $TABLE_NAME3($COLUMN_ID INTEGER PRIMARY KEY, $COLUMN_NAME TEXT, $COLUMN_DATE TEXT)")
+        val CHECK_TABLE =
+            ("CREATE TABLE $TABLE_NAME3($COLUMN_ID INTEGER PRIMARY KEY, $COLUMN_NAME TEXT, $COLUMN_DATE TEXT)")
         db.execSQL(CHECK_TABLE)
 
-        val CREATE_PRODUCTS_TABLE = ("CREATE TABLE " + TABLE_NAME + "(" + COLUMN_ID + " INTEGER PRIMARY KEY," +
-                COLUMN_NAME + " TEXT," + COLUMN_PRICE + " TEXT," + COLUMN_COUNT + " TEXT," + COLUMN_CHECK_ID + " INTEGER" + ")")
+        val CREATE_PRODUCTS_TABLE =
+            ("CREATE TABLE " + TABLE_NAME + "(" + COLUMN_ID + " INTEGER PRIMARY KEY," +
+                    COLUMN_NAME + " TEXT," + COLUMN_PRICE + " TEXT," + COLUMN_COUNT + " TEXT," + COLUMN_CHECK_ID + " INTEGER" + ")")
         db.execSQL(CREATE_PRODUCTS_TABLE)
-        val CREATE_USER_TABLE = ("CREATE TABLE " + TABLE_NAME2 + "(" + COLUMN_ID + " INTEGER PRIMARY KEY," +
-                COLUMN_NAME + " TEXT," + COLUMN_MONEY + " INTEGER," + COLUMN_PAID + " INTEGER," +  COLUMN_CHECK_ID + " INTEGER" + ")")
+        val CREATE_USER_TABLE =
+            ("CREATE TABLE " + TABLE_NAME2 + "(" + COLUMN_ID + " INTEGER PRIMARY KEY," +
+                    COLUMN_NAME + " TEXT," + COLUMN_MONEY + " INTEGER," + COLUMN_PAID + " INTEGER," + COLUMN_CHECK_ID + " INTEGER" + ")")
         db.execSQL(CREATE_USER_TABLE)
         Log.d("123", "onCreateDB")
     }
@@ -35,7 +40,7 @@ class DBOpenHelper(context: Context,
         onCreate(db)
     }
 
-    fun addCheck(name: String, date : String) {
+    fun addCheck(name: String, date: String) {
         val values = ContentValues()
         values.put(COLUMN_NAME, name)
         values.put(COLUMN_DATE, date)
@@ -44,9 +49,9 @@ class DBOpenHelper(context: Context,
         db.close()
     }
 
-    fun add(product : Product) {
-        var id : Long = 0
-        val cursor =  getChecks()
+    fun add(product: Product) {
+        var id: Long = 0
+        val cursor = getChecks()
         if (cursor != null) {
             while (cursor.moveToNext()) {
                 id = cursor.getLong(cursor.getColumnIndex(COLUMN_ID))
@@ -64,8 +69,8 @@ class DBOpenHelper(context: Context,
         db.close()
     }
 
-    fun addUser(name : String) {
-        var id : Long = 0
+    fun addUser(name: String) {
+        var id: Long = 0
         val cursor = getChecks()
         if (cursor != null) {
             while (cursor.moveToNext()) {
@@ -84,22 +89,22 @@ class DBOpenHelper(context: Context,
         db.close()
     }
 
-    fun getProducts() : Cursor? {
+    fun getProducts(): Cursor? {
         val db = this.readableDatabase
         return db.rawQuery("SELECT * FROM $TABLE_NAME", null)
     }
 
-    fun getUsers() : Cursor? {
+    fun getUsers(): Cursor? {
         val db = this.readableDatabase
         return db.rawQuery("SELECT * FROM users", null)
     }
 
-    fun getChecks() : Cursor? {
+    fun getChecks(): Cursor? {
         val db = this.readableDatabase
         return db.rawQuery("SELECT * FROM checks", null)
     }
 
-    fun updateUser(name : String, money : Int, paid: Int, id : Long, check_id : Long) {
+    fun updateUser(name: String, money: Int, paid: Int, id: Long, check_id: Long) {
         val db = this.writableDatabase
         val values = ContentValues()
         values.put(COLUMN_NAME, name)
@@ -109,7 +114,7 @@ class DBOpenHelper(context: Context,
         db.update(TABLE_NAME2, values, "_id = $id", null)
     }
 
-    fun updateCheck(name : String, date : String, id: Long) {
+    fun updateCheck(name: String, date: String, id: Long) {
         val db = this.writableDatabase
         val values = ContentValues()
         values.put(COLUMN_NAME, name)
@@ -121,11 +126,13 @@ class DBOpenHelper(context: Context,
         val db = this.writableDatabase
         db.execSQL("DROP TABLE " + TABLE_NAME)
         db.execSQL("DROP TABLE " + TABLE_NAME2)
-        val CREATE_PRODUCTS_TABLE = ("CREATE TABLE " + TABLE_NAME + "(" + COLUMN_ID + " INTEGER PRIMARY KEY," +
-                COLUMN_NAME + " TEXT," + COLUMN_PRICE + " TEXT," + COLUMN_COUNT + " TEXT," + COLUMN_CHECK_ID + " INTEGER" + ")")
+        val CREATE_PRODUCTS_TABLE =
+            ("CREATE TABLE " + TABLE_NAME + "(" + COLUMN_ID + " INTEGER PRIMARY KEY," +
+                    COLUMN_NAME + " TEXT," + COLUMN_PRICE + " TEXT," + COLUMN_COUNT + " TEXT," + COLUMN_CHECK_ID + " INTEGER" + ")")
         db.execSQL(CREATE_PRODUCTS_TABLE)
-        val CREATE_USER_TABLE = ("CREATE TABLE " + TABLE_NAME2 + "(" + COLUMN_ID + " INTEGER PRIMARY KEY," +
-                COLUMN_NAME + " TEXT," + COLUMN_MONEY + " INTEGER," + COLUMN_CHECK_ID + " INTEGER" + ")")
+        val CREATE_USER_TABLE =
+            ("CREATE TABLE " + TABLE_NAME2 + "(" + COLUMN_ID + " INTEGER PRIMARY KEY," +
+                    COLUMN_NAME + " TEXT," + COLUMN_MONEY + " INTEGER," + COLUMN_CHECK_ID + " INTEGER" + ")")
         db.execSQL(CREATE_USER_TABLE)
     }
 

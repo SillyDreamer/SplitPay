@@ -4,28 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.AddUserActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".view.AddUserActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
-    <EditText
-        android:layout_weight="3"
-        android:id="@+id/editText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName" />
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:ems="10"
+            android:inputType="textPersonName" />
 
-    <Button
-        android:layout_weight="1"
-        android:layout_width="30dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/add"
-        android:text="@string/button_add" />
+        <Button
+            android:id="@+id/add"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/button_add" />
 
     </LinearLayout>
 
@@ -33,13 +33,13 @@
         android:id="@+id/recycle_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"/>
+        android:layout_weight="1" />
 
     <Button
         android:id="@+id/button_next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/next"
-        android:layout_weight="0"/>
+        android:layout_weight="0"
+        android:text="@string/next" />
 
 </LinearLayout>

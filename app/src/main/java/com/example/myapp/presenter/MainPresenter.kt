@@ -7,11 +7,17 @@ import com.example.myapp.model.Repository
 import com.example.myapp.utils.Runner
 import com.example.myapp.view.MainActivity
 
-class MainPresenter(val model : Model, val runner : Runner, val rep : Repository): MainContract.presenter {
+class MainPresenter(val model: Model, val runner: Runner, val rep: Repository) :
+    MainContract.Presenter {
 
-    var mView : MainActivity? = null
+    var mView: MainActivity? = null
 
-    override fun addMoneyFromUser(users : ArrayList<String>, money : ArrayList<Int>, id : ArrayList<Long>, check_id : Long) {
+    override fun addMoneyFromUser(
+        users: ArrayList<String>,
+        money: ArrayList<Int>,
+        id: ArrayList<Long>,
+        check_id: Long
+    ) {
         runner.runInBackground(Runnable {
             for (i in 0 until users.size) {
                 model.updateUser(users[i], money[i], 0, id[i], check_id)
@@ -20,14 +26,16 @@ class MainPresenter(val model : Model, val runner : Runner, val rep : Repository
 
     }
 
-    override fun showData(check_id : Long) {
+    override fun showData(check_id: Long) {
 
         runner.runInBackground(Runnable {
             val product = model.showProducts(check_id)
             val user = model.showUsers(check_id)
-            runner.runOnMain(Runnable {if (mView != null) {
-                mView?.showData(product, user)
-            }  })
+            runner.runOnMain(Runnable {
+                if (mView != null) {
+                    mView?.showData(product, user)
+                }
+            })
         })
     }
 
@@ -36,7 +44,7 @@ class MainPresenter(val model : Model, val runner : Runner, val rep : Repository
     var parse: ArrayList<Product> = arrayListOf()
 
 
-    override fun addOneMoreCheck(qrResult: String) : Boolean {
+    override fun addOneMoreCheck(qrResult: String): Boolean {
         if (!qrResult.matches(Regex("t=[0-9]*T[0-9]*&s=[0-9|.]*&fn=[0-9]*&i=[0-9]*&fp=[0-9]*&n=[0-9]"))) {
             return false
         }
@@ -53,11 +61,11 @@ class MainPresenter(val model : Model, val runner : Runner, val rep : Repository
         return true
     }
 
-    fun attachView(view : MainActivity) {
+    override fun attachView(view: MainActivity) {
         mView = view
     }
 
-    fun detachView() {
+    override fun detachView() {
         mView = null
     }
 

@@ -1,13 +1,8 @@
 package com.example.myapp.model
 
-import android.os.AsyncTask
-import android.os.Handler
-import android.os.Looper
-import android.util.Log
 import org.json.JSONObject
 import java.net.HttpURLConnection
 import java.net.URL
-import java.util.concurrent.Executors
 import java.util.regex.Pattern
 
 
@@ -19,7 +14,7 @@ class Repository {
     var parse: ArrayList<Product> = arrayListOf()
     var date = ""
 
-    fun loadMessage(qrResult : String?) : Pair<ArrayList<Product>, String> {
+    fun loadMessage(qrResult: String?): Pair<ArrayList<Product>, String> {
 
         val arr = parseQr(qrResult)
         var content = ""
@@ -61,43 +56,55 @@ class Repository {
 
     fun parseResult(content: String) {
         parse.clear()
-        val test = JSONObject(content).getJSONObject("document").getJSONObject("receipt").getJSONArray("items")
-        date = JSONObject(content).getJSONObject("document").getJSONObject("receipt").get("dateTime").toString()
+        val test = JSONObject(content).getJSONObject("document").getJSONObject("receipt")
+            .getJSONArray("items")
+        date =
+            JSONObject(content).getJSONObject("document").getJSONObject("receipt").get("dateTime")
+                .toString()
         var date2 = date.substring(8, 10) + " "
         if (date.substring(5, 7) == "01")
             date2 += "января"
-        else if(date.substring(5, 7) == "02")
+        else if (date.substring(5, 7) == "02")
             date2 += "февраля"
-        else if(date.substring(5, 7) == "03")
+        else if (date.substring(5, 7) == "03")
             date2 += "марта"
-        else if(date.substring(5, 7) == "04")
+        else if (date.substring(5, 7) == "04")
             date2 += "апреля"
-        else if(date.substring(5, 7) == "05")
+        else if (date.substring(5, 7) == "05")
             date2 += "мая"
-        else if(date.substring(5, 7) == "06")
+        else if (date.substring(5, 7) == "06")
             date2 += "июня"
-        else if(date.substring(5, 7) == "07")
+        else if (date.substring(5, 7) == "07")
             date2 += "июля"
-        else if(date.substring(5, 7) == "08")
+        else if (date.substring(5, 7) == "08")
             date2 += "августа"
-        else if(date.substring(5, 7) == "09")
+        else if (date.substring(5, 7) == "09")
             date2 += "сентября"
-        else if(date.substring(5, 7) == "10")
+        else if (date.substring(5, 7) == "10")
             date2 += "октября"
-        else if(date.substring(5, 7) == "11")
+        else if (date.substring(5, 7) == "11")
             date2 += "ноября"
-        else if(date.substring(5, 7) == "12")
+        else if (date.substring(5, 7) == "12")
             date2 += "декабря"
 
         date2 += " " + date.substring(0, 4) + " года"
         date = date2
 
         test.let { 0.until(it.length()).map { i -> it.optJSONObject(i) } }
-            .map { parse.add(Product(it.get("name").toString(), it.get("price").toString(), it.get("quantity").toString()))}
+            .map {
+                parse.add(
+                    Product(
+                        it.get("name").toString(),
+                        it.get("price").toString(),
+                        it.get("quantity").toString()
+                    )
+                )
+            }
     }
 
     fun parseQr(str: String?): ArrayList<String> {
-        val s: String = str ?: "t=20191123T1821&s=1496.64&fn=9280440300065001&i=57638&fp=3805453234&n=1"
+        val s: String =
+            str ?: "t=20191123T1821&s=1496.64&fn=9280440300065001&i=57638&fp=3805453234&n=1"
         val m = Pattern.compile("(?<==)[^&]+").matcher(s)
         m.find()
         val timeNum = s.substring(m.start(), m.end())

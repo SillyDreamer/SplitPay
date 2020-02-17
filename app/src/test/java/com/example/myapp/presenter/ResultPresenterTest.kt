@@ -16,12 +16,12 @@ import org.mockito.Mockito.mock
 class ResultPresenterTest {
 
     @Mock
-    lateinit var mView : ResultActivity
+    lateinit var mView: ResultActivity
 
     @Mock
-    lateinit var mModel : Model
+    lateinit var mModel: Model
 
-    lateinit var mPresenter : ResultPresenter
+    lateinit var mPresenter: ResultPresenter
 
     @Before
     fun setUp() {

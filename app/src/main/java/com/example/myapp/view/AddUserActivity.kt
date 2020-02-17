@@ -4,8 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View.GONE
-import android.view.View.VISIBLE
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapp.PresenterHolder
@@ -14,15 +12,12 @@ import com.example.myapp.contract.AddUserContract
 import com.example.myapp.model.User
 import com.example.myapp.presenter.AddUserPresenter
 import com.example.myapp.R
-import com.example.myapp.model.Model
-import com.example.myapp.utils.RealRunner
 import kotlinx.android.synthetic.main.activity_add_user.*
 
 class AddUserActivity : AppCompatActivity(), AddUserContract.view {
 
     private val listUser = arrayListOf<User>()
-    lateinit var presenter : AddUserPresenter
-    private var checkid : Long = 0
+    lateinit var presenter: AddUserPresenter
 
     @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,7 +41,7 @@ class AddUserActivity : AppCompatActivity(), AddUserContract.view {
         }
     }
 
-    fun showCheckId(id : Long) {
+    override fun showCheckId(id: Long) {
         val intent = Intent(this, MainActivity::class.java)
         println("check id $id")
         intent.putExtra("check_id", id)

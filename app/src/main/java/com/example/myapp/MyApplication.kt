@@ -14,9 +14,9 @@ class MyApplication : Application(), PresenterHolder {
     lateinit var mMainPresenter: MainPresenter
     lateinit var mResultPresenter: ResultPresenter
     lateinit var mPreviousCheckPresenter: PreviousCheckPresenter
-    val db = DBOpenHelper(this, null)
+    private val db = DBOpenHelper(this, null)
     val model = Model(db)
-    val rep = Repository()
+    private val rep = Repository()
 
     override fun getAddUserPresenter() = mAddUserPresenter
 

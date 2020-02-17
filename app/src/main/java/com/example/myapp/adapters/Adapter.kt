@@ -12,10 +12,13 @@ import com.example.myapp.model.Product
 import com.example.myapp.model.User
 import kotlinx.android.synthetic.main.list_item.view.*
 
-class Adapter(private val product : List<Product>,
-              private val users : List<User>, val listener: (HashMap<Pair<String, String>, ArrayList<CheckBox>>, List<Product>, Int) -> Unit) : RecyclerView.Adapter<Adapter.ViewHolder>() {
+class Adapter(
+    private val product: List<Product>,
+    private val users: List<User>,
+    val listener: (HashMap<Pair<String, String>, ArrayList<CheckBox>>, List<Product>, Int) -> Unit
+) : RecyclerView.Adapter<Adapter.ViewHolder>() {
 
-    var checkMap : HashMap<Pair<String, String>, ArrayList<CheckBox>> = hashMapOf()
+    var checkMap: HashMap<Pair<String, String>, ArrayList<CheckBox>> = hashMapOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView =
@@ -42,7 +45,7 @@ class Adapter(private val product : List<Product>,
         @SuppressLint("ResourceAsColor")
         fun add(position: Int) {
             if (!checkMap.containsKey(Pair(product[position].name, product[position].price))) {
-                val arr : ArrayList<CheckBox> = arrayListOf()
+                val arr: ArrayList<CheckBox> = arrayListOf()
                 for (x in users) {
                     val cb = CheckBox(itemView.context)
                     cb.text = x.name
@@ -51,9 +54,13 @@ class Adapter(private val product : List<Product>,
                     arr.add(cb)
                 }
                 checkMap.put(Pair(product[position].name, product[position].price), arr)
-            }
-            else {
-                for (x in checkMap.getValue(Pair(product[position].name, product[position].price))) {
+            } else {
+                for (x in checkMap.getValue(
+                    Pair(
+                        product[position].name,
+                        product[position].price
+                    )
+                )) {
                     (x.parent as ViewGroup).removeView(x)
                     x.setTextColor(R.color.secondaryDarkColor)
                     itemView.layout.addView(x)
@@ -67,6 +74,7 @@ class Adapter(private val product : List<Product>,
                 listener(checkMap, product, position)
             }
         }
+
         val tv: TextView = itemView.findViewById(R.id.tv)
         val tv2: TextView = itemView.findViewById(R.id.price)
     }

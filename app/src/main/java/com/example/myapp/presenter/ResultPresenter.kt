@@ -5,11 +5,11 @@ import com.example.myapp.model.Model
 import com.example.myapp.utils.Runner
 import com.example.myapp.view.ResultActivity
 
-class ResultPresenter(val model : Model, val runner : Runner): ResultContract.presenter {
+class ResultPresenter(val model: Model, val runner: Runner) : ResultContract.presenter {
 
-    var mView : ResultActivity? = null
+    var mView: ResultActivity? = null
 
-    override fun showUsers(check_id : Long) {
+    override fun showUsers(check_id: Long) {
 
         runner.runInBackground(Runnable {
             val arr = model.showUsers(check_id)
@@ -20,17 +20,17 @@ class ResultPresenter(val model : Model, val runner : Runner): ResultContract.pr
 
     }
 
-    fun updateUser(name : String, money : Int, paid : Int, id : Long, check_id: Long) {
+    override fun updateUser(name: String, money: Int, paid: Int, id: Long, check_id: Long) {
         runner.runInBackground(Runnable {
             model.updateUser(name, money, paid, id, check_id)
         })
     }
 
-    fun attachView(view : ResultActivity) {
+    override fun attachView(view: ResultActivity) {
         mView = view
     }
 
-    fun detachView() {
+    override fun detachView() {
         mView = null
     }
 }
