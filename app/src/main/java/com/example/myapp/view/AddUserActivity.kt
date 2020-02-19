@@ -30,10 +30,12 @@ class AddUserActivity : AppCompatActivity(), AddUserContract.view {
         recycle_view.adapter = adapter
 
         add.setOnClickListener {
-            presenter.addButton(editText.text.toString(), 0)
-            listUser.add(User(editText.text.toString(), 0, 0))
-            adapter.notifyDataSetChanged()
-            editText.setText("")
+            if (editText.text.toString().isNotEmpty()) {
+                presenter.addButton(editText.text.toString(), 0)
+                listUser.add(User(editText.text.toString(), 0, 0))
+                adapter.notifyDataSetChanged()
+                editText.setText("")
+            }
         }
 
         button_next.setOnClickListener {

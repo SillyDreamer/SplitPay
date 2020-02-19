@@ -14,6 +14,7 @@ class Repository {
     var parse: ArrayList<Product> = arrayListOf()
     var date = ""
 
+
     fun loadMessage(qrResult: String?): Pair<ArrayList<Product>, String> {
 
         val arr = parseQr(qrResult)
@@ -31,6 +32,24 @@ class Repository {
             println("\nResponse Code : $responseCode")
 
             if (responseCode == 204) {
+                with(URL(arr[0]).openConnection() as HttpURLConnection) {
+                    requestMethod = "GET"
+                    val basicAuth = "Basic Kzc5NjEwNTc3ODkyOjM0MjE1NA=="
+                    setRequestProperty("Authorization", basicAuth)
+                    setRequestProperty("Device-id", "1")
+                    setRequestProperty("Content-Type", "application/json; utf-8")
+                    setRequestProperty("Accept", "application/json")
+                    setRequestProperty("Device-os", "Android 5.1")
+
+                    inputStream.bufferedReader().use {
+                        it.lines().forEach { line ->
+                            content += line + "\n"
+                        }
+                    }
+                    println("content1 = $content")
+                }
+            }
+            if (content.isEmpty()) {
                 with(URL(arr[0]).openConnection() as HttpURLConnection) {
                     requestMethod = "GET"
                     val basicAuth = "Basic Kzc5NjEwNTc3ODkyOjM0MjE1NA=="

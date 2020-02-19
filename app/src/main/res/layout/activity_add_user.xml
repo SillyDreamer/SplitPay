@@ -12,15 +12,24 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/editText"
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_marginStart="8dp"
+            android:layout_weight="8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:ems="10"
-            android:inputType="textPersonName" />
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:hint="@string/enter_name">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
+            android:layout_marginTop="15dp"
             android:id="@+id/add"
             android:layout_width="30dp"
             android:layout_height="wrap_content"
@@ -30,6 +39,7 @@
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginStart="8dp"
         android:id="@+id/recycle_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
