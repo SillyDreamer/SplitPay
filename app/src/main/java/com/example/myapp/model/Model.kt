@@ -1,6 +1,6 @@
 package com.example.myapp.model
 
-class Model(val dbHandler: DBOpenHelper) {
+class Model(private val dbHandler: DBOpenHelper) {
 
     fun addToDBProduct(product: Product) {
         dbHandler.add(product)
