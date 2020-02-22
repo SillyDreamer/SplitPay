@@ -33,24 +33,7 @@ class Repository {
 
             if (responseCode == 204) {
                 with(URL(arr[0]).openConnection() as HttpURLConnection) {
-                    requestMethod = "GET"
-                    val basicAuth = "Basic Kzc5NjEwNTc3ODkyOjM0MjE1NA=="
-                    setRequestProperty("Authorization", basicAuth)
-                    setRequestProperty("Device-id", "1")
-                    setRequestProperty("Content-Type", "application/json; utf-8")
-                    setRequestProperty("Accept", "application/json")
-                    setRequestProperty("Device-os", "Android 5.1")
 
-                    inputStream.bufferedReader().use {
-                        it.lines().forEach { line ->
-                            content += line + "\n"
-                        }
-                    }
-                    println("content1 = $content")
-                }
-            }
-            if (content.isEmpty()) {
-                with(URL(arr[0]).openConnection() as HttpURLConnection) {
                     requestMethod = "GET"
                     val basicAuth = "Basic Kzc5NjEwNTc3ODkyOjM0MjE1NA=="
                     setRequestProperty("Authorization", basicAuth)
@@ -58,6 +41,8 @@ class Repository {
                     setRequestProperty("Content-Type", "application/json; utf-8")
                     setRequestProperty("Accept", "application/json")
                     setRequestProperty("Device-os", "Android 5.1")
+                    println("\nResponse Code : $responseCode")
+
 
                     inputStream.bufferedReader().use {
                         it.lines().forEach { line ->
