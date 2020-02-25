@@ -1,6 +1,8 @@
 package com.example.myapp.model
 
 import org.json.JSONObject
+import java.io.BufferedReader
+import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
 import java.util.regex.Pattern
@@ -18,7 +20,7 @@ class Repository {
     fun loadMessage(qrResult: String?): Pair<ArrayList<Product>, String> {
 
         val arr = parseQr(qrResult)
-        var content = ""
+        lateinit var content : StringBuffer
 
         with(URL(arr[1]).openConnection() as HttpURLConnection) {
 
@@ -43,17 +45,23 @@ class Repository {
                     setRequestProperty("Device-os", "Android 5.1")
                     println("\nResponse Code : $responseCode")
 
+                    BufferedReader(InputStreamReader(inputStream)).use {
+                        val response = StringBuffer()
 
-                    inputStream.bufferedReader().use {
-                        it.lines().forEach { line ->
-                            content += line + "\n"
+                        var inputLine = it.readLine()
+                        while (inputLine != null) {
+                            response.append(inputLine)
+                            inputLine = it.readLine()
                         }
+                        it.close()
+                        println("Response : $response")
+                        content = response
                     }
                     println("content1 = $content")
                 }
             }
         }
-        parseResult(content)
+        parseResult(content.toString())
         return Pair(parse, date)
     }
 

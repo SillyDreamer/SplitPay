@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View.VISIBLE
 import android.widget.LinearLayout
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
@@ -18,8 +19,7 @@ import com.example.myapp.R
 import com.example.myapp.contract.PreviousCheckContract
 import com.example.myapp.presenter.PreviousCheckPresenter
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.activity_previous_check.fab
-import kotlinx.android.synthetic.main.activity_previous_check.recycle_view_previous
+import kotlinx.android.synthetic.main.activity_previous_check.*
 import kotlinx.android.synthetic.main.edit_dialog.view.*
 
 class PreviousCheckActivity : AppCompatActivity(), PreviousCheckContract.View {
@@ -47,8 +47,8 @@ class PreviousCheckActivity : AppCompatActivity(), PreviousCheckContract.View {
                 )
             }
 
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                .setAction("Action", null).show()
         }
 
         presenter = (application as PresenterHolder).getPreviousCheckPresenter()
@@ -57,6 +57,18 @@ class PreviousCheckActivity : AppCompatActivity(), PreviousCheckContract.View {
 
         recycle_view_previous.layoutManager =
             LinearLayoutManager(this, LinearLayout.VERTICAL, false)
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        if (requestCode == 101) {
+            val intent = Intent(this, ScanActivity::class.java)
+            intent.putExtra("key", 2)
+            startActivity(intent)
+        }
     }
 
     private fun listener(id: Long) {
@@ -86,6 +98,10 @@ class PreviousCheckActivity : AppCompatActivity(), PreviousCheckContract.View {
 
     override fun showChecks(array: ArrayList<Triple<String, String, String>>) {
         arr = array
+        if (arr.isEmpty()) {
+            println("AAAA ya tyt)))))")
+            helpMessage.visibility = VISIBLE
+        }
         adapter = AdapterPreviousCheck(
             arr,
             listener = { listener(it) },
