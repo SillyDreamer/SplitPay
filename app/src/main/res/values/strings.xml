@@ -20,4 +20,5 @@
     <string name="enter_name">Enter name</string>
     <string name="pay">Заплатил</string>
     <string name="helpMessage">У вас пока нет сохранённых чеков</string>
+    <string name="januare">января</string>
 </resources>

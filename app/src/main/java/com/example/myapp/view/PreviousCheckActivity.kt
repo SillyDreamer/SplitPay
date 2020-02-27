@@ -46,13 +46,10 @@ class PreviousCheckActivity : AppCompatActivity(), PreviousCheckContract.View {
                     101
                 )
             }
-
-//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                .setAction("Action", null).show()
         }
 
         presenter = (application as PresenterHolder).getPreviousCheckPresenter()
-        presenter.showChecks()
+        //presenter.showChecks()
 
 
         recycle_view_previous.layoutManager =
@@ -99,7 +96,6 @@ class PreviousCheckActivity : AppCompatActivity(), PreviousCheckContract.View {
     override fun showChecks(array: ArrayList<Triple<String, String, String>>) {
         arr = array
         if (arr.isEmpty()) {
-            println("AAAA ya tyt)))))")
             helpMessage.visibility = VISIBLE
         }
         adapter = AdapterPreviousCheck(
@@ -116,6 +112,7 @@ class PreviousCheckActivity : AppCompatActivity(), PreviousCheckContract.View {
 
     override fun onStart() {
         presenter.attachView(this)
+        presenter.showChecks()
         super.onStart()
     }
 

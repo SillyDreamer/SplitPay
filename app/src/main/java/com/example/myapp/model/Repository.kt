@@ -1,5 +1,7 @@
 package com.example.myapp.model
 
+import com.example.myapp.MyApplication
+import com.example.myapp.R
 import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -74,6 +76,7 @@ class Repository {
             JSONObject(content).getJSONObject("document").getJSONObject("receipt").get("dateTime")
                 .toString()
         var date2 = date.substring(8, 10) + " "
+        
         when {
             date.substring(5, 7) == "01" -> date2 += "января"
             date.substring(5, 7) == "02" -> date2 += "февраля"
