@@ -58,6 +58,7 @@ class Repository {
                         it.close()
                         println("Response : $response")
                         content = response
+                        println("content = $content")
                     }
                     println("content1 = $content")
                 }
@@ -75,26 +76,7 @@ class Repository {
         date =
             JSONObject(content).getJSONObject("document").getJSONObject("receipt").get("dateTime")
                 .toString()
-        var date2 = date.substring(8, 10) + " "
-        
-        when {
-            date.substring(5, 7) == "01" -> date2 += "января"
-            date.substring(5, 7) == "02" -> date2 += "февраля"
-            date.substring(5, 7) == "03" -> date2 += "марта"
-            date.substring(5, 7) == "04" -> date2 += "апреля"
-            date.substring(5, 7) == "05" -> date2 += "мая"
-            date.substring(5, 7) == "06" -> date2 += "июня"
-            date.substring(5, 7) == "07" -> date2 += "июля"
-            date.substring(5, 7) == "08" -> date2 += "августа"
-            date.substring(5, 7) == "09" -> date2 += "сентября"
-            date.substring(5, 7) == "10" -> date2 += "октября"
-            date.substring(5, 7) == "12" -> date2 += "декабря"
-            date.substring(5, 7) == "11" -> date2 += "ноября"
-        }
-
-        date2 += " " + date.substring(0, 4) + " года"
-        date = date2
-
+        println("data = $date")
         test.let { 0.until(it.length()).map { i -> it.optJSONObject(i) } }
             .map {
                 parse.add(

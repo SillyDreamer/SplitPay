@@ -14,6 +14,7 @@ class MyApplication : Application(), PresenterHolder {
     lateinit var mMainPresenter: MainPresenter
     lateinit var mResultPresenter: ResultPresenter
     lateinit var mPreviousCheckPresenter: PreviousCheckPresenter
+    lateinit var mScanPresenter: ScanPresenter
     private val db = DBOpenHelper(this, null)
     val model = Model(db)
     private val rep = Repository()
@@ -24,12 +25,14 @@ class MyApplication : Application(), PresenterHolder {
 
     override fun getResultPresenter() = mResultPresenter
     override fun getPreviousCheckPresenter() = mPreviousCheckPresenter
+    override fun getScanPresenter() = mScanPresenter
 
     override fun onCreate() {
         mAddUserPresenter = AddUserPresenter(model, RealRunner())
         mMainPresenter = MainPresenter(model, RealRunner(), rep)
         mResultPresenter = ResultPresenter(model, RealRunner())
         mPreviousCheckPresenter = PreviousCheckPresenter(model, RealRunner(), rep)
+        mScanPresenter = ScanPresenter(model, RealRunner(), rep)
         super.onCreate()
     }
 

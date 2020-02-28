@@ -49,7 +49,7 @@ class PreviousCheckActivity : AppCompatActivity(), PreviousCheckContract.View {
         }
 
         presenter = (application as PresenterHolder).getPreviousCheckPresenter()
-        //presenter.showChecks()
+        //Presenter.showChecks()
 
 
         recycle_view_previous.layoutManager =

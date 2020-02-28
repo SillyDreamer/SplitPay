@@ -7,4 +7,5 @@ interface PresenterHolder {
     fun getMainPresenter(): MainPresenter
     fun getResultPresenter(): ResultPresenter
     fun getPreviousCheckPresenter(): PreviousCheckPresenter
+    fun getScanPresenter(): ScanPresenter
 }

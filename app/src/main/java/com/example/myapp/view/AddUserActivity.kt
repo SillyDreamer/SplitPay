@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.LinearLayout
+import androidx.core.text.isDigitsOnly
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapp.PresenterHolder
 import com.example.myapp.adapters.AdapterAddUser
@@ -31,10 +32,21 @@ class AddUserActivity : AppCompatActivity(), AddUserContract.view {
 
         add.setOnClickListener {
             if (editText.text.toString().isNotEmpty()) {
-                presenter.addButton(editText.text.toString(), 0)
-                listUser.add(User(editText.text.toString(), 0, 0))
-                adapter.notifyDataSetChanged()
-                editText.setText("")
+                if(editText.text.toString().isDigitsOnly()) {
+                    val num = editText.text.toString().toInt()
+                    for(x in 1..num) {
+                        presenter.addButton("P$x", 0)
+                        listUser.add(User("P$x", 0, 0))
+                    }
+                    adapter.notifyDataSetChanged()
+                    editText.setText("")
+                }
+                else {
+                    presenter.addButton(editText.text.toString(), 0)
+                    listUser.add(User(editText.text.toString(), 0, 0))
+                    adapter.notifyDataSetChanged()
+                    editText.setText("")
+                }
             }
         }
 

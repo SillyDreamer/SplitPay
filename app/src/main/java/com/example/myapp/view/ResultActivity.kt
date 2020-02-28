@@ -17,7 +17,7 @@ import com.example.myapp.model.User
 import kotlinx.android.synthetic.main.activity_result.*
 import kotlinx.android.synthetic.main.edit_dialog.view.*
 
-class ResultActivity : AppCompatActivity(), ResultContract.view {
+class ResultActivity : AppCompatActivity(), ResultContract.View {
 
     lateinit var presenter: ResultPresenter
     lateinit var users: ArrayList<User>

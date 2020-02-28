@@ -44,7 +44,7 @@ class MainPresenter(val model: Model, val runner: Runner, val rep: Repository) :
     var parse: ArrayList<Product> = arrayListOf()
 
 
-    override fun addOneMoreCheck(qrResult: String): Boolean {
+    fun addOneMoreCheck(qrResult: String): Boolean {
         if (!qrResult.matches(Regex("t=[0-9]*T[0-9]*&s=[0-9|.]*&fn=[0-9]*&i=[0-9]*&fp=[0-9]*&n=[0-9]"))) {
             return false
         }

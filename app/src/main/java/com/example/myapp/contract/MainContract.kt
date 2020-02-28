@@ -20,7 +20,6 @@ interface MainContract {
             check_id: Long
         )
 
-        fun addOneMoreCheck(qrResult: String): Boolean
         fun attachView(view: MainActivity)
         fun detachView()
     }

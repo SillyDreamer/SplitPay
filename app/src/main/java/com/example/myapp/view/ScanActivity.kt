@@ -39,16 +39,18 @@ class ScanActivity : AppCompatActivity(), ZXingScannerView.ResultHandler {
         Log.v("tag", rawResult.getText()) // Prints scan results
         // Log.v("tag", rawResult.getBarcodeFormat().toString()); // Prints the scan format (qrcode, pdf417 etc.)
 
-        val presenter = (application as PresenterHolder).getPreviousCheckPresenter()
+
+        val presenter = (application as PresenterHolder).getScanPresenter()
+        presenter.attachView(this)
         val presenter2 = (application as PresenterHolder).getMainPresenter()
 
 
 
         println("key $key")
         if (key == 2) {
-            //Presenter.onButtonWasClicked("t=20191123T1821&s=1496.64&fn=9280440300065001&i=57638&fp=3805453234&n=1")
             if (!presenter.onButtonWasClicked(rawResult.text)) {
                 Toast.makeText(this, "wrong qr", Toast.LENGTH_LONG).show()
+                presenter.detachView()
                 onBackPressed()
             } else {
                 val intent = Intent(this, AddUserActivity::class.java)
@@ -58,9 +60,7 @@ class ScanActivity : AppCompatActivity(), ZXingScannerView.ResultHandler {
             if (!presenter2.addOneMoreCheck(rawResult.text)) {
                 Toast.makeText(this, "wrong qr", Toast.LENGTH_LONG).show()
             }
-            // presenter2.addOneMoreCheck("t=20200202T2005&s=522.99&fn=9280440300066533&i=20646&fp=3057312554&n=1")
             onBackPressed()
         }
-
     }
 }

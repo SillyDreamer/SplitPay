@@ -21,4 +21,15 @@
     <string name="pay">Заплатил</string>
     <string name="helpMessage">У вас пока нет сохранённых чеков</string>
     <string name="januare">января</string>
+    <string name="februare">февраля</string>
+    <string name="march">марта</string>
+    <string name="april">апреля</string>
+    <string name="may">мая</string>
+    <string name="june">июня</string>
+    <string name="jule">июля</string>
+    <string name="august">августа</string>
+    <string name="september">сентября</string>
+    <string name="october">октября</string>
+    <string name="december">декабря</string>
+    <string name="november">ноября</string>
 </resources>

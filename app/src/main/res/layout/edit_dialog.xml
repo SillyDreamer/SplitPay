@@ -46,6 +46,7 @@
             android:background="@color/back"
             android:text="@string/cancel"
             android:textColor="@color/primaryColor" />
+
     </LinearLayout>
 
 </LinearLayout>
