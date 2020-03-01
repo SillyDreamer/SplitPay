@@ -57,7 +57,7 @@ class ResultActivity : AppCompatActivity(), ResultContract.View {
         val mAlertDialog = mBuilder.show()
         mDialogView.ok_button.setOnClickListener {
             mAlertDialog.dismiss()
-            val paid = mDialogView.edit.text.toString().toInt()
+            val paid = mDialogView.edit.text.toString().toDouble()
             users[id].paid = paid
             presenter.updateUser(users[id].name, users[id].money, paid, users[id].id, check_id)
             adapter.notifyDataSetChanged()
@@ -70,7 +70,7 @@ class ResultActivity : AppCompatActivity(), ResultContract.View {
     private fun listener(id: Int) {
         val sendIntent: Intent = Intent().apply {
             action = Intent.ACTION_SEND
-            putExtra(Intent.EXTRA_TEXT, "Hi, you owe me ${users[id].money}")
+            putExtra(Intent.EXTRA_TEXT, "Hi, you owe me ${users[id].money.toDouble() / 100 - users[id].paid}")
             type = "text/plain"
         }
 

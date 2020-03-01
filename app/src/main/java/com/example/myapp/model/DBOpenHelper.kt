@@ -28,7 +28,7 @@ class DBOpenHelper(
         db.execSQL(CREATE_PRODUCTS_TABLE)
         val CREATE_USER_TABLE =
             ("CREATE TABLE " + TABLE_NAME2 + "(" + COLUMN_ID + " INTEGER PRIMARY KEY," +
-                    COLUMN_NAME + " TEXT," + COLUMN_MONEY + " INTEGER," + COLUMN_PAID + " INTEGER," + COLUMN_CHECK_ID + " INTEGER" + ")")
+                    COLUMN_NAME + " TEXT," + COLUMN_MONEY + " INTEGER," + COLUMN_PAID + " TEXT," + COLUMN_CHECK_ID + " INTEGER" + ")")
         db.execSQL(CREATE_USER_TABLE)
     }
 
@@ -103,7 +103,7 @@ class DBOpenHelper(
         return db.rawQuery("SELECT * FROM checks", null)
     }
 
-    fun updateUser(name: String, money: Int, paid: Int, id: Long, check_id: Long) {
+    fun updateUser(name: String, money: Int, paid: Double, id: Long, check_id: Long) {
         val db = this.writableDatabase
         val values = ContentValues()
         values.put(COLUMN_NAME, name)

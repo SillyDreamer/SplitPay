@@ -71,7 +71,7 @@ class Model(private val dbHandler: DBOpenHelper) {
                         User(
                             cursor.getString(cursor.getColumnIndex(DBOpenHelper.COLUMN_NAME)),
                             cursor.getInt(cursor.getColumnIndex(DBOpenHelper.COLUMN_MONEY)),
-                            cursor.getInt(cursor.getColumnIndex(DBOpenHelper.COLUMN_PAID)),
+                            cursor.getString(cursor.getColumnIndex(DBOpenHelper.COLUMN_PAID)).toDouble(),
                             cursor.getLong(cursor.getColumnIndex(DBOpenHelper.COLUMN_ID))
                         )
                     )
@@ -81,7 +81,7 @@ class Model(private val dbHandler: DBOpenHelper) {
         return arr
     }
 
-    fun updateUser(name: String, money: Int, paid: Int, id: Long, check_id: Long) {
+    fun updateUser(name: String, money: Int, paid: Double, id: Long, check_id: Long) {
         dbHandler.updateUser(name, money, paid, id, check_id)
     }
 

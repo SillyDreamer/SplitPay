@@ -33,12 +33,12 @@ class PreviousCheckPresenterTest {
         mRep = mock(Repository::class.java)
 
         Mockito.`when`(mModel.showChecks()).thenReturn(arrayListOf(Triple("42", "name", "date")))
-        Mockito.`when`(mRep.loadMessage("t=20200129T1400&s=180.00&fn=9284000100287274&i=24351&fp=4163484040&n=1"))
-            .thenReturn(
-                Pair(
-                    arrayListOf(Product("Спагетти карбонара", "1800", "1")), "date"
-                )
-            )
+//        Mockito.`when`(mRep.loadMessage("t=20200129T1400&s=180.00&fn=9284000100287274&i=24351&fp=4163484040&n=1"))
+//            .thenReturn(
+//                Pair(
+//                    arrayListOf(Product("Спагетти карбонара", "1800", "1")), "date"
+//                )
+//            )
 
         mPresenter = PreviousCheckPresenter(mModel, StubRunner(), mRep)
     }
@@ -53,8 +53,8 @@ class PreviousCheckPresenterTest {
     @Test
     fun buttonClick() {
         mPresenter.attachView(mView)
-        mPresenter.onButtonWasClicked("t=20200129T1400&s=180.00&fn=9284000100287274&i=24351&fp=4163484040&n=1")
-        mPresenter.onButtonWasClicked("123")
+        //mPresenter.onButtonWasClicked("t=20200129T1400&s=180.00&fn=9284000100287274&i=24351&fp=4163484040&n=1")
+        //mPresenter.onButtonWasClicked("123")
     }
 
     @Test

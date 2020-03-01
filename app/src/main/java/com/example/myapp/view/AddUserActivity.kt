@@ -36,14 +36,14 @@ class AddUserActivity : AppCompatActivity(), AddUserContract.view {
                     val num = editText.text.toString().toInt()
                     for(x in 1..num) {
                         presenter.addButton("P$x", 0)
-                        listUser.add(User("P$x", 0, 0))
+                        listUser.add(User("P$x", 0, 0.0))
                     }
                     adapter.notifyDataSetChanged()
                     editText.setText("")
                 }
                 else {
                     presenter.addButton(editText.text.toString(), 0)
-                    listUser.add(User(editText.text.toString(), 0, 0))
+                    listUser.add(User(editText.text.toString(), 0, 0.0))
                     adapter.notifyDataSetChanged()
                     editText.setText("")
                 }

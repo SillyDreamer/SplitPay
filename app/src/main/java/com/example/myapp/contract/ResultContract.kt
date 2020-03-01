@@ -10,7 +10,7 @@ interface ResultContract {
 
     interface Presenter {
         fun showUsers(check_id: Long)
-        fun updateUser(name: String, money: Int, paid: Int, id: Long, check_id: Long)
+        fun updateUser(name: String, money: Int, paid: Double, id: Long, check_id: Long)
         fun attachView(view: ResultActivity)
         fun detachView()
     }

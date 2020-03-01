@@ -20,7 +20,7 @@ class ResultPresenter(val model: Model, val runner: Runner) : ResultContract.Pre
 
     }
 
-    override fun updateUser(name: String, money: Int, paid: Int, id: Long, check_id: Long) {
+    override fun updateUser(name: String, money: Int, paid: Double, id: Long, check_id: Long) {
         runner.runInBackground(Runnable {
             model.updateUser(name, money, paid, id, check_id)
         })
