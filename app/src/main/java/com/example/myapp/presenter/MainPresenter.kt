@@ -49,7 +49,7 @@ class MainPresenter(val model: Model, val runner: Runner, val rep: Repository) :
             return false
         }
         runner.runInBackground(Runnable {
-            val arr = rep.loadMessage(qrResult)
+            val arr = rep.parseQr(qrResult)
             parse = arr.first
             for (product in parse) {
                 model.addToDBProduct(product)

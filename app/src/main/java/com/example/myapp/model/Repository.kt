@@ -19,9 +19,7 @@ class Repository {
     var date = ""
 
 
-    fun loadMessage(qrResult: String?): Pair<ArrayList<Product>, String> {
-
-        val arr = parseQr(qrResult)
+    fun loadMessage(arr: ArrayList<String>) : String {
         lateinit var content : StringBuffer
 
         with(URL(arr[1]).openConnection() as HttpURLConnection) {
@@ -37,7 +35,6 @@ class Repository {
 
             if (responseCode == 204) {
                 with(URL(arr[0]).openConnection() as HttpURLConnection) {
-
                     requestMethod = "GET"
                     val basicAuth = "Basic Kzc5NjEwNTc3ODkyOjM0MjE1NA=="
                     setRequestProperty("Authorization", basicAuth)
@@ -46,7 +43,6 @@ class Repository {
                     setRequestProperty("Accept", "application/json")
                     setRequestProperty("Device-os", "Android 5.1")
                     println("\nResponse Code : $responseCode")
-
                     BufferedReader(InputStreamReader(inputStream)).use {
                         val response = StringBuffer()
 
@@ -56,7 +52,6 @@ class Repository {
                             inputLine = it.readLine()
                         }
                         it.close()
-                        println("Response : $response")
                         content = response
                         println("content = $content")
                     }
@@ -64,12 +59,12 @@ class Repository {
                 }
             }
         }
-        parseResult(content.toString())
-        return Pair(parse, date)
+        return content.toString()
     }
 
 
     fun parseResult(content: String) {
+        println("parse == $content")
         parse.clear()
         val test = JSONObject(content).getJSONObject("document").getJSONObject("receipt")
             .getJSONArray("items")
@@ -89,9 +84,9 @@ class Repository {
             }
     }
 
-    fun parseQr(str: String?): ArrayList<String> {
+    fun parseQr(qr: String?): Pair<ArrayList<Product>, String> {
         val s: String =
-            str ?: "t=20191123T1821&s=1496.64&fn=9280440300065001&i=57638&fp=3805453234&n=1"
+            qr ?: "t=20191123T1821&s=1496.64&fn=9280440300065001&i=57638&fp=3805453234&n=1"
         val m = Pattern.compile("(?<==)[^&]+").matcher(s)
         m.find()
         val timeNum = s.substring(m.start(), m.end())
@@ -107,9 +102,13 @@ class Repository {
         val iNum = s.substring(m.start(), m.end())
         m.find()
         val fpNum = s.substring(m.start(), m.end())
-        return arrayListOf(
-            "https://proverkacheka.nalog.ru:9999/v1/inns/*/kkts/*/fss/$fnNum/tickets/$iNum?fiscalSign=$fpNum&sendToEmail=no",
-            "https://proverkacheka.nalog.ru:9999/v1/ofds/*/inns/*/fss/$fnNum/operations/1/tickets/$iNum?fiscalSign=$fpNum&date=$timeNum2&sum=$sumNum"
-        )
+        val arr = arrayListOf(
+                "https://proverkacheka.nalog.ru:9999/v1/inns/*/kkts/*/fss/$fnNum/tickets/$iNum?fiscalSign=$fpNum&sendToEmail=no",
+                "https://proverkacheka.nalog.ru:9999/v1/ofds/*/inns/*/fss/$fnNum/operations/1/tickets/$iNum?fiscalSign=$fpNum&date=$timeNum2&sum=$sumNum")
+        var content = loadMessage(arr)
+        while (content.isEmpty())
+            content = loadMessage(arr)
+        parseResult(content)
+        return Pair(parse, date)
     }
 }

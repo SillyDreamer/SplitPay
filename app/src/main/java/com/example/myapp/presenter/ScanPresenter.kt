@@ -16,7 +16,7 @@ class ScanPresenter(val model: Model, val runner: Runner, val rep: Repository) :
             return false
         }
         runner.runInBackground(Runnable {
-            val arr = rep.loadMessage(qrResult)
+            var arr = rep.parseQr(qrResult)
             val parse = arr.first
             val date = parseDate(arr.second)
             val name = "чек " + model.showCheckId()
