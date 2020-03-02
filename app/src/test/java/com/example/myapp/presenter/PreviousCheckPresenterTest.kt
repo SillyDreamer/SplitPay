@@ -33,7 +33,7 @@ class PreviousCheckPresenterTest {
         mRep = mock(Repository::class.java)
 
         Mockito.`when`(mModel.showChecks()).thenReturn(arrayListOf(Triple("42", "name", "date")))
-        mPresenter = PreviousCheckPresenter(mModel, StubRunner(), mRep)
+        mPresenter = PreviousCheckPresenter(mModel, StubRunner())
     }
 
     @Test
