@@ -39,12 +39,12 @@ class MainPresenterTest {
         Mockito.`when`(mModel.showUsers(42)).thenReturn(arrayListOf(User("diana", 0, 0.0)))
         Mockito.`when`(mModel.showProducts(42))
             .thenReturn(arrayListOf(Product("name", "price", "count")))
-//        Mockito.`when`(mRep.loadMessage("t=20200129T1400&s=180.00&fn=9284000100287274&i=24351&fp=4163484040&n=1"))
-//            .thenReturn(
-//                Pair(
-//                    arrayListOf(Product("Спагетти карбонара", "1800", "1")), "date"
-//                )
-//            )
+        Mockito.`when`(mRep.parseQr("t=20200129T1400&s=180.00&fn=9284000100287274&i=24351&fp=4163484040&n=1"))
+            .thenReturn(
+                Pair(
+                    arrayListOf(Product("Спагетти карбонара", "1800", "1")), "2019-11-23T18:21:00"
+                )
+            )
 
         mPresenter = MainPresenter(mModel, StubRunner(), mRep)
 
@@ -85,8 +85,9 @@ class MainPresenterTest {
     @Test
     fun addOneMoreCheck() {
         mPresenter.attachView(mView)
-        // mPresenter.showData(42)
-        //mPresenter.addOneMoreCheck("t=20200129T1400&s=180.00&fn=9284000100287274&i=24351&fp=4163484040&n=1")
+        mPresenter.showData(42)
+        mPresenter.addOneMoreCheck("t=20200129T1400&s=180.00&fn=9284000100287274&i=24351&fp=4163484040&n=1")
+        mPresenter.addOneMoreCheck("123")
     }
 
     @Test

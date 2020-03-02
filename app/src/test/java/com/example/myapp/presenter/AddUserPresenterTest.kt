@@ -49,7 +49,6 @@ class AddUserPresenterTest {
     fun addButton() {
         mPresenter.attachView(mView)
         mPresenter.addButton("diana", 0)
-        //Mockito.verify(mModel).addToDBUser(Mockito.eq("diana"), Mockito.eq(0))
     }
 
     @Test

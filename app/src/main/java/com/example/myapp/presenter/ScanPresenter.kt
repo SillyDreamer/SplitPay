@@ -7,25 +7,27 @@ import com.example.myapp.model.Repository
 import com.example.myapp.utils.Runner
 import com.example.myapp.view.ScanActivity
 
-class ScanPresenter(val model: Model, val runner: Runner, val rep: Repository) : ScanContract.Presenter {
+class ScanPresenter(val model: Model, val runner: Runner, private val rep: Repository) : ScanContract.Presenter {
 
     var mView :  ScanActivity? = null
 
-    override fun onButtonWasClicked(qrResult: String): Boolean {
+    override fun onButtonWasClicked(qrResult: String) {
         if (!qrResult.matches(Regex("t=[0-9]*T[0-9]*&s=[0-9|.]*&fn=[0-9]*&i=[0-9]*&fp=[0-9]*&n=[0-9]"))) {
-            return false
+            mView?.wrongQr()
         }
-        runner.runInBackground(Runnable {
-            var arr = rep.parseQr(qrResult)
-            val parse = arr.first
-            val date = parseDate(arr.second)
-            val name = "чек " + model.showCheckId()
-            model.addToDBCheck(name, date)
-            for (product in parse) {
-                model.addToDBProduct(product)
-            }
-        })
-        return true
+        else {
+            runner.runInBackground(Runnable {
+                var arr = rep.parseQr(qrResult)
+                val parse = arr.first
+                val date = parseDate(arr.second)
+                val name = "чек " + model.showCheckId()
+                model.addToDBCheck(name, date)
+                for (product in parse) {
+                    model.addToDBProduct(product)
+                }
+            })
+            mView?.buttonClick()
+        }
     }
 
     override fun parseDate(date : String) : String {
@@ -44,7 +46,6 @@ class ScanPresenter(val model: Model, val runner: Runner, val rep: Repository) :
             date.substring(5, 7) == "12" -> date2 += mView?.getString(R.string.december)
             date.substring(5, 7) == "11" -> date2 += mView?.getString(R.string.november)
         }
-
         date2 += " " + date.substring(0, 4) + " года"
         return date2
     }

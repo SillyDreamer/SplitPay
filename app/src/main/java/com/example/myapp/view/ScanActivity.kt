@@ -13,6 +13,7 @@ class ScanActivity : AppCompatActivity(), ZXingScannerView.ResultHandler {
 
     private var mScannerView: ZXingScannerView? = null
     var key = 0
+    val presenter = (application as PresenterHolder).getScanPresenter()
 
     public override fun onCreate(state: Bundle?) {
         super.onCreate(state)
@@ -34,28 +35,38 @@ class ScanActivity : AppCompatActivity(), ZXingScannerView.ResultHandler {
         mScannerView!!.stopCamera()           // Stop camera on pause
     }
 
+    fun buttonClick() {
+        Toast.makeText(this, "wrong qr", Toast.LENGTH_LONG).show()
+        onBackPressed()
+    }
+
+    fun wrongQr() {
+        val intent = Intent(this, AddUserActivity::class.java)
+        startActivity(intent)
+    }
+
+    override fun onStart() {
+        presenter.attachView(this)
+        super.onStart()
+    }
+
+    override fun onStop() {
+        presenter.detachView()
+        super.onStop()
+    }
+
     override fun handleResult(rawResult: Result) {
         // Do something with the result here
         Log.v("tag", rawResult.getText()) // Prints scan results
         // Log.v("tag", rawResult.getBarcodeFormat().toString()); // Prints the scan format (qrcode, pdf417 etc.)
 
 
-        val presenter = (application as PresenterHolder).getScanPresenter()
-        presenter.attachView(this)
+
+
         val presenter2 = (application as PresenterHolder).getMainPresenter()
 
-
-
-        println("key $key")
         if (key == 2) {
-            if (!presenter.onButtonWasClicked(rawResult.text)) {
-                Toast.makeText(this, "wrong qr", Toast.LENGTH_LONG).show()
-                presenter.detachView()
-                onBackPressed()
-            } else {
-                val intent = Intent(this, AddUserActivity::class.java)
-                startActivity(intent)
-            }
+
         } else if (key == 1) {
             if (!presenter2.addOneMoreCheck(rawResult.text)) {
                 Toast.makeText(this, "wrong qr", Toast.LENGTH_LONG).show()
