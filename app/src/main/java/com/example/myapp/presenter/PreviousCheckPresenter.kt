@@ -6,7 +6,7 @@ import com.example.myapp.model.Repository
 import com.example.myapp.utils.Runner
 import com.example.myapp.view.PreviousCheckActivity
 
-class PreviousCheckPresenter(val model: Model, val runner: Runner, val rep: Repository) :
+class PreviousCheckPresenter(private val model: Model, private val runner: Runner) :
     PreviousCheckContract.Presenter {
 
     var mView: PreviousCheckActivity? = null

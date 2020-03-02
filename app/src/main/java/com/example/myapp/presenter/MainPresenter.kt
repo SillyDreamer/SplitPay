@@ -7,7 +7,7 @@ import com.example.myapp.model.Repository
 import com.example.myapp.utils.Runner
 import com.example.myapp.view.MainActivity
 
-class MainPresenter(val model: Model, val runner: Runner, val rep: Repository) :
+class MainPresenter(private val model: Model, private val runner: Runner, private val rep: Repository) :
     MainContract.Presenter {
 
     var mView: MainActivity? = null

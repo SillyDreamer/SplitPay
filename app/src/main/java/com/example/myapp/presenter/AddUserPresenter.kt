@@ -5,7 +5,7 @@ import com.example.myapp.model.Model
 import com.example.myapp.utils.Runner
 import com.example.myapp.view.AddUserActivity
 
-class AddUserPresenter(var model: Model, val runner: Runner) : AddUserContract.Presenter {
+class AddUserPresenter(private var model: Model, private val runner: Runner) : AddUserContract.Presenter {
 
     var mView: AddUserActivity? = null
 

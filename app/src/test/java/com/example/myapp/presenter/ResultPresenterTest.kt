@@ -1,14 +1,11 @@
 package com.example.myapp.presenter
 
-import android.graphics.ColorSpace
 import com.example.myapp.model.Model
 import com.example.myapp.model.User
 import com.example.myapp.utils.StubRunner
 import com.example.myapp.view.ResultActivity
 import org.junit.Before
 import org.junit.Test
-
-import org.junit.Assert.*
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.Mockito.mock

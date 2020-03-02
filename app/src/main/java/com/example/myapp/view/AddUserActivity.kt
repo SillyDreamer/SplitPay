@@ -32,16 +32,15 @@ class AddUserActivity : AppCompatActivity(), AddUserContract.view {
 
         add.setOnClickListener {
             if (editText.text.toString().isNotEmpty()) {
-                if(editText.text.toString().isDigitsOnly()) {
+                if (editText.text.toString().isDigitsOnly()) {
                     val num = editText.text.toString().toInt()
-                    for(x in 1..num) {
+                    for (x in 1..num) {
                         presenter.addButton("P$x", 0)
                         listUser.add(User("P$x", 0, 0.0))
                     }
                     adapter.notifyDataSetChanged()
                     editText.setText("")
-                }
-                else {
+                } else {
                     presenter.addButton(editText.text.toString(), 0)
                     listUser.add(User(editText.text.toString(), 0, 0.0))
                     adapter.notifyDataSetChanged()

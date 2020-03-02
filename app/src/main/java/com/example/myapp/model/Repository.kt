@@ -19,8 +19,8 @@ class Repository {
     var date = ""
 
 
-    fun loadMessage(arr: ArrayList<String>) : String {
-        lateinit var content : StringBuffer
+    private fun loadMessage(arr: ArrayList<String>): String {
+        lateinit var content: StringBuffer
 
         with(URL(arr[1]).openConnection() as HttpURLConnection) {
 
@@ -63,7 +63,7 @@ class Repository {
     }
 
 
-    fun parseResult(content: String) {
+    private fun parseResult(content: String) {
         println("parse == $content")
         parse.clear()
         val test = JSONObject(content).getJSONObject("document").getJSONObject("receipt")
@@ -103,8 +103,9 @@ class Repository {
         m.find()
         val fpNum = s.substring(m.start(), m.end())
         val arr = arrayListOf(
-                "https://proverkacheka.nalog.ru:9999/v1/inns/*/kkts/*/fss/$fnNum/tickets/$iNum?fiscalSign=$fpNum&sendToEmail=no",
-                "https://proverkacheka.nalog.ru:9999/v1/ofds/*/inns/*/fss/$fnNum/operations/1/tickets/$iNum?fiscalSign=$fpNum&date=$timeNum2&sum=$sumNum")
+            "https://proverkacheka.nalog.ru:9999/v1/inns/*/kkts/*/fss/$fnNum/tickets/$iNum?fiscalSign=$fpNum&sendToEmail=no",
+            "https://proverkacheka.nalog.ru:9999/v1/ofds/*/inns/*/fss/$fnNum/operations/1/tickets/$iNum?fiscalSign=$fpNum&date=$timeNum2&sum=$sumNum"
+        )
         var content = loadMessage(arr)
         while (content.isEmpty())
             content = loadMessage(arr)

@@ -44,6 +44,6 @@ class DBOpenHelperTest {
 
     @Test
     fun update() {
-       // mDBOpenHelper.updateCheck("name", "date", 42)
+        // mDBOpenHelper.updateCheck("name", "date", 42)
     }
 }

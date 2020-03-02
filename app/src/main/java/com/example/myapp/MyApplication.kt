@@ -10,11 +10,11 @@ import com.example.myapp.utils.RealRunner
 
 class MyApplication : Application(), PresenterHolder {
 
-    lateinit var mAddUserPresenter: AddUserPresenter
-    lateinit var mMainPresenter: MainPresenter
-    lateinit var mResultPresenter: ResultPresenter
-    lateinit var mPreviousCheckPresenter: PreviousCheckPresenter
-    lateinit var mScanPresenter: ScanPresenter
+    private lateinit var mAddUserPresenter: AddUserPresenter
+    private lateinit var mMainPresenter: MainPresenter
+    private lateinit var mResultPresenter: ResultPresenter
+    private lateinit var mPreviousCheckPresenter: PreviousCheckPresenter
+    private lateinit var mScanPresenter: ScanPresenter
     private val db = DBOpenHelper(this, null)
     val model = Model(db)
     private val rep = Repository()
@@ -31,7 +31,7 @@ class MyApplication : Application(), PresenterHolder {
         mAddUserPresenter = AddUserPresenter(model, RealRunner())
         mMainPresenter = MainPresenter(model, RealRunner(), rep)
         mResultPresenter = ResultPresenter(model, RealRunner())
-        mPreviousCheckPresenter = PreviousCheckPresenter(model, RealRunner(), rep)
+        mPreviousCheckPresenter = PreviousCheckPresenter(model, RealRunner())
         mScanPresenter = ScanPresenter(model, RealRunner(), rep)
         super.onCreate()
     }

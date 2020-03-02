@@ -1,6 +1,5 @@
 package com.example.myapp.presenter
 
-import android.widget.CheckBox
 import com.example.myapp.model.Model
 import com.example.myapp.model.Product
 import com.example.myapp.model.Repository
@@ -9,9 +8,6 @@ import com.example.myapp.utils.StubRunner
 import com.example.myapp.view.MainActivity
 import org.junit.Before
 import org.junit.Test
-
-import org.junit.Assert.*
-import org.mockito.AdditionalMatchers.eq
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.Mockito.mock

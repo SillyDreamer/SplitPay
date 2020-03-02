@@ -7,15 +7,18 @@ import com.example.myapp.model.Repository
 import com.example.myapp.utils.Runner
 import com.example.myapp.view.ScanActivity
 
-class ScanPresenter(val model: Model, val runner: Runner, private val rep: Repository) : ScanContract.Presenter {
+class ScanPresenter(
+    private val model: Model,
+    private val runner: Runner,
+    private val rep: Repository
+) : ScanContract.Presenter {
 
-    var mView :  ScanActivity? = null
+    var mView: ScanActivity? = null
 
     override fun onButtonWasClicked(qrResult: String) {
         if (!qrResult.matches(Regex("t=[0-9]*T[0-9]*&s=[0-9|.]*&fn=[0-9]*&i=[0-9]*&fp=[0-9]*&n=[0-9]"))) {
             mView?.wrongQr()
-        }
-        else {
+        } else {
             runner.runInBackground(Runnable {
                 var arr = rep.parseQr(qrResult)
                 val parse = arr.first
@@ -30,7 +33,7 @@ class ScanPresenter(val model: Model, val runner: Runner, private val rep: Repos
         }
     }
 
-    override fun parseDate(date : String) : String {
+    override fun parseDate(date: String): String {
         var date2 = date.substring(8, 10) + " "
         when {
             date.substring(5, 7) == "01" -> date2 += mView?.getString(R.string.januare)
@@ -50,7 +53,7 @@ class ScanPresenter(val model: Model, val runner: Runner, private val rep: Repos
         return date2
     }
 
-    override fun attachView(view : ScanActivity) {
+    override fun attachView(view: ScanActivity) {
         mView = view
     }
 

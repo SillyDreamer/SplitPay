@@ -70,7 +70,10 @@ class ResultActivity : AppCompatActivity(), ResultContract.View {
     private fun listener(id: Int) {
         val sendIntent: Intent = Intent().apply {
             action = Intent.ACTION_SEND
-            putExtra(Intent.EXTRA_TEXT, "Hi, you owe me ${users[id].money.toDouble() / 100 - users[id].paid}")
+            putExtra(
+                Intent.EXTRA_TEXT,
+                "Hi, you owe me ${users[id].money.toDouble() / 100 - users[id].paid}"
+            )
             type = "text/plain"
         }
 

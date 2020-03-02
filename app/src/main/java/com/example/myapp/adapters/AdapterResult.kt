@@ -1,5 +1,6 @@
 package com.example.myapp.adapters
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapp.R
 import com.example.myapp.model.User
+import java.math.RoundingMode
 
 class AdapterResult(
     private var users: ArrayList<User>,
@@ -37,12 +39,18 @@ class AdapterResult(
         var share: Button = itemView.findViewById(R.id.share_button)
         var edit: Button = itemView.findViewById(R.id.edit_button)
 
+        @SuppressLint("SetTextI18n")
         fun bind(pos: Int) {
             name.text = users[pos].name
-            price.text = "Итого:  " + (users[pos].money.toString().toDouble() / 100).toString()
+            price.text =
+                "Итого:  " + String.format("%.2f", (users[pos].money.toString().toDouble() / 100))
             price3.text =
-                "Осталось заплатить:  " + ((users[pos].money.toString().toDouble() / 100) - users[pos].paid.toString().toDouble()).toString()
-            price2.text = "Заплачено:  " + users[pos].paid.toString().toDouble()
+                "Осталось заплатить:  " + String.format(
+                    "%.2f",
+                    (users[pos].money.toString().toDouble() / 100) - users[pos].paid.toString().toDouble()
+                )
+            price2.text =
+                "Заплачено:  " + String.format("%.2f", users[pos].paid.toString().toDouble())
             share.setOnClickListener {
                 listener(pos)
             }

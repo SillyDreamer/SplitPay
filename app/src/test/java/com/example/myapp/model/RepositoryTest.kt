@@ -26,7 +26,6 @@ class RepositoryTest {
     @Test
     fun testParser() {
         mRepository.parseQr("t=20200301T2237&s=822.20&fn=9289000100514688&i=27009&fp=2251170559&n=1")
-        //mRepository.loadMessage(null)
     }
 
 }

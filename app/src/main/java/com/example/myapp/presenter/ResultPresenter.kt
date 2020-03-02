@@ -5,7 +5,7 @@ import com.example.myapp.model.Model
 import com.example.myapp.utils.Runner
 import com.example.myapp.view.ResultActivity
 
-class ResultPresenter(val model: Model, val runner: Runner) : ResultContract.Presenter {
+class ResultPresenter(private val model: Model, private val runner: Runner) : ResultContract.Presenter {
 
     var mView: ResultActivity? = null
 
