@@ -20,7 +20,7 @@ class ScanPresenter(
             mView?.wrongQr()
         } else {
             runner.runInBackground(Runnable {
-                var arr = rep.parseQr(qrResult)
+                val arr = rep.parseQr(qrResult)
                 val parse = arr.first
                 val date = parseDate(arr.second)
                 val name = "чек " + model.showCheckId()

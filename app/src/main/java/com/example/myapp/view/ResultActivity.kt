@@ -72,7 +72,7 @@ class ResultActivity : AppCompatActivity(), ResultContract.View {
             action = Intent.ACTION_SEND
             putExtra(
                 Intent.EXTRA_TEXT,
-                "Hi, you owe me ${users[id].money.toDouble() / 100 - users[id].paid}"
+                "Hi, you owe me ${String.format("%.2f", users[id].money.toDouble() / 100 - users[id].paid)}"
             )
             type = "text/plain"
         }

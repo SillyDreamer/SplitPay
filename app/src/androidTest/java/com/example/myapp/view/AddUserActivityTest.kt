@@ -19,6 +19,8 @@ class AddUserActivityTest {
     fun test() {
         onView(withId(R.id.editText)).perform(typeText("hello"))
         onView(withId(R.id.add)).perform(click())
+        onView(withId(R.id.editText)).perform(typeText("world"))
+        onView(withId(R.id.add)).perform(click())
         onView(withId(R.id.button_next)).perform(click())
     }
 }

@@ -25,7 +25,7 @@ class RepositoryTest {
 
     @Test
     fun testParser() {
-        mRepository.parseQr("t=20200301T2237&s=822.20&fn=9289000100514688&i=27009&fp=2251170559&n=1")
+        mRepository.parseQr("t=20200301T2243&s=214.90&fn=9289000100514688&i=27014&fp=185672516&n=1")
     }
 
 }
