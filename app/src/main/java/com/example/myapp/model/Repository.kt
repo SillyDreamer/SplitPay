@@ -43,18 +43,18 @@ class Repository {
                     setRequestProperty("Accept", "application/json")
                     setRequestProperty("Device-os", "Android 5.1")
                     println("\nResponse Code : $responseCode")
-                    BufferedReader(InputStreamReader(inputStream)).use {
-                        val response = StringBuffer()
+                        BufferedReader(InputStreamReader(inputStream)).use {
+                            val response = StringBuffer()
 
-                        var inputLine = it.readLine()
-                        while (inputLine != null) {
-                            response.append(inputLine)
-                            inputLine = it.readLine()
+                            var inputLine = it.readLine()
+                            while (inputLine != null) {
+                                response.append(inputLine)
+                                inputLine = it.readLine()
+                            }
+                            it.close()
+                            content = response
+                            println("content = $content")
                         }
-                        it.close()
-                        content = response
-                        println("content = $content")
-                    }
                     println("content1 = $content")
                 }
             }
