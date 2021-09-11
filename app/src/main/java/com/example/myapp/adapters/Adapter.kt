@@ -31,7 +31,6 @@ class Adapter(
         return 1
     }
 
-    @SuppressLint("WrongConstant")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.tv.text = product[position].name
         holder.tv2.text = (product[position].price.toDouble() / 100).toString()
@@ -53,7 +52,7 @@ class Adapter(
                     itemView.layout.addView(cb)
                     arr.add(cb)
                 }
-                checkMap.put(Pair(product[position].name, product[position].price), arr)
+                checkMap[Pair(product[position].name, product[position].price)] = arr
             } else {
                 for (x in checkMap.getValue(
                     Pair(

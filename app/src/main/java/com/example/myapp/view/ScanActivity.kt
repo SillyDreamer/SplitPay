@@ -62,16 +62,14 @@ class ScanActivity : AppCompatActivity(), ZXingScannerView.ResultHandler, ScanCo
 
     override fun handleResult(rawResult: Result) {
         // Do something with the result here
-        Log.v("tag", rawResult.getText()) // Prints scan results
+        Log.v("tag", rawResult.text) // Prints scan results
         // Log.v("tag", rawResult.getBarcodeFormat().toString()); // Prints the scan format (qrcode, pdf417 etc.)
-
-        val presenter2 = (application as PresenterHolder).getMainPresenter()
-
+        val presenter = (application as PresenterHolder).getMainPresenter()
         if (key == 2) {
-            presenter.onButtonWasClicked(rawResult.text)
+            this.presenter.onButtonWasClicked(rawResult.text)
 
         } else if (key == 1) {
-            if (!presenter2.addOneMoreCheck(rawResult.text)) {
+            if (!presenter.addOneMoreCheck(rawResult.text)) {
                 Toast.makeText(this, "wrong qr", Toast.LENGTH_LONG).show()
             }
             onBackPressed()

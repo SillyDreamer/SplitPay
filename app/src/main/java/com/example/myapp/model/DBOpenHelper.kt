@@ -33,8 +33,8 @@ class DBOpenHelper(
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME)
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME2)
+        db.execSQL("DROP TABLE IF EXISTS $TABLE_NAME")
+        db.execSQL("DROP TABLE IF EXISTS $TABLE_NAME2")
         db.execSQL("DROP TABLE IF EXISTS $TABLE_NAME3")
         onCreate(db)
     }
@@ -64,7 +64,6 @@ class DBOpenHelper(
         values.put(COLUMN_CHECK_ID, id)
         val db = this.writableDatabase
         db.insert(TABLE_NAME, null, values)
-        Log.d("123", "addProduct")
         db.close()
     }
 
@@ -76,8 +75,6 @@ class DBOpenHelper(
                 id = cursor.getLong(cursor.getColumnIndex(COLUMN_ID))
             }
         }
-
-        Log.d("123", "addUser")
         val values = ContentValues()
         values.put(COLUMN_NAME, name)
         values.put(COLUMN_MONEY, 0)

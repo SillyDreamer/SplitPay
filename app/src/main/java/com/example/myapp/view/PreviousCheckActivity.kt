@@ -33,7 +33,7 @@ class PreviousCheckActivity : AppCompatActivity(), PreviousCheckContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_previous_check)
 
-        fab.setOnClickListener { view ->
+        fab.setOnClickListener {
             val permissionStatus =
                 ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
             if (permissionStatus == PackageManager.PERMISSION_GRANTED) {
@@ -75,7 +75,6 @@ class PreviousCheckActivity : AppCompatActivity(), PreviousCheckContract.View {
     }
 
     private fun listenerButton(id: Int) {
-
         val mDialogView = LayoutInflater.from(this).inflate(R.layout.edit_dialog, null)
         val mBuilder = AlertDialog.Builder(this)
             .setView(mDialogView)
@@ -84,7 +83,6 @@ class PreviousCheckActivity : AppCompatActivity(), PreviousCheckContract.View {
             mAlertDialog.dismiss()
             val name = mDialogView.edit.text.toString()
             arr[id] = Triple(arr[id].first, name, arr[id].third)
-
             presenter.updateCheck(name, arr[id].third, arr[id].first.toLong())
             adapter.notifyDataSetChanged()
         }

@@ -22,7 +22,7 @@ class ResultActivity : AppCompatActivity(), ResultContract.View {
     lateinit var presenter: ResultPresenter
     lateinit var users: ArrayList<User>
     lateinit var adapter: AdapterResult
-    var check_id: Long = 0
+    var checkId: Long = 0
 
     @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,12 +30,8 @@ class ResultActivity : AppCompatActivity(), ResultContract.View {
         setContentView(R.layout.activity_result)
 
         presenter = (application as PresenterHolder).getResultPresenter()
-
-        check_id = intent.getLongExtra("check_id", 0)
-
-        presenter.showUsers(check_id)
-
-
+        checkId = intent.getLongExtra("check_id", 0)
+        presenter.showUsers(checkId)
         recycleResult.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
 
     }
@@ -59,7 +55,7 @@ class ResultActivity : AppCompatActivity(), ResultContract.View {
             mAlertDialog.dismiss()
             val paid = mDialogView.edit.text.toString().toDouble()
             users[id].paid = paid
-            presenter.updateUser(users[id].name, users[id].money, paid, users[id].id, check_id)
+            presenter.updateUser(users[id].name, users[id].money, paid, users[id].id, checkId)
             adapter.notifyDataSetChanged()
         }
         mDialogView.cancel_button.setOnClickListener {
